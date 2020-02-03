@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"make_arduino_mouse_isPressed\" id=\"u[)L+ENo]pDA]]|F`flD\" x=\"-134\" y=\"206\"><value name=\"type\"><block type=\"make_arduino_mouse_click_location\" id=\"[k|z]J+%CCdCJ1fHJbxA\"><field name=\"location_type\">MOUSE_LEFT</field></block></value></block></xml>

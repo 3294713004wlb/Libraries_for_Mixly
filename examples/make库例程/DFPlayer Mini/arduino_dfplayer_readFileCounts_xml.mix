@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"make_arduino_dfplayer_readFileCounts\" id=\"}:rCB*T3wRi^j!{64r4G\" x=\"99\" y=\"299\"><field name=\"dfplayer_name\">myDFPlayer</field><value name=\"device_type\"><shadow type=\"math_number\" id=\"qa_XeKF+`}|{%rDzk/ue\"><field name=\"NUM\">2</field></shadow><block type=\"make_arduino_dfplayer_mini_outputDevice_type\" id=\"XlDa[dZ.2}N6Wu26#Fh$\"><field name=\"outputdevice_type\">DFPLAYER_DEVICE_SD</field></block></value></block></xml>

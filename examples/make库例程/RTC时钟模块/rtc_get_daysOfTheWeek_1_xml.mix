@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"lists_with_1_return_data\" id=\"sjmJfODe76a+IKq3h1,p\" x=\"138\" y=\"283\"><field name=\"list_name\">daysOfTheWeek</field><value name=\"lists_x\"><shadow type=\"math_number\" id=\"IDCN9VoeVD{d9)#^:ps4\"><field name=\"NUM\">0</field></shadow><block type=\"make_rtc_get_time_date_1\" id=\"N/Yhk/qznejjQ+W[;_21\"><field name=\"rtc_name\">rtc</field><field name=\"get_time_date_data\">dayOfTheWeek</field></block></value></block></xml>

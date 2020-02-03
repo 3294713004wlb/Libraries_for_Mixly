@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"make_arduino_pid_SetMode\" id=\"#q]G-T^^qK([{=kL5i`g\" x=\"96\" y=\"222\"><field name=\"pid_name\">myPID</field><value name=\"pid_mode\"><shadow type=\"math_number\" id=\"Ht38yW]DasKZXv1wte+1\"><field name=\"NUM\">1</field></shadow><block type=\"make_arduino_pid_Mode\" id=\"k|1e8XBE8+IAS|1Ol1K]\"><field name=\"type\">AUTOMATIC</field></block></value></block></xml>

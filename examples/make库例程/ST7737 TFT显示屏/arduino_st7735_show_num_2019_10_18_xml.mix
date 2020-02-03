@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"make_arduino_st7735_show_num_2019_10_18\" id=\"cogn,%Yj,S=]TGA7J6Xw\" x=\"174\" y=\"242\"><field name=\"st7735_name\">tft</field><field name=\"show_num_type\">print</field><field name=\"st7735_print_type\">DEC</field><value name=\"st7735_print_data\"><shadow type=\"math_number\" id=\"v=fZU4Hc.]3F](2Jh[R#\"><field name=\"NUM\">123</field></shadow></value></block></xml>

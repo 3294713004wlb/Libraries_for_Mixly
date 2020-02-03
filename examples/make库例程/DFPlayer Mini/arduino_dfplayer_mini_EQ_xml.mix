@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"make_arduino_dfplayer_mini_EQ\" id=\"1w*W~r1;s-Z|l^ublhUX\" x=\"165\" y=\"338\"><field name=\"dfplayer_name\">myDFPlayer</field><value name=\"eq_data\"><shadow type=\"math_number\" id=\"V6^Luq#@/5:W?N%4dVb[\"><field name=\"NUM\">0</field></shadow><block type=\"make_arduino_dfplayer_mini_EQ_type\" id=\"ScTtX3G+;aXQtCe,on+`\"><field name=\"eq_type\">DFPLAYER_EQ_NORMAL</field></block></value></block></xml>

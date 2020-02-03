@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"make_arduino_bh1750_read_lightLevel\" id=\"UO53:@1lBv!2D6G1{#Y+\" x=\"132\" y=\"279\"><field name=\"bh1750_name\">lightMeter</field><value name=\"bh1750_read_lightLevel_data\"><block type=\"logic_boolean\" id=\"AVTBUGibO$=C46WDt-kL\"><field name=\"BOOL\">FALSE</field></block></value></block></xml>

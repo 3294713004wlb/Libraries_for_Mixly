@@ -1,0 +1,311 @@
+ 
+<!--type="company" 
+block="block/make.js" 
+generator="generator/make.js" 
+language="language/zh-hans.js"  
+lib="make/" 
+media="media/make"-->
+
+<script type="text/javascript" src="../../blocks/company/make.js"></script>
+<script type="text/javascript" src="../../generators/arduino/company/make.js"></script>
+<script type="text/javascript" src="../../core/field_textarea.js"></script>
+<category id="catmake" name="mixly库制作" colour="20">
+	<category id="mixly_sharp" name="显示界面" colour="160">
+		
+  		<block type="make_sharp">
+	  	</block>
+	  	
+	</category>
+
+	<category id="mixly_input" name="输入" colour="230">
+		<block type="make_value_input">
+			<value name="make_value_input_type">
+          		<shadow type="math_number">
+            		<field name="NUM">任何值</field>
+          		</shadow>
+        	</value>
+	  	</block>
+
+	  	<block type="make_statement_input">
+			<value name="make_statement_input_type">
+          		<shadow type="math_number">
+            		<field name="NUM">任何值</field>
+          		</shadow>
+        	</value>
+	  	</block>
+
+	  	<block type="make_dummy_input">
+	  	</block>
+	</category>
+
+	<category id="mixly_input" name="类型" colour="120">
+		<block type="make_type_text">	
+	  	</block>
+
+	  	<block type="make_type_text_input">	
+	  	</block>
+
+	  	<block type="make_type_longtext_input">	
+	  	</block>
+
+	  	<block type="make_type_num_input">	
+	  	</block>
+
+	  	<block type="make_type_angle_input">	
+	  	</block>
+
+	  	<block type="make_type_dropdown">
+	  		<value name="type_dropdown_data">
+	        	<block type="make_type_dropdown_text">
+				</block>
+	        </value>
+	        <value name="type_dropdown_data">
+	        	<block type="make_type_dropdown_text">
+				</block>
+	        </value>
+	        <value name="type_dropdown_data">
+	        	<block type="make_type_dropdown_text">
+				</block>
+	        </value>
+		</block>
+
+		<block type="make_type_dropdown_text">
+		</block>
+
+		<block type="make_type_dropdown_image">
+		</block>
+
+	  	<block type="make_type_checkbox">	
+	  	</block>
+
+	  	<block type="make_type_color">	
+	  	</block>
+
+	  	<!--
+	  	<block type="make_type_variable">	
+	  	</block>
+	  	-->
+
+	  	<block type="make_type_image">	
+	  	</block>
+	</category>
+
+	<category id="mixly_color" name="颜色" colour="135">
+		<block type="make_color">
+		</block>
+
+		<block type="make_main_color">
+		</block>
+	</category>
+
+	<category id="mixly_make" name="编辑生成代码" colour="#3366ff">
+		<!--
+		<block type="make_generator_code_header_file">
+		</block>
+		-->
+
+		<block type="make_generator_define">
+			<value name="definitions_data">
+	        	<block type="make_generator_longtext">
+				</block>
+	    	</value>
+		</block>
+
+		<block type="make_generator_setup">
+			<value name="setups_data">
+	        	<block type="make_generator_longtext">
+				</block>
+			</value>
+		</block>
+
+		<block type="make_generator_loop">
+			<value name="loop_data">
+	        	<block type="make_generator_longtext">
+				</block>
+			</value>
+		</block>
+
+		<block type="make_generator_longtext_define">
+		</block>
+
+		<!--
+		<block type="make_generator_longtext_setup">
+		</block>
+		-->
+		<!--
+		<block type="make_generator_longtext_loop">
+		</block>
+		-->
+	</category>
+
+	<category id="mixly_main" name="定义块外观/代码" colour="20">
+		
+  		<block type="make_main">
+  			 <value name="main_2">
+	        	<block type="text">
+					<field name="TEXT"></field>
+				</block>
+	        </value>
+	        <value name="main_3">
+	        	<block type="text">
+					<field name="TEXT"></field>
+				</block>
+	        </value>
+	        <value name="main_4">
+	        	<block type="make_main_color">
+				</block>
+	        </value>
+	  	</block>
+		
+	  	<!--
+	  	<block type="make_generator_code_1">
+		</block>
+		-->
+	  	<!--
+  			<value name="main_0">
+	        </value>
+  			<value name="main_1">
+	        </value>
+  			<value name="input_drop">
+	        </value>
+	        <value name="sharp">
+	        </value>
+	        <value name="main_2">
+	        	<block type="text">
+					<field name="TEXT"></field>
+				</block>
+	        </value>
+	        <value name="main_3">
+	        	<block type="text">
+					<field name="TEXT"></field>
+				</block>
+	        </value>
+	        <value name="angle_name">
+	        </value>
+	    	-->
+	    
+	    <block type="make_main_show_code">
+	  	</block>
+
+	  	
+	  	<!--
+	  	<block type="make_main_show_code_test">
+	  	</block>
+	  	-->
+		
+	</category>
+	<!--
+	<category id="mixly_test" name="测试" colour="160">
+		<block type="test_1">
+		</block>
+
+		<block type="make_o">
+		</block>
+
+	</category>
+	-->
+	<!--
+	<category id="catVar" name="变量" colour="330" custom="VARIABLE"></category>
+	-->
+	<!--
+	<category id="mixly_simulation" name="简单仿真" colour="160">
+	-->
+
+		<!--
+		<block type="make_simulat_arduino">
+		</block>
+
+		<block type="make_simulat_arduino_setup">
+        </block>
+
+        <block type="make_simulat_arduino_loop">
+		</block>
+		-->
+
+		<!--
+		<category id="mixly_simulate" name="开发板" colour="160">
+
+			<block type=\"make_simulat_arduino\" id=\"Q6v]N]y^m8kqi}ouNBlF\" x=\"146\" y=\"54\"><field name=\"NAME\">simulat_arduino_uno</field><value name=\"make_simulat_arduino_setup\"><block type=\"make_simulat_arduino_setup\" id=\"(0SjAp|2D~N%sZ@u0|OA\"></block></value><value name=\"make_simulat_arduino_loop\"><block type=\"make_simulat_arduino_loop\" id=\"fhe@Q2UBzx_[RU)~hjY$\"></block></value>
+			</block>
+
+		</category>
+		-->
+
+		<!--
+		<category id="mixly_simulate_pin" name="数字输入/输出" colour="160">
+		</category>
+		-->
+	<!--
+	</category>
+	-->
+
+	<category id="mixly_make_tool" name="实用工具" colour="160">
+		<category id="mixly_make_tool_block_to_zh_hans" name="转换工具(block→block+zh_hans)" colour="240">
+			<block type="make_block_to_zh_hans">
+			</block>
+		</category>
+		<category id="mixly_make_tool_create_mil" name="Mixly库制作(.mil)" colour="160">
+			<category id="mixly_make_tool_create_mil_base" name="基础块" colour="270">
+
+				<block type="make_create_show" id="ch|BBe(w$X{8lwDKbnv*" x="177" y="92">
+				</block>
+
+				<block type="make_create_mil">
+				</block>
+
+				<block type="make_create_category">
+				</block>
+
+				<block type="make_create_show" id="ch|BBe(w$X{8lwDKbnv*" x="177" y="92">
+			      <next>
+			        <block type="make_create_mil" id="fAJRG{:qgK*T1lo:(X,Q"></block>
+			      </next>
+			    </block>
+
+			    <block type="make_create_input">
+				</block>
+			</category>
+			<category id="mixly_make_tool_create_mil_example" name="示例" colour="120">
+				<block type="make_create_show" id="ch|BBe(w$X{8lwDKbnv*" x="-40" y="1193">
+				  <next>
+				    <block type="make_create_mil" id="fAJRG{:qgK*T1lo:(X,Q">
+				      <statement name="data">
+				        <block type="make_create_category" id="AeG*gxz{+(/E1c4[8]=J">
+				          <field name="id_data">mixly_make_tool_create_mil</field>
+				          <field name="name_data">Mixly库制作(.mil)</field>
+				          <field name="colour_data">160</field>
+				          <statement name="input_data">
+				            <block type="make_create_category" id="GaY9sZ8N,]~OG*%;#}HH">
+				              <field name="id_data">mixly_make_tool_create_mil_base</field>
+				              <field name="name_data">基础块</field>
+				              <field name="colour_data">270</field>
+				              <next>
+				                <block type="make_create_category" id=")|;17^BYv;PtbZ]g/s{n">
+				                  <field name="id_data">mixly_make_tool_create_mil_example</field>
+				                  <field name="name_data">示例</field>
+				                  <field name="colour_data">120</field>
+				                </block>
+				              </next>
+				            </block>
+				          </statement>
+				        </block>
+				      </statement>
+				    </block>
+				  </next>
+				</block>
+			</category>
+		</category>
+	</category>
+
+	<category id="mixly_test" name="测试" colour="160">
+		
+		<block type="make_test_2020_01_16">
+		</block>
+
+	</category>
+
+</category>
+
+
+
+

@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"make_arduino_tcs34725_begin_1\" id=\"rGw$[yl`)!foeiCimjWs\" x=\"145\" y=\"141\"><field name=\"tcs34725_name\">tcs</field><field name=\"tcs34725_enable_delay\">TCS34725_INTEGRATIONTIME_700MS</field><field name=\"tcs34725_gain\">TCS34725_GAIN_1X</field></block></xml>

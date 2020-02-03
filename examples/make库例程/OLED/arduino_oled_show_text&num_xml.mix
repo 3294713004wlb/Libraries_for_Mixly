@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"make_arduino_oled_show_num_change_2019_10_18\" id=\"zZG#c;HQYR$WasGJ$qji\" x=\"114\" y=\"161\"><field name=\"oled_name\">display</field><field name=\"show_num_type\">print</field><field name=\"oled_show_num_auto_linefeed_type\">DEC</field><value name=\"oled_show_num_auto_linefeed_data\"><shadow type=\"math_number\" id=\"-f+]Mf8T|z3]ctC$Vx7=\"><field name=\"NUM\">123</field></shadow></value></block></xml>

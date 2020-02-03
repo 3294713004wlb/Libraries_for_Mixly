@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"make_arduino_st7735_fill_screen\" id=\"~d2bpv)z=:#M5gmWfhUL\" x=\"-9\" y=\"278\"><field name=\"st7735_name\">tft</field><value name=\"fill_screen_type\"><shadow type=\"math_number\" id=\"rYqSf^fa+6c,N_XB!tVg\"><field name=\"NUM\">0xFCDF</field></shadow><block type=\"make_arduino_st7735_color\" id=\"We#jbvS^G#9TS~B0e{s/\"><field name=\"st7735_color_type\">#ff9966</field></block></value></block></xml>

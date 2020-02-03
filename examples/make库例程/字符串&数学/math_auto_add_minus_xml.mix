@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"math_auto_add_minus\" id=\"JqK=]ETJW|6qv?lYgGb|\" x=\"24\" y=\"217\"><field name=\"math_auto_add_minus_type\">++</field><value name=\"math_auto_add_minus_output\"><block type=\"variables_get\" id=\"FH/Hu|=8C}O0{VJzhlBP\"><field name=\"VAR\">item</field></block></value></block></xml>

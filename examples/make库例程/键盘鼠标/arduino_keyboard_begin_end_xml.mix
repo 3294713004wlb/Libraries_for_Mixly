@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"base_setup\" id=\"-C[He.GwZ6.)T]eU^~:T\" x=\"133\" y=\"153\"><statement name=\"DO\"><block type=\"make_arduino_keyboard_begin_end\" id=\"1kyM^k.H^yd|duxC$-xa\"><field name=\"type\">begin</field></block></statement></block></xml>

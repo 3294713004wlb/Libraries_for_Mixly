@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"make_arduino_keyboard_press\" id=\"[Jyk-Z).YoQ0Y,JA;B~b\" x=\"64\" y=\"257\"><field name=\"type\">press</field><value name=\"key\"><shadow type=\"text_char\" id=\"KZD_vZZEXnfd_*eCSlIS\"><field name=\"TEXT\">A</field></shadow><block type=\"make_arduino_keyboard_key\" id=\"t?g:kr(9=tuel0JquI;C\"><field name=\"key_type\">KEY_LEFT_CTRL</field></block></value></block></xml>

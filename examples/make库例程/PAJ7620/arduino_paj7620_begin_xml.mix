@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"base_setup\" id=\"jF,Wu7kCD?xSOXj0qcV?\" x=\"108\" y=\"121\"><statement name=\"DO\"><block type=\"make_arduino_paj7620_begin\" id=\"Nn;),]__/]#{N|X1khVn\"></block></statement></block></xml>

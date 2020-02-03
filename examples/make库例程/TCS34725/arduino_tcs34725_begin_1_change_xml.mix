@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"make_arduino_tcs34725_begin_1\" id=\"KXVAST,:k%ST`KGm(NaH\" x=\"-323\" y=\"236\"><field name=\"tcs34725_name\">tcs</field><field name=\"tcs34725_enable_delay\">TCS34725_INTEGRATIONTIME_700MS</field><field name=\"tcs34725_gain\">TCS34725_GAIN_1X</field><value name=\"tcs34725_address\"><shadow type=\"math_number\" id=\"-4X+8Tc_O#t?Z!wB?L2%\"><field name=\"NUM\">0x29</field></shadow></value></block></xml>

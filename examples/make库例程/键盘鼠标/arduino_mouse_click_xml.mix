@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"make_arduino_mouse_click\" id=\"z1V%zosdzotv;}WJo{`@\" x=\"131\" y=\"110\"><field name=\"click_type\">click</field><value name=\"click_location\"><shadow type=\"math_number\" id=\"h.z?7]]CpG#_c}7QPs#.\"><field name=\"NUM\">1</field></shadow><block type=\"make_arduino_mouse_click_location\" id=\"[k|z]J+%CCdCJ1fHJbxA\"><field name=\"location_type\">MOUSE_LEFT</field></block></value></block></xml>

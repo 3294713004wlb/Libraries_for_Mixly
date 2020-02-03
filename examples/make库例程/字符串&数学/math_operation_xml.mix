@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"math_operation\" id=\"-LtO4ivleb:QSP}7.T}P\" x=\"49\" y=\"182\"><field name=\"math_operation_type\">+=</field><value name=\"math_operation_output\"><block type=\"variables_get\" id=\"5k.nwz-EfyIqYA${x=uj\"><field name=\"VAR\">item</field></block></value><value name=\"math_operation_input\"><shadow type=\"math_number\" id=\"@x(8dm/b3BymD,oJkUh.\"><field name=\"NUM\">1</field></shadow></value></block></xml>

@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"make_arduino_mcp23017_setupInterrupts\" id=\"wSvJI%XSG(#ni,U6KO~J\" x=\"88\" y=\"236\"><field name=\"mcp23017_name\">mcp</field><value name=\"mcp23017_mirroring\"><block type=\"logic_boolean\" id=\"/eUC@VOi6VxG*9U1xat)\"><field name=\"BOOL\">TRUE</field></block></value><value name=\"mcp23017_openDrain\"><block type=\"make_arduino_mcp23017_setupInterrupts_mode\" id=\"G}(?~ly(lm@I79Dew0^`\"><field name=\"mode\">HIGH</field></block></value></block></xml>

@@ -1,0 +1,2 @@
+<xml version=\"1.0Beta(6.28)\" board=\"Arduino/Genuino Uno\" xmlns=\"http://www.w3.org/1999/xhtml\">
+<block type=\"make_arduino_st7735_set_text_screen_color_2019_10_18\" id=\"X)?m|=?29hEN`Q5Z.6jL\" x=\"109\" y=\"308\"><field name=\"st7735_name\">tft</field><field name=\"choose_type\">setTextColor</field><value name=\"set_text_color_data\"><block type=\"make_arduino_st7735_color\" id=\",+S#p#w?R?M5*Dv$)GD1\"><field name=\"st7735_color_type\">#ff9966</field></block></value></block></xml>
