@@ -3015,6 +3015,7 @@ Blockly.Arduino.make_RtcDateTime_SetDateTime_1 = function() {
 */
 //RTC时间日期可读？ | RTC正在运行？
 Blockly.Arduino.make_rtc_IsDateTimeValid_GetIsRunning = function() {
+  this.setTooltip("RTC时间日期可读？ | RTC正在运行？");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
   var code = text_rtc_name+'.'+dropdown_type+'()';
@@ -3023,6 +3024,7 @@ Blockly.Arduino.make_rtc_IsDateTimeValid_GetIsRunning = function() {
 
 //DS1302时钟模块 设置运行状态
 Blockly.Arduino.make_rtc_ds1302_SetIsRunning = function() {
+  this.setTooltip("RTC时钟 设置运行状态");
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
     var text_rtc_name = this.getFieldValue('rtc_name');
     //var dropdown_type = this.getFieldValue('type');
@@ -3032,20 +3034,22 @@ Blockly.Arduino.make_rtc_ds1302_SetIsRunning = function() {
 
 //RTC时钟设置时间与日期
 Blockly.Arduino.make_RTC_SetDateTime = function() {
+  this.setTooltip("RTC时钟 设置时间与日期");
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
     var text_rtc_name = this.getFieldValue('rtc_name');
   var code = text_rtc_name+'.SetDateTime('+value_data+');\n';
   return code;
 };
 
-//设置RTC时钟的时间与日期-2
+//调整RTC时钟的时间与日期
 Blockly.Arduino.make_rtc_SetDateTime_2 = function() {
+  this.setTooltip("RTC时钟 调整时间与日期");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
     var dropdown_type = this.getFieldValue('type');
 
   Blockly.Arduino.definitions_['function_'+text_rtc_name+'_SetDateTime'] = '//RTC时钟调整时间'
-                                                                       +'\nint '+text_rtc_name+'_SetDateTime(int select_data, int data)'
+                                                                       +'\nbool '+text_rtc_name+'_SetDateTime(int select_data, int data)'
                                                                        +'\n{'
                                                                        +'\n  RtcDateTime now = '+text_rtc_name+'.GetDateTime();'
                                                                        +'\n  int date_data[6];'
@@ -3070,13 +3074,15 @@ Blockly.Arduino.make_rtc_SetDateTime_2 = function() {
 
 //获取RTC时钟的时间和日期
 Blockly.Arduino.make_rtc_get_now_data = function() {
+  this.setTooltip("RTC时钟 获取当前时间和日期");
     var text_rtc_name = this.getFieldValue('rtc_name');
   var code = text_rtc_name+'.GetDateTime()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
-//获取RTC时钟的年、月、日、时、分、秒、星期
+//获取RTC时钟的年、月、日、时、分、秒、周
 Blockly.Arduino.make_RtcDateTime_get_time_date = function() {
+  this.setTooltip("RTC时钟 获取年、月、日、时、分、秒、周，返回数据的类型为uint16_t(年)、uint16_t(月、日、时、分、秒、周)");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
 
@@ -3112,6 +3118,7 @@ Blockly.Arduino.make_DateTime_get_data = function() {
 
 //RtcDateTime时间与日期可读？
 Blockly.Arduino.make_DateTime_IsValid = function() {
+  this.setTooltip("RtcDateTime 时间与日期可读？，返回数据的类型为boolean");
     var text_DateTime_name = this.getFieldValue('DateTime_name');
   var code = text_DateTime_name+'.IsValid()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
@@ -3119,6 +3126,7 @@ Blockly.Arduino.make_DateTime_IsValid = function() {
 
 //获取RtcDateTime的时间与日期-1
 Blockly.Arduino.make_DateTime_get_1 = function() {
+  this.setTooltip("RtcDateTime 获取的时间与日期，返回数据的类型为RtcDateTime");
     var value_date = Blockly.Arduino.valueToCode(this, 'date', Blockly.Arduino.ORDER_ATOMIC);
     var value_time = Blockly.Arduino.valueToCode(this, 'time', Blockly.Arduino.ORDER_ATOMIC);
   var code = 'RtcDateTime('+value_date+', '+value_time+')';
@@ -3127,6 +3135,7 @@ Blockly.Arduino.make_DateTime_get_1 = function() {
 
 //获取RtcDateTime的时间与日期-2
 Blockly.Arduino.make_DateTime_get_2 = function() {
+  this.setTooltip("RtcDateTime 获取的时间与日期，返回数据的类型为RtcDateTime");
     var value_year = Blockly.Arduino.valueToCode(this, 'year', Blockly.Arduino.ORDER_ATOMIC);
     var value_month = Blockly.Arduino.valueToCode(this, 'month', Blockly.Arduino.ORDER_ATOMIC);
     var value_day = Blockly.Arduino.valueToCode(this, 'day', Blockly.Arduino.ORDER_ATOMIC);
@@ -3139,6 +3148,7 @@ Blockly.Arduino.make_DateTime_get_2 = function() {
 
 //RtcDateTime增加或减少时间
 Blockly.Arduino.make_DateTime_add_remove = function() {
+  this.setTooltip("RtcDateTime 增加或减少时间");
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
     var dropdown_type = this.getFieldValue('type');
     var value_day = Blockly.Arduino.valueToCode(this, 'day', Blockly.Arduino.ORDER_ATOMIC);
@@ -3149,8 +3159,9 @@ Blockly.Arduino.make_DateTime_add_remove = function() {
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
-//获取时间&日期的年、月、日、时、分、秒、星期
+//获取时间&日期的年、月、日、时、分、秒、周
 Blockly.Arduino.make_RtcDateTime_get_time_date_2 = function() {
+  this.setTooltip("RtcDateTime 获取年、月、日、时、分、秒、周，返回数据的类型为uint16_t(年)、uint16_t(月、日、时、分、秒、周)");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
   var code = text_rtc_name+'.'+dropdown_type+'()';
@@ -3162,6 +3173,7 @@ Blockly.Arduino.make_RtcDateTime_get_time_date_2 = function() {
 */
 //初始化AT24C32(使用硬件I2C)
 Blockly.Arduino.make_rtc_at24c32_begin = function() {
+  this.setTooltip("初始化AT24C32存储器");
     var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
     var text_eeprom_name = this.getFieldValue('eeprom_name');
 
@@ -3176,6 +3188,7 @@ Blockly.Arduino.make_rtc_at24c32_begin = function() {
 
 //初始化AT24C32(使用软件模拟I2C)
 Blockly.Arduino.make_rtc_at24c32_begin_1 = function() {
+  this.setTooltip("初始化AT24C32存储器");
     var text_eeprom_name = this.getFieldValue('eeprom_name');
     var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
     var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
@@ -3200,13 +3213,15 @@ Blockly.Arduino.make_rtc_at24c32_address = function() {
 
 //AT24C32 返回上次连接的错误码
 Blockly.Arduino.make_rtc_at24c32_LastError = function() {
+  this.setTooltip("AT24C32 返回上次连接的错误码");
     var text_eeprom_name = this.getFieldValue('eeprom_name');
   var code = text_eeprom_name+'.LastError()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
-//AT24C32时钟模块 写入字节
+//AT24C32 写入字节
 Blockly.Arduino.make_rtc_at24c32_SetMemory_byte = function() {
+  this.setTooltip("AT24C32 写入字节");
     var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
     var text_eeprom_name = this.getFieldValue('eeprom_name');
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
@@ -3214,16 +3229,18 @@ Blockly.Arduino.make_rtc_at24c32_SetMemory_byte = function() {
   return code;
 };
 
-//AT24C32时钟模块 读取字节
+//AT24C32 读取字节
 Blockly.Arduino.make_rtc_at24c32_GetMemory_byte = function() {
+  this.setTooltip("AT24C32 读取字节，返回数据的类型为uint8_t");
     var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
     var text_eeprom_name = this.getFieldValue('eeprom_name');
   var code = text_eeprom_name+'.GetMemory('+value_address+')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
-//AT24C32时钟模块 写入字节数组
+//AT24C32 写入字节数组
 Blockly.Arduino.make_rtc_at24c32_SetMemory_list = function() {
+  this.setTooltip("AT24C32 写入字节数组");
     var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
     var text_eeprom_name = this.getFieldValue('eeprom_name');
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
@@ -3232,8 +3249,9 @@ Blockly.Arduino.make_rtc_at24c32_SetMemory_list = function() {
   return code;
 };
 
-//AT24C32时钟模块 读取字节数组
+//AT24C32 读取字节数组
 Blockly.Arduino.make_rtc_at24c32_GetMemory_list = function() {
+  this.setTooltip("AT24C32 读取字节数组，返回数据的类型为uint8_t");
     var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
     var text_eeprom_name = this.getFieldValue('eeprom_name');
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
@@ -3244,6 +3262,7 @@ Blockly.Arduino.make_rtc_at24c32_GetMemory_list = function() {
 
 //AT24C32时钟模块 读取字节数组，返回读取结果
 Blockly.Arduino.make_rtc_at24c32_GetMemory_list_return = function() {
+  this.setTooltip("AT24C32 读取字节数组，返回数据的类型为uint8_t");
     var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
     var text_eeprom_name = this.getFieldValue('eeprom_name');
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
@@ -3257,6 +3276,7 @@ Blockly.Arduino.make_rtc_at24c32_GetMemory_list_return = function() {
 */
 //初始化DS1302
 Blockly.Arduino.make_rtc_ds1302_begin = function() {
+  this.setTooltip("初始化DS1302时钟模块");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var value_rst = Blockly.Arduino.valueToCode(this, 'rst', Blockly.Arduino.ORDER_ATOMIC);
     var value_dat = Blockly.Arduino.valueToCode(this, 'dat', Blockly.Arduino.ORDER_ATOMIC);
@@ -3274,6 +3294,7 @@ Blockly.Arduino.make_rtc_ds1302_begin = function() {
 
 //DS1302时钟模块 写保护？
 Blockly.Arduino.make_rtc_ds1302_GetIsWriteProtected = function() {
+  this.setTooltip("DS1302时钟模块 写保护？，返回数据的类型为boolean");
     var text_rtc_name = this.getFieldValue('rtc_name');
   var code = text_rtc_name+'.GetIsWriteProtected()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
@@ -3281,6 +3302,7 @@ Blockly.Arduino.make_rtc_ds1302_GetIsWriteProtected = function() {
 
 //DS1302时钟模块 设置写保护
 Blockly.Arduino.make_rtc_ds1302_SetIsWriteProtected = function() {
+  this.setTooltip("DS1302时钟模块 设置写保护");
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
     var text_rtc_name = this.getFieldValue('rtc_name');
     //var dropdown_type = this.getFieldValue('type');
@@ -3290,6 +3312,7 @@ Blockly.Arduino.make_rtc_ds1302_SetIsWriteProtected = function() {
 
 //DS1302时钟模块 设置涓流充电功能
 Blockly.Arduino.make_rtc_ds1302_SetTrickleChargeSettings = function() {
+  this.setTooltip("DS1302时钟模块 设置涓流充电功能");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type1 = this.getFieldValue('type1');
     var dropdown_type2 = this.getFieldValue('type2');
@@ -3300,6 +3323,7 @@ Blockly.Arduino.make_rtc_ds1302_SetTrickleChargeSettings = function() {
 
 //DS1302时钟模块 获取涓流充电设置
 Blockly.Arduino.make_rtc_ds1302_GetTrickleChargeSettings = function() {
+  this.setTooltip("DS1302时钟模块 获取涓流充电设置，返回数据的类型为uint8_t");
     var text_rtc_name = this.getFieldValue('rtc_name');
   var code = text_rtc_name+'.GetTrickleChargeSettings()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
@@ -3307,15 +3331,17 @@ Blockly.Arduino.make_rtc_ds1302_GetTrickleChargeSettings = function() {
 
 //DS1302时钟模块 写入字节
 Blockly.Arduino.make_rtc_ds1302_SetMemory_byte = function() {
+  this.setTooltip("DS1302时钟模块 写入字节");
     var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
     var text_rtc_name = this.getFieldValue('rtc_name');
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
-  var code = text_rtc_name+'.SetMemory('+value_address+', '+value_data+');\n';
+  var code = text_rtc_name+'.SetMemory((uint8_t)'+value_address+', '+value_data+');\n';
   return code;
 };
 
 //DS1302时钟模块 读取字节
 Blockly.Arduino.make_rtc_ds1302_GetMemory_byte = function() {
+  this.setTooltip("DS1302时钟模块 读取字节，返回数据的类型为uint8_t");
     var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
     var text_rtc_name = this.getFieldValue('rtc_name');
   var code = text_rtc_name+'.GetMemory('+value_address+')';
@@ -3324,6 +3350,7 @@ Blockly.Arduino.make_rtc_ds1302_GetMemory_byte = function() {
 
 //DS1302时钟模块 写入字节数组
 Blockly.Arduino.make_rtc_ds1302_SetMemory_list = function() {
+  this.setTooltip("DS1302时钟模块 写入字节数组");
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
     var text_rtc_name = this.getFieldValue('rtc_name');
     var value_length = Blockly.Arduino.valueToCode(this, 'length', Blockly.Arduino.ORDER_ATOMIC);
@@ -3333,6 +3360,7 @@ Blockly.Arduino.make_rtc_ds1302_SetMemory_list = function() {
 
 //DS1302时钟模块 读取字节数组
 Blockly.Arduino.make_rtc_ds1302_GetMemory_list = function() {
+  this.setTooltip("DS1302时钟模块 读取字节数组，返回数据的类型为uint8_t");
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
     var text_rtc_name = this.getFieldValue('rtc_name');
     var value_length = Blockly.Arduino.valueToCode(this, 'length', Blockly.Arduino.ORDER_ATOMIC);
@@ -3342,6 +3370,7 @@ Blockly.Arduino.make_rtc_ds1302_GetMemory_list = function() {
 
 //DS1302时钟模块 读取字节数组，返回读取结果
 Blockly.Arduino.make_rtc_ds1302_GetMemory_list_return = function() {
+  this.setTooltip("DS1302时钟模块 读取字节数组，返回数据的类型为uint8_t");
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
     var text_rtc_name = this.getFieldValue('rtc_name');
     var value_length = Blockly.Arduino.valueToCode(this, 'length', Blockly.Arduino.ORDER_ATOMIC);

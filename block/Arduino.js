@@ -5099,7 +5099,44 @@ Blockly.Blocks.make_rtc_IsDateTimeValid_GetIsRunning= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->RTC时间日期可读？ | RTC正在运行？\n"
+   +"2.语法:\n"
+   +"->RTC时间日期可读？ - bool IsDateTimeValid()\n"
+   +"->RTC正在运行？ - bool GetIsRunning()\n"
+   +"3.参数:无\n"
+   +"4.返回值:boolean型数据\n"
+   +"->false - 无法获取时间日期|RTC不工作\n"
+   +"->true - 可获取时间日期|RTC正在工作"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//RTC时钟 设置运行状态
+Blockly.Blocks.make_rtc_ds1302_SetIsRunning= {
+  init: function() { 
+  this.appendValueInput("data")
+      .setCheck(null)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/时钟_2.png", 25, 25, "*"))
+      .appendField("RTC时钟")
+      .appendField(new Blockly.FieldTextInput("rtc"), "rtc_name")
+      //.appendField(new Blockly.FieldDropdown([["写保护","SetIsWriteProtected"],["运行","SetIsRunning"]]), "type")
+      .appendField(" 运行");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->RTC时钟 设置运行状态\n"
+   +"2.语法:\n"
+   +"->void SetIsRunning(bool isRunning)\n"
+   +"3.参数:\n"
+   +"->isRunning:true - 设备工作，false - 设备停止\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5298,31 +5335,20 @@ Blockly.Blocks.make_RTC_SetDateTime= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->RTC时钟 设置时间与日期\n"
+   +"2.语法:\n"
+   +"->void SetDateTime(const RtcDateTime& dt)\n"
+   +"3.参数:\n"
+   +"->dt:输入的时间与日期\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
 
-//RTC时钟 设置运行状态
-Blockly.Blocks.make_rtc_ds1302_SetIsRunning= {
-  init: function() { 
-  this.appendValueInput("data")
-      .setCheck(null)  
-      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/时钟_2.png", 25, 25, "*"))
-      .appendField("RTC时钟")
-      .appendField(new Blockly.FieldTextInput("rtc"), "rtc_name")
-      //.appendField(new Blockly.FieldDropdown([["写保护","SetIsWriteProtected"],["运行","SetIsRunning"]]), "type")
-      .appendField(" 运行");
-  this.setInputsInline(true);
-  this.setPreviousStatement(true, null);
-  this.setNextStatement(true, null);
-  this.setColour(40);
-  this.setTooltip("");
-  this.setHelpUrl("");
-  }
-};
-
-//设置RTC时钟的时间与日期-2
+//调整RTC时钟的时间与日期
 Blockly.Blocks.make_rtc_SetDateTime_2= {
   init: function() { 
   this.appendDummyInput()  
@@ -5339,7 +5365,18 @@ Blockly.Blocks.make_rtc_SetDateTime_2= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->RTC时钟 调整时间与日期\n"
+   +"2.语法:\n"
+   +"->int rtc_SetDateTime(int select_data, int data)\n"
+   +"3.参数:\n"
+   +"->select_data:筛选要调整的项目\n"
+   +"->data:调整的数据\n"
+   +"4.返回值:boolean型数据\n"
+   +"->true - 设置成功\n"
+   +"->false - 设置失败\n"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5351,16 +5388,24 @@ Blockly.Blocks.make_rtc_get_now_data= {
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/时钟_2.png", 25, 25, "*"))
       .appendField("RTC时钟")
       .appendField(new Blockly.FieldTextInput("rtc"), "rtc_name")
-      .appendField(" 获取当前时间与日期");
+      .appendField(" 获取当前时间和日期");
   this.setInputsInline(false);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->RTC时钟 获取当前时间和日期\n"
+   +"2.语法:\n"
+   +"->RtcDateTime GetDateTime()\n"
+   +"3.参数:\n"
+   +"->dt:输入的时间与日期\n"
+   +"4.返回值:RtcDateTime型数据"
+    );
   this.setHelpUrl("");
   }
 };
 
-//获取RTC时钟的年、月、日、时、分、秒、星期
+//获取RTC时钟的年、月、日、时、分、秒、周
 Blockly.Blocks.make_RtcDateTime_get_time_date= {
   init: function() { 
   this.appendDummyInput()
@@ -5371,7 +5416,20 @@ Blockly.Blocks.make_RtcDateTime_get_time_date= {
       .appendField(new Blockly.FieldDropdown([["年","Year"],["月","Month"],["日","Day"],["时","Hour"],["分","Minute"],["秒","Second"],["周","DayOfWeek"]]), "type");
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->RTC时钟 获取年、月、日、时、分、秒、周\n"
+   +"2.语法:\n"
+   +"->获取年 - uint16_t GetDateTime().Year()\n"
+   +"->获取月 - uint8_t GetDateTime().Month()\n"
+   +"->获取日 - uint8_t GetDateTime().Day()\n"
+   +"->获取时 - uint8_t GetDateTime().Hour()\n"
+   +"->获取分 - uint8_t GetDateTime().Minute()\n"
+   +"->获取秒 - uint8_t GetDateTime().Second()\n"
+   +"->获取周 - uint8_t GetDateTime().DayOfWeek()\n"
+   +"3.参数:无\n"
+   +"4.返回值:uint16_t或uint8_t型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5443,7 +5501,16 @@ Blockly.Blocks.make_DateTime_IsValid= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->RtcDateTime 时间与日期可读？\n"
+   +"2.语法:\n"
+   +"->bool IsValid() const;\n"
+   +"3.参数:无\n"
+   +"4.返回值:boolean型数据\n"
+   +"->false - 无法获取时间日期\n"
+   +"->true - 可获取时间日期"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5462,7 +5529,16 @@ Blockly.Blocks.make_DateTime_get_1= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->RtcDateTime 获取的时间与日期\n"
+   +"2.语法:\n"
+   +"->RtcDateTime RtcDateTime(const char* date, const char* time);\n"
+   +"3.参数:\n"
+   +"date:日期数据\n"
+   +"time:时间数据\n"
+   +"4.返回值:RtcDateTime型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5497,7 +5573,20 @@ Blockly.Blocks.make_DateTime_get_2= {
   this.setInputsInline(false);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->RtcDateTime 获取的时间与日期\n"
+   +"2.语法:\n"
+   +"RtcDateTime RtcDateTime(uint16_t year, uint8_t month, uint8_t dayOfMonth, uint8_t hour, uint8_t minute, uint8_t second)\n"
+   +"3.参数:\n"
+   +"year:年(2000 - 2100)\n"
+   +"month:月(1 - 12)\n"
+   +"dayOfMonth:日(1 - 31)\n"
+   +"hour:时(0 - 23)\n"
+   +"minute:分(0 - 59)\n"
+   +"second:秒(0 - 59)\n"
+   +"4.返回值:RtcDateTime型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5530,12 +5619,21 @@ Blockly.Blocks.make_DateTime_add_remove= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->RtcDateTime 增加或减少时间\n"
+   +"2.语法:\n"
+   +"->增加时间 - void operator += (uint32_t seconds)\n"
+   +"->减少时间 - void operator -= (uint32_t seconds)\n"
+   +"3.参数:\n"
+   +"seconds:需要增加的秒数\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
 
-//获取时间&日期的年、月、日、时、分、秒、星期
+//获取时间&日期的年、月、日、时、分、秒、周
 Blockly.Blocks.make_RtcDateTime_get_time_date_2= {
   init: function() { 
   this.appendDummyInput()
@@ -5546,7 +5644,20 @@ Blockly.Blocks.make_RtcDateTime_get_time_date_2= {
       .appendField(new Blockly.FieldDropdown([["年","Year"],["月","Month"],["日","Day"],["时","Hour"],["分","Minute"],["秒","Second"],["周","DayOfWeek"]]), "type");
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->RtcDateTime 获取年、月、日、时、分、秒、周\n"
+   +"2.语法:\n"
+   +"->获取年 - uint16_t Year()\n"
+   +"->获取月 - uint8_t Month()\n"
+   +"->获取日 - uint8_t Day()\n"
+   +"->获取时 - uint8_t Hour()\n"
+   +"->获取分 - uint8_t Minute()\n"
+   +"->获取秒 - uint8_t Second()\n"
+   +"->获取周 - uint8_t DayOfWeek()\n"
+   +"3.参数:无\n"
+   +"4.返回值:uint16_t或uint8_t型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5567,7 +5678,20 @@ Blockly.Blocks.make_rtc_at24c32_begin= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化AT24C32存储器\n"
+   +"2.语法:\n"
+   +"->EepromAt24c32(T_WIRE_METHOD& wire, uint8_t addressBits = 0b111)\n"
+   +"3.参数:\n"
+   +"->wire:使用硬件I2C|软件模拟I2C\n"
+   +"->addressBits:AT24C32存储器的地址\n"
+   +"4.返回值:无\n"
+   +"5.I2C接线:\n"
+   +"①Arduino Uno/Ethernet:SDA - A4，SCL - A5\n"
+   +"②Arduino Mega2560/Due:SDA - 20，SCL - 21\n"
+   +"③Arduino Leonardo:SDA - 2，SCL - 3"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5595,7 +5719,20 @@ Blockly.Blocks.make_rtc_at24c32_begin_1= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化AT24C32存储器\n"
+   +"2.语法:\n"
+   +"->EepromAt24c32(T_WIRE_METHOD& wire, uint8_t addressBits = 0b111)\n"
+   +"3.参数:\n"
+   +"->wire:使用硬件I2C|软件模拟I2C\n"
+   +"->addressBits:AT24C32存储器的地址\n"
+   +"4.返回值:无\n"
+   +"5.I2C接线:\n"
+   +"①Arduino Uno/Ethernet:SDA - A4，SCL - A5\n"
+   +"②Arduino Mega2560/Due:SDA - 20，SCL - 21\n"
+   +"③Arduino Leonardo:SDA - 2，SCL - 3"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5608,7 +5745,17 @@ Blockly.Blocks.make_rtc_at24c32_address= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "AT24C32地址\n"
+   +"0x50 - 0b000\n"
+   +"0x51 - 0b001\n"
+   +"0x52 - 0b010\n"
+   +"0x53 - 0b011\n"
+   +"0x54 - 0b100\n"
+   +"0x55 - 0b101\n"
+   +"0x56 - 0b110\n"
+   +"0x57 - 0b111"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5624,12 +5771,24 @@ Blockly.Blocks.make_rtc_at24c32_LastError= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->AT24C32 返回上次连接的错误码\n"
+   +"2.语法:\n"
+   +"->uint8_t LastError()\n"
+   +"3.参数:无\n"
+   +"4.返回值:uint8_t型数据\n"
+   +"->0 - 成功\n"
+   +"->1 - 数据溢出\n"
+   +"->2 - 发送地址时从机接收到NACK\n"
+   +"->3 - 发送数据时接收到NACK\n"
+   +"->4 - 其他错误"
+    );
   this.setHelpUrl("");
   }
 };
 
-//AT24C32时钟模块 写入字节
+//AT24C32 写入字节
 Blockly.Blocks.make_rtc_at24c32_SetMemory_byte= {
   init: function() { 
   this.appendValueInput("address")
@@ -5647,12 +5806,21 @@ Blockly.Blocks.make_rtc_at24c32_SetMemory_byte= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->AT24C32 写入字节\n"
+   +"2.语法:\n"
+   +"->void SetMemory(uint16_t memoryAddress, uint8_t value)\n"
+   +"3.参数:\n"
+   +"->memoryAddress:储存数据的地址(0 - 4095)\n"
+   +"->value:需要储存数据\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
 
-//AT24C32时钟模块 读取字节
+//AT24C32 读取字节
 Blockly.Blocks.make_rtc_at24c32_GetMemory_byte= {
   init: function() { 
   this.appendValueInput("address")
@@ -5665,12 +5833,20 @@ Blockly.Blocks.make_rtc_at24c32_GetMemory_byte= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->AT24C32 读取字节，返回数据的类型为uint8_t\n"
+   +"2.语法:\n"
+   +"->uint8_t GetMemory(uint16_t memoryAddress)\n"
+   +"3.参数:\n"
+   +"->memoryAddress:数据的地址(0 - 4095)\n"
+   +"4.返回值:uint8_t型数据"
+    );
   this.setHelpUrl("");
   }
 };
 
-//AT24C32时钟模块 写入字节数组
+//AT24C32 写入字节数组
 Blockly.Blocks.make_rtc_at24c32_SetMemory_list= {
   init: function() { 
   this.appendValueInput("address")
@@ -5692,7 +5868,17 @@ Blockly.Blocks.make_rtc_at24c32_SetMemory_list= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->AT24C32 写入字节数组\n"
+   +"2.语法:\n"
+   +"->uint8_t SetMemory(uint16_t memoryAddress, const uint8_t* pValue, uint8_t countBytes)\n"
+   +"3.参数:\n"
+   +"->memoryAddress:储存数据的地址(0 - 4095)\n"
+   +"->pValue:需要储存的数组\n"
+   +"->countBytes:数组的长度\n"
+   +"4.返回值:uint8_t型数据(写入数据的实际个数)"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5719,7 +5905,17 @@ Blockly.Blocks.make_rtc_at24c32_GetMemory_list= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->AT24C32 读取字节数组，返回数据的类型为uint8_t\n"
+   +"2.语法:\n"
+   +"->uint8_t GetMemory(uint16_t memoryAddress, uint8_t* pValue, uint8_t countBytes)\n"
+   +"3.参数:\n"
+   +"->memoryAddress:数据的地址(0 - 4095)\n"
+   +"->pValue:保存数据所用的数组\n"
+   +"->countBytes:数组的长度\n"
+   +"4.返回值:uint8_t型数据(读取数据的实际个数)(不使用返回值)"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5748,7 +5944,17 @@ Blockly.Blocks.make_rtc_at24c32_GetMemory_list_return= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->AT24C32 读取字节数组，返回数据的类型为uint8_t\n"
+   +"2.语法:\n"
+   +"->uint8_t GetMemory(uint16_t memoryAddress, uint8_t* pValue, uint8_t countBytes)\n"
+   +"3.参数:\n"
+   +"->memoryAddress:数据的地址(0 - 4095)\n"
+   +"->pValue:保存数据所用的数组\n"
+   +"->countBytes:数组的长度\n"
+   +"4.返回值:uint8_t型数据(读取数据的实际个数)"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5779,7 +5985,16 @@ Blockly.Blocks.make_rtc_ds1302_begin= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化DS1302时钟模块\n"
+   +"2.语法:\n"
+   +"->RtcDS1302(T_WIRE_METHOD& wire)\n"
+   +"->void Begin()\n"
+   +"3.参数:\n"
+   +"->wire:使用硬件I2C|软件模拟I2C\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5795,7 +6010,16 @@ Blockly.Blocks.make_rtc_ds1302_GetIsWriteProtected= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1302时钟模块 写保护？，返回数据的类型为boolean\n"
+   +"2.语法:\n"
+   +"->bool GetIsWriteProtected()\n"
+   +"3.参数:无\n"
+   +"4.返回值:boolean型数据\n"
+   +"->true - DS1302写保护开启，无法写入数据\n"
+   +"->false - DS1302写保护关闭，可以写入数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5814,7 +6038,15 @@ Blockly.Blocks.make_rtc_ds1302_SetIsWriteProtected= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1302时钟模块 设置写保护\n"
+   +"2.语法:\n"
+   +"->void SetIsWriteProtected(bool isWriteProtected)\n"
+   +"3.参数:\n"
+   +"->isWriteProtected:true - 写保护开启，false - 写保护关闭\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5835,7 +6067,15 @@ Blockly.Blocks.make_rtc_ds1302_SetTrickleChargeSettings= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1302时钟模块 设置涓流充电功能\n"
+   +"2.语法:\n"
+   +"->void SetTrickleChargeSettings(uint8_t setting)\n"
+   +"3.参数:\n"
+   +"->setting:输入工作模式\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5851,7 +6091,14 @@ Blockly.Blocks.make_rtc_ds1302_GetTrickleChargeSettings= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1302时钟模块 获取涓流充电设置，返回数据的类型为uint8_t\n"
+   +"2.语法:\n"
+   +"->uint8_t GetTrickleChargeSettings()\n"
+   +"3.参数:无\n"
+   +"4.返回值:uint8_t型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5874,7 +6121,16 @@ Blockly.Blocks.make_rtc_ds1302_SetMemory_byte= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1302时钟模块 写入字节\n"
+   +"2.语法:\n"
+   +"->void SetMemory(uint8_t memoryAddress, uint8_t value)\n"
+   +"3.参数:\n"
+   +"->memoryAddress:储存数据的地址(0 - 31)\n"
+   +"->value:需要储存数据\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5892,7 +6148,15 @@ Blockly.Blocks.make_rtc_ds1302_GetMemory_byte= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1302时钟模块 读取字节，返回数据的类型为uint8_t\n"
+   +"2.语法:\n"
+   +"->uint8_t GetMemory(uint8_t memoryAddress)\n"
+   +"3.参数:\n"
+   +"->memoryAddress:数据的地址(0 - 31)\n"
+   +"4.返回值:uint8_t型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5915,7 +6179,16 @@ Blockly.Blocks.make_rtc_ds1302_SetMemory_list= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1302时钟模块 写入字节数组\n"
+   +"2.语法:\n"
+   +"->uint8_t SetMemory(const uint8_t* pValue, uint8_t countBytes)\n"
+   +"3.参数:\n"
+   +"->pValue:需要储存的数组\n"
+   +"->countBytes:数组的长度\n"
+   +"4.返回值:uint8_t型数据(写入数据的实际个数)"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5938,7 +6211,16 @@ Blockly.Blocks.make_rtc_ds1302_GetMemory_list= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1302时钟模块 读取字节数组，返回数据的类型为uint8_t\n"
+   +"2.语法:\n"
+   +"->uint8_t GetMemory(uint8_t* pValue, uint8_t countBytes)\n"
+   +"3.参数:\n"
+   +"->pValue:保存数据所用的数组\n"
+   +"->countBytes:数组的长度\n"
+   +"4.返回值:uint8_t型数据(读取数据的实际个数)(不使用返回值)"
+    );
   this.setHelpUrl("");
   }
 };
@@ -5963,7 +6245,16 @@ Blockly.Blocks.make_rtc_ds1302_GetMemory_list_return= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1302时钟模块 读取字节数组，返回数据的类型为uint8_t\n"
+   +"2.语法:\n"
+   +"->uint8_t GetMemory(uint8_t* pValue, uint8_t countBytes)\n"
+   +"3.参数:\n"
+   +"->pValue:保存数据所用的数组\n"
+   +"->countBytes:数组的长度\n"
+   +"4.返回值:uint8_t型数据(读取数据的实际个数)"
+    );
   this.setHelpUrl("");
   }
 };
