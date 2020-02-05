@@ -799,64 +799,74 @@ media="media/Arduino"-->
       </block>
 
       <block type="lists_create_with_2_1_new_2019_10_18">
-        <field name="lists_create_type">int</field>
+        <field name="lists_create_type">char</field>
         <field name="lists_create_name">mylist</field>
-        <field name="lists_num_1">3</field>
-        <field name="lists_num_2">3</field>
+        <field name="lists_num_1">7</field>
+        <field name="lists_num_2">12</field>
         <statement name="lists_with_2_1_data">
           <block type="lists_create_with_2_1_get_data">
-            <mutation items="3"></mutation>
+            <mutation items="1"></mutation>
             <value name="ADD0">
-              <block type="math_number">
-                <field name="NUM">0</field>
-              </block>
-            </value>
-            <value name="ADD1">
-              <block type="math_number">
-                <field name="NUM">1</field>
-              </block>
-            </value>
-            <value name="ADD2">
-              <block type="math_number">
-                <field name="NUM">2</field>
+              <block type="text">
+                <field name="TEXT">Sunday</field>
               </block>
             </value>
             <next>
               <block type="lists_create_with_2_1_get_data">
-                <mutation items="3"></mutation>
+                <mutation items="1"></mutation>
                 <value name="ADD0">
-                  <block type="math_number">
-                    <field name="NUM">1</field>
-                  </block>
-                </value>
-                <value name="ADD1">
-                  <block type="math_number">
-                    <field name="NUM">2</field>
-                  </block>
-                </value>
-                <value name="ADD2">
-                  <block type="math_number">
-                    <field name="NUM">3</field>
+                  <block type="text">
+                    <field name="TEXT">Monday</field>
                   </block>
                 </value>
                 <next>
                   <block type="lists_create_with_2_1_get_data">
-                    <mutation items="3"></mutation>
+                    <mutation items="1"></mutation>
                     <value name="ADD0">
-                      <block type="math_number">
-                        <field name="NUM">2</field>
+                      <block type="text">
+                        <field name="TEXT">Tuesday</field>
                       </block>
                     </value>
-                    <value name="ADD1">
-                      <block type="math_number">
-                        <field name="NUM">3</field>
+                    <next>
+                      <block type="lists_create_with_2_1_get_data">
+                        <mutation items="1"></mutation>
+                        <value name="ADD0">
+                          <block type="text">
+                            <field name="TEXT">Wednesday</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="lists_create_with_2_1_get_data">
+                            <mutation items="1"></mutation>
+                            <value name="ADD0">
+                              <block type="text">
+                                <field name="TEXT">Thursday</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="lists_create_with_2_1_get_data">
+                                <mutation items="1"></mutation>
+                                <value name="ADD0">
+                                  <block type="text">
+                                    <field name="TEXT">Friday</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="lists_create_with_2_1_get_data">
+                                    <mutation items="1"></mutation>
+                                    <value name="ADD0">
+                                      <block type="text">
+                                        <field name="TEXT">Saturday</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
                       </block>
-                    </value>
-                    <value name="ADD2">
-                      <block type="math_number">
-                        <field name="NUM">4</field>
-                      </block>
-                    </value>
+                    </next>
                   </block>
                 </next>
               </block>
@@ -866,64 +876,74 @@ media="media/Arduino"-->
       </block>
 
       <block type="part_lists_create_with_2_1_new_2019_10_18">
-        <field name="lists_create_type">int</field>
+        <field name="lists_create_type">char</field>
         <field name="lists_create_name">mylist</field>
-        <field name="lists_num_1">3</field>
-        <field name="lists_num_2">3</field>
+        <field name="lists_num_1">7</field>
+        <field name="lists_num_2">12</field>
         <statement name="lists_with_2_1_data">
           <block type="lists_create_with_2_1_get_data">
-            <mutation items="3"></mutation>
+            <mutation items="1"></mutation>
             <value name="ADD0">
-              <block type="math_number">
-                <field name="NUM">0</field>
-              </block>
-            </value>
-            <value name="ADD1">
-              <block type="math_number">
-                <field name="NUM">1</field>
-              </block>
-            </value>
-            <value name="ADD2">
-              <block type="math_number">
-                <field name="NUM">2</field>
+              <block type="text">
+                <field name="TEXT">Sunday</field>
               </block>
             </value>
             <next>
               <block type="lists_create_with_2_1_get_data">
-                <mutation items="3"></mutation>
+                <mutation items="1"></mutation>
                 <value name="ADD0">
-                  <block type="math_number">
-                    <field name="NUM">1</field>
-                  </block>
-                </value>
-                <value name="ADD1">
-                  <block type="math_number">
-                    <field name="NUM">2</field>
-                  </block>
-                </value>
-                <value name="ADD2">
-                  <block type="math_number">
-                    <field name="NUM">3</field>
+                  <block type="text">
+                    <field name="TEXT">Monday</field>
                   </block>
                 </value>
                 <next>
                   <block type="lists_create_with_2_1_get_data">
-                    <mutation items="3"></mutation>
+                    <mutation items="1"></mutation>
                     <value name="ADD0">
-                      <block type="math_number">
-                        <field name="NUM">2</field>
+                      <block type="text">
+                        <field name="TEXT">Tuesday</field>
                       </block>
                     </value>
-                    <value name="ADD1">
-                      <block type="math_number">
-                        <field name="NUM">3</field>
+                    <next>
+                      <block type="lists_create_with_2_1_get_data">
+                        <mutation items="1"></mutation>
+                        <value name="ADD0">
+                          <block type="text">
+                            <field name="TEXT">Wednesday</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="lists_create_with_2_1_get_data">
+                            <mutation items="1"></mutation>
+                            <value name="ADD0">
+                              <block type="text">
+                                <field name="TEXT">Thursday</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="lists_create_with_2_1_get_data">
+                                <mutation items="1"></mutation>
+                                <value name="ADD0">
+                                  <block type="text">
+                                    <field name="TEXT">Friday</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="lists_create_with_2_1_get_data">
+                                    <mutation items="1"></mutation>
+                                    <value name="ADD0">
+                                      <block type="text">
+                                        <field name="TEXT">Saturday</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
                       </block>
-                    </value>
-                    <value name="ADD2">
-                      <block type="math_number">
-                        <field name="NUM">4</field>
-                      </block>
-                    </value>
+                    </next>
                   </block>
                 </next>
               </block>
