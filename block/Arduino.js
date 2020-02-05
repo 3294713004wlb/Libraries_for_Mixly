@@ -5773,7 +5773,7 @@ Blockly.Blocks.make_rtc_at24c32_LastError= {
   this.setColour(40);
   this.setTooltip(
     "1.功能:\n"
-   +"->AT24C32 返回上次连接的错误码\n"
+   +"->AT24C32 返回上次连接的错误码，返回数据的类型为uint8_t\n"
    +"2.语法:\n"
    +"->uint8_t LastError()\n"
    +"3.参数:无\n"
@@ -5855,7 +5855,7 @@ Blockly.Blocks.make_rtc_at24c32_SetMemory_list= {
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/芯片_4.png", 25, 25, "*"))
       .appendField("AT24C32")
       .appendField(new Blockly.FieldTextInput("RtcEeprom"), "eeprom_name")
-      .appendField(" 写入(字节数组) EEPROM 地址");
+      .appendField(" 写入(字节数组) EEPROM 起始地址");
   this.appendValueInput("data")
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
@@ -5870,7 +5870,7 @@ Blockly.Blocks.make_rtc_at24c32_SetMemory_list= {
   this.setColour(40);
   this.setTooltip(
     "1.功能:\n"
-   +"->AT24C32 写入字节数组\n"
+   +"->AT24C32 写入字节数组，返回数据的类型为uint8_t\n"
    +"2.语法:\n"
    +"->uint8_t SetMemory(uint16_t memoryAddress, const uint8_t* pValue, uint8_t countBytes)\n"
    +"3.参数:\n"
@@ -5929,7 +5929,7 @@ Blockly.Blocks.make_rtc_at24c32_GetMemory_list_return= {
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/芯片_4.png", 25, 25, "*"))
       .appendField("AT24C32")
       .appendField(new Blockly.FieldTextInput("RtcEeprom"), "eeprom_name")
-      .appendField(" 读取(字节数组) EEPROM 地址");
+      .appendField(" 读取(字节数组) EEPROM 起始地址");
   this.appendValueInput("data")
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
@@ -6181,7 +6181,7 @@ Blockly.Blocks.make_rtc_ds1302_SetMemory_list= {
   this.setColour(40);
   this.setTooltip(
     "1.功能:\n"
-   +"->DS1302时钟模块 写入字节数组\n"
+   +"->DS1302时钟模块 写入字节数组，返回数据的类型为uint8_t\n"
    +"2.语法:\n"
    +"->uint8_t SetMemory(const uint8_t* pValue, uint8_t countBytes)\n"
    +"3.参数:\n"
@@ -6274,7 +6274,20 @@ Blockly.Blocks.make_rtc_ds1307_3231_begin= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化DS1307、DS3231时钟模块\n"
+   +"2.语法:\n"
+   +"->初始化DS1307->RtcDS1307(T_WIRE_METHOD& wire)\n"
+   +"->初始化DS3231->RtcDS3231(T_WIRE_METHOD& wire)\n"
+   +"3.参数:\n"
+   +"->wire:使用硬件I2C|软件模拟I2C\n"
+   +"4.返回值:无\n"
+   +"5.I2C接线:\n"
+   +"①Arduino Uno/Ethernet:SDA - A4，SCL - A5\n"
+   +"②Arduino Mega2560/Due:SDA - 20，SCL - 21\n"
+   +"③Arduino Leonardo:SDA - 2，SCL - 3"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6299,7 +6312,20 @@ Blockly.Blocks.make_rtc_ds1307_3231_begin_1= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化DS1307、DS3231时钟模块\n"
+   +"2.语法:\n"
+   +"->初始化DS1307->RtcDS1307(T_WIRE_METHOD& wire)\n"
+   +"->初始化DS3231->RtcDS3231(T_WIRE_METHOD& wire)\n"
+   +"3.参数:\n"
+   +"->wire:使用硬件I2C|软件模拟I2C\n"
+   +"4.返回值:无\n"
+   +"5.I2C接线:\n"
+   +"①Arduino Uno/Ethernet:SDA - A4，SCL - A5\n"
+   +"②Arduino Mega2560/Due:SDA - 20，SCL - 21\n"
+   +"③Arduino Leonardo:SDA - 2，SCL - 3"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6315,7 +6341,19 @@ Blockly.Blocks.make_rtc_ds1307_LastError= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1307时钟模块 返回上次连接的错误码，返回数据的类型为uint8_t\n"
+   +"2.语法:\n"
+   +"->uint8_t LastError()\n"
+   +"3.参数:无\n"
+   +"4.返回值:uint8_t型数据\n"
+   +"->0 - 成功\n"
+   +"->1 - 数据溢出\n"
+   +"->2 - 发送地址时从机接收到NACK\n"
+   +"->3 - 发送数据时接收到NACK\n"
+   +"->4 - 其他错误"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6338,7 +6376,16 @@ Blockly.Blocks.make_rtc_ds1307_SetMemory_byte= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1307时钟模块 写入字节\n"
+   +"2.语法:\n"
+   +"->void SetMemory(uint8_t memoryAddress, uint8_t value)\n"
+   +"3.参数:\n"
+   +"->memoryAddress:储存数据的地址(0 - 55)\n"
+   +"->value:需要储存数据\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6356,7 +6403,15 @@ Blockly.Blocks.make_rtc_ds1307_GetMemory_byte= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1307时钟模块 读取字节，返回数据的类型为uint8_t\n"
+   +"2.语法:\n"
+   +"->uint8_t GetMemory(uint8_t memoryAddress)\n"
+   +"3.参数:\n"
+   +"->memoryAddress:数据的地址(0 - 55)\n"
+   +"4.返回值:uint8_t型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6370,7 +6425,7 @@ Blockly.Blocks.make_rtc_ds1307_SetMemory_list= {
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/时钟_2.png", 25, 25, "*"))
       .appendField("DS1307")
       .appendField(new Blockly.FieldTextInput("rtc"), "rtc_name")
-      .appendField(" 写入(字节数组) RAM 地址");
+      .appendField(" 写入(字节数组) RAM 起始地址");
   this.appendValueInput("data")
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
@@ -6383,7 +6438,17 @@ Blockly.Blocks.make_rtc_ds1307_SetMemory_list= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1307时钟模块 写入字节数组，返回数据的类型为uint8_t\n"
+   +"2.语法:\n"
+   +"->uint8_t SetMemory(uint8_t memoryAddress, const uint8_t* pValue, uint8_t countBytes)\n"
+   +"3.参数:\n"
+   +"->memoryAddress:数据的起始地址\n"
+   +"->pValue:需要储存的数组\n"
+   +"->countBytes:数组的长度\n"
+   +"4.返回值:uint8_t型数据(写入数据的实际个数)"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6397,7 +6462,7 @@ Blockly.Blocks.make_rtc_ds1307_GetMemory_list= {
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/时钟_2.png", 25, 25, "*"))
       .appendField("DS1307")
       .appendField(new Blockly.FieldTextInput("rtc"), "rtc_name")
-      .appendField(" 读取(字节数组) RAM 地址");
+      .appendField(" 读取(字节数组) RAM 起始地址");
   this.appendValueInput("data")
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
@@ -6410,7 +6475,17 @@ Blockly.Blocks.make_rtc_ds1307_GetMemory_list= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1307时钟模块 读取字节数组，返回数据的类型为uint8_t\n"
+   +"2.语法:\n"
+   +"->uint8_t GetMemory(uint8_t memoryAddress, uint8_t* pValue, uint8_t countBytes)\n"
+   +"3.参数:\n"
+   +"->memoryAddress:数据的起始地址\n"
+   +"->pValue:保存数据所用的数组\n"
+   +"->countBytes:数组的长度\n"
+   +"4.返回值:uint8_t型数据(读取数据的实际个数)(不使用返回值)"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6424,7 +6499,7 @@ Blockly.Blocks.make_rtc_ds1307_GetMemory_list_return= {
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/时钟_2.png", 25, 25, "*"))
       .appendField("DS1307")
       .appendField(new Blockly.FieldTextInput("rtc"), "rtc_name")
-      .appendField(" 读取(字节数组) RAM 地址");
+      .appendField(" 读取(字节数组) RAM 起始地址");
   this.appendValueInput("data")
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
@@ -6439,7 +6514,17 @@ Blockly.Blocks.make_rtc_ds1307_GetMemory_list_return= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1307时钟模块 读取字节数组，返回数据的类型为uint8_t\n"
+   +"2.语法:\n"
+   +"->uint8_t GetMemory(uint8_t memoryAddress, uint8_t* pValue, uint8_t countBytes)\n"
+   +"3.参数:\n"
+   +"->memoryAddress:数据的起始地址\n"
+   +"->pValue:保存数据所用的数组\n"
+   +"->countBytes:数组的长度\n"
+   +"4.返回值:uint8_t型数据(读取数据的实际个数)"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6457,7 +6542,21 @@ Blockly.Blocks.make_rtc_ds1307_SetSquareWavePin= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS1307时钟模块 SQW管脚输出方波\n"
+   +"2.语法:\n"
+   +"->void SetSquareWavePin(DS1307SquareWaveOut pinMode)\n"
+   +"3.参数:\n"
+   +"->pinMode:输入SQW管脚的工作模式\n"
+   +"- ->1HZ方波 - DS1307SquareWaveOut_1Hz\n"
+   +"- ->4.096kHZ方波 - DS1307SquareWaveOut_4kHz\n"
+   +"- ->8.192kHZ方波 - DS1307SquareWaveOut_8kHz\n"
+   +"- ->32.768kHZ方波 - DS1307SquareWaveOut_32kHz\n"
+   +"- ->高电平 - DS1307SquareWaveOut_High\n"
+   +"- ->低电平 - DS1307SquareWaveOut_Low\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
@@ -7395,7 +7494,7 @@ Blockly.Blocks.make_rtc_ds3234_SetMemory_list= {
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/时钟_2.png", 25, 25, "*"))
       .appendField("DS3234")
       .appendField(new Blockly.FieldTextInput("rtc"), "rtc_name")
-      .appendField(" 写入(字节数组) RAM 地址");
+      .appendField(" 写入(字节数组) RAM 起始地址");
   this.appendValueInput("data")
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
@@ -7422,7 +7521,7 @@ Blockly.Blocks.make_rtc_ds3234_GetMemory_list= {
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/时钟_2.png", 25, 25, "*"))
       .appendField("DS3234")
       .appendField(new Blockly.FieldTextInput("rtc"), "rtc_name")
-      .appendField(" 读取(字节数组) RAM 地址");
+      .appendField(" 读取(字节数组) RAM 起始地址");
   this.appendValueInput("data")
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
@@ -7449,7 +7548,7 @@ Blockly.Blocks.make_rtc_ds3234_GetMemory_list_return= {
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/时钟_2.png", 25, 25, "*"))
       .appendField("DS3234")
       .appendField(new Blockly.FieldTextInput("rtc"), "rtc_name")
-      .appendField(" 读取(字节数组) RAM 地址");
+      .appendField(" 读取(字节数组) RAM 起始地址");
   this.appendValueInput("data")
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
@@ -11016,7 +11115,7 @@ Blockly.Blocks.make_arduino_at24cx_write_list= {
       .appendField(new Blockly.FieldTextInput("ic_eeprom"), "at24cx_name")
       .appendField(" 写入")
       .appendField(new Blockly.FieldDropdown([["字节数组","write"],["字符数组","writeChars"]]), "write_type")
-      .appendField(" 地址");
+      .appendField(" 起始地址");
   this.appendValueInput("at24cx_write_data")
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
@@ -11114,7 +11213,7 @@ Blockly.Blocks.make_arduino_at24cx_read_list= {
       .appendField(new Blockly.FieldTextInput("ic_eeprom"), "at24cx_name")
       .appendField(" 读取")
       .appendField(new Blockly.FieldDropdown([["字节数组","read"],["字符数组","readChars"]]), "read_type")
-      .appendField(" 地址");
+      .appendField(" 起始地址");
   this.appendValueInput("at24cx_read_data")
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
