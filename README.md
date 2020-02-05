@@ -1,5 +1,5 @@
 # 一个Mixly的第三方库
-![image](https://github.com/3294713004wlb/Libraries_for_Mixly/blob/master/media/Arduino/arduino_mixly.PNG)
+![image](https://github.com/3294713004wlb/Libraries_for_Mixly/blob/master/media/Arduino/mixly.PNG)
 (1)**在使用Arduino库之前，请先将此库下面名为 Arduino库文件 文件夹下的所有文件拷贝(或剪切)到mixly/arduino-1.x.x/libraries文件夹下！**
 
 (2)**如果mixly/arduino-1.x.x文件夹下无libraries文件夹，需要先在这个位置新建一个名为 libraries 的文件夹，而后再执行步骤(1)**
