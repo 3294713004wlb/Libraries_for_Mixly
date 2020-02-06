@@ -1,7 +1,11 @@
 @echo off
 title 导库助手
 echo %~dp0
-for /f "delims=" %%i in (address.txt) do (
+if not exist C:\address.txt goto nofile
+goto start
+
+:start
+for /f "delims=" %%i in (C:\address.txt) do (
 set a=%%i
 )
 @echo on
@@ -12,4 +16,8 @@ xcopy %~dp0\block\Arduino.js %b%
 xcopy %~dp0\generator\Arduino.js %c%
 xcopy %~dp0\media\Arduino %d% /s
 @echo off
+pause
+
+:nofile
+echo 在C:\下无address.txt，请新建一个address.txt后再尝试执行此文件
 pause
