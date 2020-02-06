@@ -2,9 +2,7 @@
 title µ¼¿âÖúÊÖ
 echo %~dp0
 if not exist C:\address.txt goto nofile
-goto start
 
-:start
 for /f "delims=" %%i in (C:\address.txt) do (
 set a=%%i
 )
