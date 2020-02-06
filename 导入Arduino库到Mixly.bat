@@ -14,7 +14,7 @@ if "%a%"=="" goto nofile2
 set b=%a%\blockly\blocks\company
 set c=%a%\blockly\generators\arduino\company
 set d=%a%\company
-set e=%a%\blockly\media\Arduino\
+set e=%a%\blockly\media\
 set f=%a%\blockly\msg\js\company\language\
 
 echo.
@@ -29,11 +29,11 @@ echo 更改language下文件 -- %f%
 echo.
 echo 更改generator下文件 -- %c%
 echo.
-echo 更改media\Arduino下文件 -- %c%
+echo 更改media下文件 -- %e%
 echo ------------------------------------------------------------------------------------------------------------------------
 echo.
 echo 请确认更改路径是否正确！
-echo 若正确，请点击任意键继续；若不正确，请退出修改C:\address.txt下路径
+echo 若正确，请Enter键继续；若不正确，请退出修改C:\address.txt下路径
 pause
 
 @echo on
@@ -44,7 +44,7 @@ echo A|xcopy %~dp0\block\Arduino.js %b%
 echo A|xcopy %~dp0\block\make.js %b%
 echo A|xcopy Arduino.xml %d%
 echo A|xcopy make.xml %d%
-echo A|xcopy %~dp0\media\Arduino %e% /s
+echo A|xcopy %~dp0\media %e% /s
 @echo off
 pause
 exit
