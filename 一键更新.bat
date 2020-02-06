@@ -24,6 +24,7 @@ set c=%a%\blockly\generators\arduino\company
 set d=%a%\blockly\media\Arduino\
 echo %b%
 echo %c%
+echo %d%
 xcopy %~dp0\block\Arduino.js %b%
 xcopy %~dp0\generator\Arduino.js %c%
 xcopy %~dp0\media\Arduino %d% /s
