@@ -11,12 +11,16 @@ set a=%%i
 @echo on
 set b=%a%\blockly\blocks\company
 set c=%a%\blockly\generators\arduino\company
-set d=%a%\blockly\media\Arduino\
+set d=%a%\company
+set e=%a%\blockly\media\Arduino\
+
 xcopy %~dp0\block\Arduino.js %b%
 xcopy %~dp0\generator\Arduino.js %c%
-xcopy %~dp0\media\Arduino %d% /s
+xcopy Arduino.xml %d%
+xcopy %~dp0\media\Arduino %e% /s
 @echo off
 pause
+exit
 
 :nofile
 echo 在C:\下无address.txt，请新建一个address.txt后再尝试执行此文件
