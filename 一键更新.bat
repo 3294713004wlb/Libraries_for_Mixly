@@ -15,5 +15,4 @@ git prune
 @echo on
 echo Libraries_For_Mixly更新完成, Enjoy it!
 @echo off
-call 导入Arduino库到Mixly.bat
 pause
