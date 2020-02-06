@@ -15,14 +15,17 @@ set b=%a%\blockly\blocks\company
 set c=%a%\blockly\generators\arduino\company
 set d=%a%\company
 set e=%a%\blockly\media\Arduino\
+set f=%a%\blockly\msg\js\company\language\
 
 echo.
 echo ------------------------------------------------------------------------------------------------------------------------
 echo Mixly所在路径 -- %a%
 echo ------------------------------------------------------------------------------------------------------------------------
-echo 更改Arduino.xml -- %d%
+echo 更改Arduino.xml、make.xml -- %d%
 echo.
 echo 更改block下文件 -- %b%
+echo.
+echo 更改language下文件 -- %f%
 echo.
 echo 更改generator下文件 -- %c%
 echo.
@@ -34,9 +37,13 @@ echo 若正确，请点击任意键继续；若不正确，请退出修改C:\address.txt下路径
 pause
 
 @echo on
-echo A|xcopy %~dp0\block\Arduino.js %b%
 echo A|xcopy %~dp0\generator\Arduino.js %c%
+echo A|xcopy %~dp0\generator\make.js %c%
+echo A|xcopy %~dp0\language %f% /s
+echo A|xcopy %~dp0\block\Arduino.js %b%
+echo A|xcopy %~dp0\block\make.js %b%
 echo A|xcopy Arduino.xml %d%
+echo A|xcopy make.xml %d%
 echo A|xcopy %~dp0\media\Arduino %e% /s
 @echo off
 pause
