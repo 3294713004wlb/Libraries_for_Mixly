@@ -57,6 +57,8 @@ set n=%%m
 if "%n%"=="D:\mixly\mixly_2019_09_15\Mixly\arduino" goto nofile_arduino1
 if "%n%"=="" goto nofile_arduino2
 
+if not exist %n%\libraries md %n%\libraries
+
 echo.
 echo ------------------------------------------------------------------------------------------------------------------------
 echo arduinoËùÔÚÂ·¾¶ -- %n%
