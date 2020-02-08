@@ -70,7 +70,7 @@ echo 若正确，请按Enter键继续；若不正确，请退出修改C:\address_libraries.txt下路径
 pause
 
 @echo on
-echo A|xcopy %~dp0\Arduino库文件 %n%\ /s
+echo A|xcopy %~dp0\Arduino库文件 %n%\libraries\ /s
 @echo off
 
 echo.
