@@ -2,6 +2,7 @@
 title Libraries_For_Mixly 升级助手
 echo %~dp0
 
+@echo off
 del /f /s /q %~dp0\Arduino库文件\*.*
 rd /q /s %~dp0\Arduino库文件\
 md %~dp0\Arduino库文件
