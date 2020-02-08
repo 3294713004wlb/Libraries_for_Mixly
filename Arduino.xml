@@ -1,11 +1,17 @@
- 
-<!--type="company" 
-block="block/Arduino.js" 
+<!--
+type="company" 
+block="block/Arduino.js"
 generator="generator/Arduino.js" 
-language="language/zh-hans.js"  
-lib="Arduino/" 
-media="media/Arduino"-->
-
+media="media/Arduino" 
+language="language/Arduino/"
+examples="examples/Arduino"
+pin="companypin/Arduino"
+-->
+<!-- 
+Author :Smilebrightly
+Date:2020-2-8
+E-mail:3294713004@qq.com
+-->
 <script type="text/javascript" src="../../blocks/company/Arduino.js"></script>
 <script type="text/javascript" src="../../generators/arduino/company/Arduino.js"></script>
 <script type="text/javascript" src="../../core/field_textarea.js"></script>

@@ -1,11 +1,17 @@
- 
-<!--type="company" 
+<!--
+type="company" 
 block="block/make.js" 
 generator="generator/make.js" 
-language="language/zh-hans.js"  
-lib="make/" 
-media="media/make"-->
-
+language="language/make/"
+examples="examples/make"
+media="media/make"
+pin="companypin/make"
+-->
+<!-- 
+Author :Smilebrightly
+Date:2020-2-8
+E-mail:3294713004@qq.com
+-->
 <script type="text/javascript" src="../../blocks/company/make.js"></script>
 <script type="text/javascript" src="../../generators/arduino/company/make.js"></script>
 <script type="text/javascript" src="../../core/field_textarea.js"></script>
