@@ -1,17 +1,9 @@
 'use strict';
 
-goog.provide('Blockly.Blocks.Arduino');
+goog.provide('Blockly.Arduino.Arduino');
 
-goog.require('Blockly.Blocks');
+goog.require('Blockly.Arduino');
 
-
-/*
-2019.10.19
-Arduino库
-修复 AT24Cxx存储器中代码生成错误
-更新 一维数组、二维数组、矩阵键盘、nRF24L01无线通信、时钟模块、OLED、TFT中的图形块
-添加 MAX6675 K型热电偶传感器（通过测试）
-*/
 
 //更改mixly中变量声明的图形块
 Blockly.Blocks['variables_declare'] = {
@@ -6575,7 +6567,19 @@ Blockly.Blocks.make_rtc_ds3231_LastError= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3231时钟模块 返回上次连接的错误码，返回数据的类型为uint8_t\n"
+   +"2.语法:\n"
+   +"->uint8_t LastError()\n"
+   +"3.参数:无\n"
+   +"4.返回值:uint8_t型数据\n"
+   +"->0 - 成功\n"
+   +"->1 - 数据溢出\n"
+   +"->2 - 发送地址时从机接收到NACK\n"
+   +"->3 - 发送数据时接收到NACK\n"
+   +"->4 - 其他错误"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6593,7 +6597,15 @@ Blockly.Blocks.make_rtc_ds3231_Enable32kHzPin= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3231时钟模块 打开或关闭32KHZ管脚\n"
+   +"2.语法:\n"
+   +"->void Enable32kHzPin(bool enable)\n"
+   +"3.参数:\n"
+   +"->enable:打开(true)或关闭(false)\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6626,7 +6638,21 @@ Blockly.Blocks.make_rtc_ds3231_SetSquareWavePin= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3231时钟模块 设置SQW管脚的输出模式\n"
+   +"2.语法:\n"
+   +"->void SetSquareWavePin(DS3231SquareWavePinMode pinMode, bool enableWhileInBatteryBackup = true)\n"
+   +"3.参数:\n"
+   +"->pinMode:设置SQW管脚的输出模式\n"
+   +"-->DS3231SquareWavePin_ModeNone - 禁用\n"
+   +"-->DS3231SquareWavePin_ModeAlarmOne - 输出闹钟1告警\n"
+   +"-->DS3231SquareWavePin_ModeAlarmTwo - 输出闹钟2告警\n"
+   +"-->DS3231SquareWavePin_ModeAlarmBoth - 输出闹钟1、2告警\n"
+   +"-->DS3231SquareWavePin_ModeClock - 输出自定义方波\n"
+   +"->enableWhileInBatteryBackup:打开(true)或关闭(false)\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6644,7 +6670,19 @@ Blockly.Blocks.make_rtc_ds3231_SetSquareWavePinClockFrequency= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3231时钟模块 设置SQW管脚输出方波的频率\n"
+   +"2.语法:\n"
+   +"->void SetSquareWavePinClockFrequency(DS3231SquareWaveClock freq)\n"
+   +"3.参数:\n"
+   +"->freq:设置SQW管脚输出方波频率\n"
+   +"-->DS3231SquareWaveClock_1Hz - 1HZ\n"
+   +"-->DS3231SquareWaveClock_1kHz - 1.024kHZ\n"
+   +"-->DS3231SquareWaveClock_4kHz - 4.096kHZ\n"
+   +"-->DS3231SquareWaveClock_8kHz - 8.192kHZ\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6663,7 +6701,16 @@ Blockly.Blocks.make_rtc_ds3231_SetAlarm= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3231时钟模块 设置闹钟1和闹钟2\n"
+   +"2.语法:\n"
+   +"->设置闹钟1 - void SetAlarmOne(const DS3231AlarmOne& alarm)\n"
+   +"->设置闹钟2 - void SetAlarmTwo(const DS3231AlarmTwo& alarm)\n"
+   +"3.参数:\n"
+   +"->alarm:设置闹钟的时间和工作模式\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6680,7 +6727,18 @@ Blockly.Blocks.make_DS3231_getAlarm1data= {
   this.setInputsInline(false);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3231时钟模块 获取闹钟1的日、时、分、秒、工作模式，返回数据类型为uint8_t(日、时、分、秒)，DS3231AlarmOneControl(工作模式)\n"
+   +"2.语法:\n"
+   +"->获取日 - uint8_t DayOf() const\n"
+   +"->获取时 - uint8_t Hour() const\n"
+   +"->获取分 - uint8_t Minute() const\n"
+   +"->获取秒 - uint8_t Second() const\n"
+   +"->获取工作模式 - DS3231AlarmOneControl ControlFlags()\n"
+   +"3.参数:无\n"
+   +"4.返回值:uint8_t/DS3231AlarmOneControl型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6697,7 +6755,17 @@ Blockly.Blocks.make_DS3231_getAlarm2data= {
   this.setInputsInline(false);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3231时钟模块 获取闹钟2的日、时、分、工作模式，返回数据类型为uint8_t(日、时、分)，DS3231AlarmOneControl(工作模式)\n"
+   +"2.语法:\n"
+   +"->获取日 - uint8_t DayOf() const\n"
+   +"->获取时 - uint8_t Hour() const\n"
+   +"->获取分 - uint8_t Minute() const\n"
+   +"->获取工作模式 - DS3231AlarmOneControl ControlFlags()\n"
+   +"3.参数:无\n"
+   +"4.返回值:uint8_t/DS3231AlarmOneControl型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6714,7 +6782,15 @@ Blockly.Blocks.make_DS3231_getAlarm= {
   this.setInputsInline(false);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3231时钟模块 获取闹钟1、闹钟2的时间和工作模式，返回数据的类型为DS3231AlarmOne(闹钟1)，DS3231AlarmTwo(闹钟2)\n"
+   +"2.语法:\n"
+   +"->获取闹钟1 - DS3231AlarmOne GetAlarmOne()\n"
+   +"->获取闹钟2 - DS3231AlarmTwo GetAlarmTwo()\n"
+   +"3.参数:无\n"
+   +"4.返回值:DS3231AlarmOne/DS3231AlarmTwo型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6731,7 +6807,17 @@ Blockly.Blocks.make_rtc_ds3231_LatchAlarmsTriggeredFlags= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3231时钟模块 允许闹钟告警\n"
+   +"2.语法:\n"
+   +"->DS3231AlarmFlag LatchAlarmsTriggeredFlags()\n"
+   +"3.参数:无\n"
+   +"4.返回值:DS3231AlarmFlag型数据(不使用返回值)\n"
+   +"->闹钟1告警 - DS3231AlarmFlag_Alarm1 - 0x01\n"
+   +"->闹钟2告警 - DS3231AlarmFlag_Alarm2 - 0x02\n"
+   +"->闹钟1、2告警 - DS3231AlarmFlag_AlarmBoth - 0x03"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6747,7 +6833,17 @@ Blockly.Blocks.make_rtc_ds3231_LatchAlarmsTriggeredFlags_return= {
   this.setInputsInline(false);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3231时钟模块 允许闹钟告警，返回数据的类型为DS3231AlarmFlag\n"
+   +"2.语法:\n"
+   +"->DS3231AlarmFlag LatchAlarmsTriggeredFlags()\n"
+   +"3.参数:无\n"
+   +"4.返回值:DS3231AlarmFlag型数据\n"
+   +"->闹钟1告警 - DS3231AlarmFlag_Alarm1 - 0x01\n"
+   +"->闹钟2告警 - DS3231AlarmFlag_Alarm2 - 0x02\n"
+   +"->闹钟1、2告警 - DS3231AlarmFlag_AlarmBoth - 0x03"
+    );
   this.setHelpUrl("");
   }
 };
@@ -6764,7 +6860,15 @@ Blockly.Blocks.make_DS3231_getFloatDeg= {
   this.setInputsInline(false);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3231时钟模块 获取温度，返回数据的类型为float\n"
+   +"2.语法:\n"
+   +"->获取温度(摄氏度) - float GetTemperature().AsFloatDegC()\n"
+   +"->获取温度(华氏度) - float GetTemperature().AsFloatDegF()\n"
+   +"3.参数:无\n"
+   +"4.返回值:float型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -7044,7 +7148,15 @@ Blockly.Blocks.make_rtc_ds3234_Enable32kHzPin= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3234时钟模块 打开或关闭32KHZ管脚\n"
+   +"2.语法:\n"
+   +"->void Enable32kHzPin(bool enable)\n"
+   +"3.参数:\n"
+   +"->enable:打开(true)或关闭(false)\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
@@ -7062,7 +7174,21 @@ Blockly.Blocks.make_rtc_ds3234_SetSquareWavePin= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3231时钟模块 设置SQW管脚的输出模式\n"
+   +"2.语法:\n"
+   +"->void SetSquareWavePin(DS3234SquareWavePinMode pinMode)\n"
+   +"3.参数:\n"
+   +"->pinMode:设置SQW管脚的输出模式\n"
+   +"-->DS3234SquareWavePin_ModeNone - 禁用\n"
+   +"-->DS3234SquareWavePin_ModeBatteryBackup - 电池备份方波使能\n"
+   +"-->DS3234SquareWavePin_ModeAlarmOne - 输出闹钟1告警\n"
+   +"-->DS3234SquareWavePin_ModeAlarmTwo - 输出闹钟2告警\n"
+   +"-->DS3234SquareWavePin_ModeAlarmBoth - 输出闹钟1、2告警\n"
+   +"-->DS3234SquareWavePin_ModeClock - 输出自定义方波\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
@@ -7080,7 +7206,19 @@ Blockly.Blocks.make_rtc_ds3234_SetSquareWavePinClockFrequency= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3234时钟模块 设置SQW管脚输出方波的频率\n"
+   +"2.语法:\n"
+   +"->void SetSquareWavePinClockFrequency(DS3234SquareWaveClock freq)\n"
+   +"3.参数:\n"
+   +"->freq:设置SQW管脚输出方波频率\n"
+   +"-->DS3234SquareWaveClock_1Hz - 1HZ\n"
+   +"-->DS3234SquareWaveClock_1kHz - 1.024kHZ\n"
+   +"-->DS3234SquareWaveClock_4kHz - 4.096kHZ\n"
+   +"-->DS3234SquareWaveClock_8kHz - 8.192kHZ\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
@@ -7099,7 +7237,16 @@ Blockly.Blocks.make_rtc_ds3234_SetAlarm= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3234时钟模块 设置闹钟1和闹钟2\n"
+   +"2.语法:\n"
+   +"->设置闹钟1 - void SetAlarmOne(const DS3234AlarmOne& alarm)\n"
+   +"->设置闹钟2 - void SetAlarmTwo(const DS3234AlarmTwo& alarm)\n"
+   +"3.参数:\n"
+   +"->alarm:设置闹钟的时间和工作模式\n"
+   +"4.返回值:无"
+    );
   this.setHelpUrl("");
   }
 };
@@ -7116,7 +7263,18 @@ Blockly.Blocks.make_DS3234_getAlarm1data= {
   this.setInputsInline(false);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3234时钟模块 获取闹钟1的日、时、分、秒、工作模式，返回数据类型为uint8_t(日、时、分、秒)，DS3234AlarmOneControl(工作模式)\n"
+   +"2.语法:\n"
+   +"->获取日 - uint8_t DayOf() const\n"
+   +"->获取时 - uint8_t Hour() const\n"
+   +"->获取分 - uint8_t Minute() const\n"
+   +"->获取秒 - uint8_t Second() const\n"
+   +"->获取工作模式 - DS3234AlarmOneControl ControlFlags()\n"
+   +"3.参数:无\n"
+   +"4.返回值:uint8_t/DS3234AlarmOneControl型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -7133,7 +7291,17 @@ Blockly.Blocks.make_DS3234_getAlarm2data= {
   this.setInputsInline(false);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3234时钟模块 获取闹钟2的日、时、分、工作模式，返回数据类型为uint8_t(日、时、分)，DS3234AlarmOneControl(工作模式)\n"
+   +"2.语法:\n"
+   +"->获取日 - uint8_t DayOf() const\n"
+   +"->获取时 - uint8_t Hour() const\n"
+   +"->获取分 - uint8_t Minute() const\n"
+   +"->获取工作模式 - DS3234AlarmOneControl ControlFlags()\n"
+   +"3.参数:无\n"
+   +"4.返回值:uint8_t/DS3234AlarmOneControl型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -7150,7 +7318,15 @@ Blockly.Blocks.make_DS3234_getAlarm= {
   this.setInputsInline(false);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3234时钟模块 获取闹钟1、闹钟2的时间和工作模式，返回数据的类型为DS3234AlarmOne(闹钟1)，DS3234AlarmTwo(闹钟2)\n"
+   +"2.语法:\n"
+   +"->获取闹钟1 - DS3234AlarmOne GetAlarmOne()\n"
+   +"->获取闹钟2 - DS3234AlarmTwo GetAlarmTwo()\n"
+   +"3.参数:无\n"
+   +"4.返回值:DS3234AlarmOne/DS3234AlarmTwo型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -7167,7 +7343,17 @@ Blockly.Blocks.make_rtc_ds3234_LatchAlarmsTriggeredFlags= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3234时钟模块 允许闹钟告警\n"
+   +"2.语法:\n"
+   +"->DS3234AlarmFlag LatchAlarmsTriggeredFlags()\n"
+   +"3.参数:无\n"
+   +"4.返回值:DS3234AlarmFlag型数据(不使用返回值)\n"
+   +"->闹钟1告警 - DS3234AlarmFlag_Alarm1 - 0x01\n"
+   +"->闹钟2告警 - DS3234AlarmFlag_Alarm2 - 0x02\n"
+   +"->闹钟1、2告警 - DS3234AlarmFlag_AlarmBoth - 0x03"
+    );
   this.setHelpUrl("");
   }
 };
@@ -7183,7 +7369,17 @@ Blockly.Blocks.make_rtc_ds3234_LatchAlarmsTriggeredFlags_return= {
   this.setInputsInline(false);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3234时钟模块 允许闹钟告警，返回数据的类型为DS3234AlarmFlag\n"
+   +"2.语法:\n"
+   +"->DS3234AlarmFlag LatchAlarmsTriggeredFlags()\n"
+   +"3.参数:无\n"
+   +"4.返回值:DS3234AlarmFlag型数据\n"
+   +"->闹钟1告警 - DS3234AlarmFlag_Alarm1 - 0x01\n"
+   +"->闹钟2告警 - DS3234AlarmFlag_Alarm2 - 0x02\n"
+   +"->闹钟1、2告警 - DS3234AlarmFlag_AlarmBoth - 0x03"
+    );
   this.setHelpUrl("");
   }
 };
@@ -7200,7 +7396,15 @@ Blockly.Blocks.make_DS3234_getFloatDeg= {
   this.setInputsInline(false);
   this.setOutput(true, null);
   this.setColour(40);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->DS3234时钟模块 获取温度，返回数据的类型为float\n"
+   +"2.语法:\n"
+   +"->获取温度(摄氏度) - float GetTemperature().AsFloatDegC()\n"
+   +"->获取温度(华氏度) - float GetTemperature().AsFloatDegF()\n"
+   +"3.参数:无\n"
+   +"4.返回值:float型数据"
+    );
   this.setHelpUrl("");
   }
 };

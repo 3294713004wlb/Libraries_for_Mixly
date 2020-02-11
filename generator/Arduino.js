@@ -3488,6 +3488,7 @@ Blockly.Arduino.make_rtc_ds1307_SetSquareWavePin = function() {
 */
 //DS3231时钟模块 返回上次连接的错误码
 Blockly.Arduino.make_rtc_ds3231_LastError = function() {
+  this.setTooltip("DS3231时钟模块 返回上次连接的错误码，返回数据的类型为uint8_t");
     var text_rtc_name = this.getFieldValue('rtc_name');
   var code = text_rtc_name+'.LastError()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
@@ -3495,6 +3496,7 @@ Blockly.Arduino.make_rtc_ds3231_LastError = function() {
 
 //DS3231时钟模块 打开或关闭32KHZ管脚
 Blockly.Arduino.make_rtc_ds3231_Enable32kHzPin = function() {
+  this.setTooltip("DS3231时钟模块 打开或关闭32KHZ管脚");
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
     var text_rtc_name = this.getFieldValue('rtc_name');
   var code = text_rtc_name+'.Enable32kHzPin('+value_data+');\n';
@@ -3510,6 +3512,7 @@ Blockly.Arduino.make_pin_on_off = function() {
 
 //DS3231时钟模块 设置SQW管脚的输出模式
 Blockly.Arduino.make_rtc_ds3231_SetSquareWavePin = function() {
+  this.setTooltip("DS3231时钟模块 设置SQW管脚的输出模式");
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
@@ -3519,6 +3522,7 @@ Blockly.Arduino.make_rtc_ds3231_SetSquareWavePin = function() {
 
 //DS3231时钟模块 设置SQW管脚的输出方波的频率
 Blockly.Arduino.make_rtc_ds3231_SetSquareWavePinClockFrequency = function() {
+  this.setTooltip("DS3231时钟模块 设置SQW管脚输出方波的频率");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
   var code = text_rtc_name+'.SetSquareWavePinClockFrequency('+dropdown_type+');\n';
@@ -3527,6 +3531,7 @@ Blockly.Arduino.make_rtc_ds3231_SetSquareWavePinClockFrequency = function() {
 
 //DS3231时钟模块 设置闹钟1和闹钟2
 Blockly.Arduino.make_rtc_ds3231_SetAlarm = function() {
+  this.setTooltip("DS3231时钟模块 设置闹钟1和闹钟2");
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
@@ -3536,6 +3541,7 @@ Blockly.Arduino.make_rtc_ds3231_SetAlarm = function() {
 
 //DS3231时钟模块 获取闹钟1的日、时、分、秒、工作模式
 Blockly.Arduino.make_DS3231_getAlarm1data = function() {
+  this.setTooltip("DS3231时钟模块 获取闹钟1的日、时、分、秒、工作模式，返回数据类型为uint8_t(日、时、分、秒)，DS3231AlarmOneControl(工作模式)");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
   var code = text_rtc_name+'.GetAlarmOne().'+dropdown_type+'()';
@@ -3544,6 +3550,7 @@ Blockly.Arduino.make_DS3231_getAlarm1data = function() {
 
 //DS3231时钟模块 获取闹钟1的日、时、分、工作模式
 Blockly.Arduino.make_DS3231_getAlarm2data = function() {
+  this.setTooltip("DS3231时钟模块 获取闹钟2的日、时、分、工作模式，返回数据类型为uint8_t(日、时、分)，DS3231AlarmOneControl(工作模式)");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
   var code = text_rtc_name+'.GetAlarmTwo().'+dropdown_type+'()';
@@ -3552,6 +3559,7 @@ Blockly.Arduino.make_DS3231_getAlarm2data = function() {
 
 //DS3231时钟模块 获取闹钟1、闹钟2的时间和工作模式
 Blockly.Arduino.make_DS3231_getAlarm = function() {
+  this.setTooltip("DS3231时钟模块 获取闹钟1、闹钟2的时间和工作模式，返回数据的类型为DS3231AlarmOne(闹钟1)，DS3231AlarmTwo(闹钟2)");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
   var code = text_rtc_name+'.'+dropdown_type+'()';
@@ -3560,6 +3568,7 @@ Blockly.Arduino.make_DS3231_getAlarm = function() {
 
 //DS3231时钟模块 允许其他闹钟再次告警
 Blockly.Arduino.make_rtc_ds3231_LatchAlarmsTriggeredFlags = function() {
+  this.setTooltip("DS3231时钟模块 允许闹钟告警");
     var text_rtc_name = this.getFieldValue('rtc_name');
   var code = text_rtc_name+'.LatchAlarmsTriggeredFlags();\n';
   return code;
@@ -3567,6 +3576,7 @@ Blockly.Arduino.make_rtc_ds3231_LatchAlarmsTriggeredFlags = function() {
 
 //DS3231时钟模块 返回上次告警信息，允许其他闹钟再次告警
 Blockly.Arduino.make_rtc_ds3231_LatchAlarmsTriggeredFlags_return = function() {
+  this.setTooltip("DS3231时钟模块 允许闹钟告警，返回数据的类型为DS3231AlarmFlag");
     var text_rtc_name = this.getFieldValue('rtc_name');
   var code = text_rtc_name+'.LatchAlarmsTriggeredFlags()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
@@ -3574,6 +3584,7 @@ Blockly.Arduino.make_rtc_ds3231_LatchAlarmsTriggeredFlags_return = function() {
 
 //DS3231时钟模块 获取温度
 Blockly.Arduino.make_DS3231_getFloatDeg = function() {
+  this.setTooltip("DS3231时钟模块 获取温度，返回数据的类型为float");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
   var code = text_rtc_name+'.GetTemperature().'+dropdown_type+'()';
@@ -3705,6 +3716,7 @@ Blockly.Arduino.make_rtc_ds3234_begin = function() {
 */
 //DS3234时钟模块 打开或关闭32KHZ管脚
 Blockly.Arduino.make_rtc_ds3234_Enable32kHzPin = function() {
+  this.setTooltip("DS3234时钟模块 打开或关闭32KHZ管脚");
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
     var text_rtc_name = this.getFieldValue('rtc_name');
   var code = text_rtc_name+'.Enable32kHzPin('+value_data+');\n';
@@ -3713,6 +3725,7 @@ Blockly.Arduino.make_rtc_ds3234_Enable32kHzPin = function() {
 
 //DS3234时钟模块 设置SQW管脚的输出模式
 Blockly.Arduino.make_rtc_ds3234_SetSquareWavePin = function() {
+  this.setTooltip("DS3234时钟模块 设置SQW管脚的输出模式");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
   var code = text_rtc_name+'.SetSquareWavePin('+dropdown_type+');\n';
@@ -3721,6 +3734,7 @@ Blockly.Arduino.make_rtc_ds3234_SetSquareWavePin = function() {
 
 //DS3234时钟模块 设置SQW管脚的输出方波的频率
 Blockly.Arduino.make_rtc_ds3234_SetSquareWavePinClockFrequency = function() {
+  this.setTooltip("DS3234时钟模块 设置SQW管脚输出方波的频率");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
   var code = text_rtc_name+'.SetSquareWavePinClockFrequency('+dropdown_type+');\n';
@@ -3729,6 +3743,7 @@ Blockly.Arduino.make_rtc_ds3234_SetSquareWavePinClockFrequency = function() {
 
 //DS3234时钟模块 设置闹钟1和闹钟2
 Blockly.Arduino.make_rtc_ds3234_SetAlarm = function() {
+  this.setTooltip("DS3234时钟模块 设置闹钟1和闹钟2");
     var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
@@ -3738,14 +3753,16 @@ Blockly.Arduino.make_rtc_ds3234_SetAlarm = function() {
 
 //DS3234时钟模块 获取闹钟1的日、时、分、秒、工作模式
 Blockly.Arduino.make_DS3234_getAlarm1data = function() {
+  this.setTooltip("DS3234时钟模块 获取闹钟1的日、时、分、秒、工作模式，返回数据类型为uint8_t(日、时、分、秒)，DS3234AlarmOneControl(工作模式)");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
   var code = text_rtc_name+'.GetAlarmOne().'+dropdown_type+'()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
-//DS3234时钟模块 获取闹钟1的日、时、分、工作模式
+//DS3234时钟模块 获取闹钟2的日、时、分、工作模式
 Blockly.Arduino.make_DS3234_getAlarm2data = function() {
+  this.setTooltip("DS3234时钟模块 获取闹钟2的日、时、分、工作模式，返回数据类型为uint8_t(日、时、分)，DS3234AlarmOneControl(工作模式)");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
   var code = text_rtc_name+'.GetAlarmTwo().'+dropdown_type+'()';
@@ -3754,6 +3771,7 @@ Blockly.Arduino.make_DS3234_getAlarm2data = function() {
 
 //DS3234时钟模块 获取闹钟1、闹钟2的时间和工作模式
 Blockly.Arduino.make_DS3234_getAlarm = function() {
+  this.setTooltip("DS3234时钟模块 获取闹钟1、闹钟2的时间和工作模式，返回数据的类型为DS3234AlarmOne(闹钟1)，DS3234AlarmTwo(闹钟2)");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
   var code = text_rtc_name+'.'+dropdown_type+'()';
@@ -3762,6 +3780,7 @@ Blockly.Arduino.make_DS3234_getAlarm = function() {
 
 //DS3234时钟模块 允许其他闹钟再次告警
 Blockly.Arduino.make_rtc_ds3234_LatchAlarmsTriggeredFlags = function() {
+  this.setTooltip("DS3234时钟模块 允许闹钟告警");
     var text_rtc_name = this.getFieldValue('rtc_name');
   var code = text_rtc_name+'.LatchAlarmsTriggeredFlags();\n';
   return code;
@@ -3769,6 +3788,7 @@ Blockly.Arduino.make_rtc_ds3234_LatchAlarmsTriggeredFlags = function() {
 
 //DS3234时钟模块 返回上次告警信息，允许其他闹钟再次告警
 Blockly.Arduino.make_rtc_ds3234_LatchAlarmsTriggeredFlags_return = function() {
+  this.setTooltip("DS3234时钟模块 允许闹钟告警，返回数据的类型为DS3234AlarmFlag");
     var text_rtc_name = this.getFieldValue('rtc_name');
   var code = text_rtc_name+'.LatchAlarmsTriggeredFlags()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
@@ -3776,6 +3796,7 @@ Blockly.Arduino.make_rtc_ds3234_LatchAlarmsTriggeredFlags_return = function() {
 
 //DS3234时钟模块 获取温度
 Blockly.Arduino.make_DS3234_getFloatDeg = function() {
+  this.setTooltip("DS3234时钟模块 获取温度，返回数据的类型为float");
     var text_rtc_name = this.getFieldValue('rtc_name');
     var dropdown_type = this.getFieldValue('type');
   var code = text_rtc_name+'.GetTemperature().'+dropdown_type+'()';
