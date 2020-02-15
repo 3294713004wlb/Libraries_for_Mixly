@@ -1203,124 +1203,133 @@ E-mail:3294713004@qq.com
       </block>
     </category>
 
-    <category id="mixly_mouse_keyboard" name="USB键盘鼠标模拟" colour="140">
-      <block type="base_setup">
-        <statement name="DO">
-          <block type="make_arduino_mouse_begin_end">
-            <field name="type">begin</field>
-          </block>
-        </statement>
-      </block>
+    <category id="mixly_mouse_keyboard" name="USB鼠标键盘模拟" colour="140">
+      <category id="mixly_mouse" name="USB鼠标模拟" colour="140">
+        <block type="base_setup">
+          <statement name="DO">
+            <block type="make_arduino_mouse_begin_end">
+              <field name="type">begin</field>
+            </block>
+          </statement>
+        </block>
 
-      <block type="make_arduino_mouse_click_location">
-      </block>
+        <block type="make_arduino_mouse_click_location">
+        </block>
 
-      <block type="make_arduino_mouse_click">
-        <field name="click_type">click</field>
-        <value name="click_location">
-          <shadow type="math_number">
-            <field name="NUM">1</field>
-          </shadow>
-          <block type="make_arduino_mouse_click_location">
-            <field name="location_type">MOUSE_LEFT</field>
-          </block>
-        </value>
-      </block>
+        <block type="make_arduino_mouse_click">
+          <field name="click_type">click</field>
+          <value name="click_location">
+            <shadow type="math_number">
+              <field name="NUM">1</field>
+            </shadow>
+            <block type="make_arduino_mouse_click_location">
+              <field name="location_type">MOUSE_LEFT</field>
+            </block>
+          </value>
+        </block>
 
-      <block type="make_arduino_mouse_move">
-        <value name="move_x">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-        </value>
-        <value name="move_y">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-        </value>
-        <value name="move_wheel">
-          <shadow type="math_number">
-            <field name="NUM">0</field>
-          </shadow>
-        </value>
-      </block>
+        <block type="make_arduino_mouse_move">
+          <value name="move_x">
+            <shadow type="math_number">
+              <field name="NUM">0</field>
+            </shadow>
+          </value>
+          <value name="move_y">
+            <shadow type="math_number">
+              <field name="NUM">0</field>
+            </shadow>
+          </value>
+          <value name="move_wheel">
+            <shadow type="math_number">
+              <field name="NUM">0</field>
+            </shadow>
+          </value>
+        </block>
 
-      <block type="make_arduino_mouse_isPressed">
-        <value name="type">
-          <block type="make_arduino_mouse_click_location">
-            <field name="location_type">MOUSE_LEFT</field>
-          </block>
-        </value>
-      </block>
+        <block type="make_arduino_mouse_isPressed">
+          <value name="type">
+            <block type="make_arduino_mouse_click_location">
+              <field name="location_type">MOUSE_LEFT</field>
+            </block>
+          </value>
+        </block>
 
-      <sep gap="50"></sep>
+      </category>
+      <category id="mixly_keyboard" name="USB键盘模拟" colour="140">
+        <!--
+        <sep gap="50"></sep>
+        -->
 
-      <block type="base_setup">
-        <statement name="DO">
-          <block type="make_arduino_keyboard_begin_end">
-            <field name="type">begin</field>
-          </block>
-        </statement>
-      </block>
+        <block type="base_setup">
+          <statement name="DO">
+            <block type="make_arduino_keyboard_begin_end">
+              <field name="type">begin</field>
+            </block>
+          </statement>
+        </block>
 
-      <block type="make_arduino_keyboard_key">
-      </block>
+        <block type="make_arduino_keyboard_key">
+        </block>
 
-      <block type="make_arduino_keyboard_press">
-        <value name="key">
-          <shadow type="text_char">
-            <field name="TEXT">A</field>
-          </shadow>
-        </value>
-      </block>
+        <block type="make_arduino_keyboard_press">
+          <value name="key">
+            <shadow type="text_char">
+              <field name="TEXT">A</field>
+            </shadow>
+          </value>
+        </block>
 
-      <block type="make_arduino_keyboard_press">
-        <field name="type">press</field>
-        <value name="key">
-          <shadow type="text_char">
-            <field name="TEXT">A</field>
-          </shadow>
-          <block type="make_arduino_keyboard_key">
-            <field name="key_type">KEY_LEFT_CTRL</field>
-          </block>
-        </value>
-      </block>
+        <block type="make_arduino_keyboard_press">
+          <field name="type">press</field>
+          <value name="key">
+            <shadow type="text_char">
+              <field name="TEXT">A</field>
+            </shadow>
+            <block type="make_arduino_keyboard_key">
+              <field name="key_type">KEY_LEFT_CTRL</field>
+            </block>
+          </value>
+        </block>
 
-      <block type="make_arduino_keyboard_press_return">
-        <value name="key">
-          <shadow type="text_char">
-            <field name="TEXT">A</field>
-          </shadow>
-        </value>
-      </block>
+        <block type="make_arduino_keyboard_press_return">
+          <value name="key">
+            <shadow type="text_char">
+              <field name="TEXT">A</field>
+            </shadow>
+          </value>
+        </block>
 
-      <block type="make_arduino_keyboard_releaseAll">
-      </block>
+        <block type="make_arduino_keyboard_releaseAll">
+        </block>
 
-      <block type="make_arduino_keyboard_write">
-        <value name="write_data">
-          <shadow type="text_char">
-            <field name="TEXT">A</field>
-          </shadow>
-        </value>
-      </block>
+        <block type="make_arduino_keyboard_write">
+          <value name="write_data">
+            <shadow type="text_char">
+              <field name="TEXT">A</field>
+            </shadow>
+          </value>
+        </block>
 
-      <block type="make_arduino_keyboard_write_return">
-        <value name="write_data">
-          <shadow type="text_char">
-            <field name="TEXT">A</field>
-          </shadow>
-        </value>
-      </block>
+        <block type="make_arduino_keyboard_write_return">
+          <value name="write_data">
+            <shadow type="text_char">
+              <field name="TEXT">A</field>
+            </shadow>
+          </value>
+        </block>
 
-      <block type="make_arduino_keyboard_print">
-        <value name="print_data">
-          <shadow type="text">
-            <field name="TEXT">Mixly</field>
-          </shadow>
-        </value>
-      </block>
+        <block type="make_arduino_keyboard_print">
+          <value name="print_data">
+            <shadow type="text">
+              <field name="TEXT">Mixly</field>
+            </shadow>
+          </value>
+        </block>
+
+      </category>
     </category>
+
+    <!--
     <category id="mixly_nrf" name="2.4G无线通信" colour="140">
       <block type="make_arduino_nrf24l01_begin">
         <value name="nrf24l01_ce">
@@ -1624,101 +1633,405 @@ E-mail:3294713004@qq.com
         </next>
       </block>
     </category>
+    -->
+
+    <category id="mixly_nrf24l01" name="nRF24L01无线通信" colour="140">
+      <category id="mixly_nrf24l01_send_set" name="设置" colour="140">
+
+        <block type="make_arduino_rf24_begin">
+          <value name="ce">
+            <shadow type="pins_digital">
+              <field name="PIN">9</field>
+            </shadow>
+          </value>
+          <value name="csn">
+            <shadow type="pins_digital">
+              <field name="PIN">10</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_setAddressWidth">
+          <value name="width">
+            <shadow type="make_arduino_rf24_AddressWidth_data">
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_setChannel">
+          <value name="channel">
+            <shadow type="make_arduino_rf24_channel">
+              <field name="type">0</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_setPALevel">
+        </block>
+
+        <block type="make_arduino_rf24_setDataRate">
+        </block>
+
+        <block type="make_arduino_rf24_setCRCLength">
+          <value name="length">
+            <shadow type="make_arduino_rf24_setCRCLength_data">
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_setPayloadSize">
+          <value name="length">
+            <shadow type="make_arduino_rf24_length">
+              <field name="type">32</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_setAutoAck_all">
+          <field name="name">radio</field>
+          <value name="enable">
+            <shadow type="math_number">
+              <field name="NUM">false</field>
+            </shadow>
+            <block type="make_arduino_open_close">
+              <field name="type">false</field>
+            </block>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_setAutoAck">
+          <field name="name">radio</field>
+          <value name="pipe">
+            <shadow type="make_arduino_rf24_pipe_type">
+              <field name="type">0</field>
+            </shadow>
+          </value>
+          <value name="enable">
+            <shadow type="math_number">
+              <field name="NUM">false</field>
+            </shadow>
+            <block type="make_arduino_open_close">
+              <field name="type">false</field>
+            </block>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_setRetries">
+          <value name="delay">
+            <shadow type="math_number">
+              <field name="NUM">0</field>
+            </shadow>
+          </value>
+          <value name="count">
+            <shadow type="make_arduino_rf24_count">
+              <field name="type">15</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_maskIRQ">
+          <value name="tx_ok">
+            <shadow type="math_number">
+              <field name="NUM">true</field>
+            </shadow>
+            <block type="make_arduino_open_close">
+              <field name="type">true</field>
+            </block>
+          </value>
+          <value name="tx_fail">
+            <shadow type="math_number">
+              <field name="NUM">true</field>
+            </shadow>
+            <block type="make_arduino_open_close">
+              <field name="type">true</field>
+            </block>
+          </value>
+          <value name="rx_ready">
+            <shadow type="math_number">
+              <field name="NUM">true</field>
+            </shadow>
+            <block type="make_arduino_open_close">
+              <field name="type">true</field>
+            </block>
+          </value>
+        </block>
+
+      </category>
+      <category id="mixly_nrf24l01_send_receive" name="发送/接收" colour="140">
+
+        <block type="make_arduino_rf24_do">
+        </block>
+
+        <block type="make_arduino_rf24_openWritingPipe">
+          <value name="address">
+            <shadow type="math_number">
+              <field name="NUM">mylist</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_openReadingPipe">
+          <value name="number">
+            <shadow type="make_arduino_rf24_pipe_type">
+            </shadow>
+          </value>
+          <value name="address">
+            <shadow type="math_number">
+              <field name="NUM">mylist</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_closeReadingPipe">
+          <value name="number">
+            <shadow type="make_arduino_rf24_pipe_type">
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_available">
+          <value name="pipe_num">
+            <shadow type="math_number">
+              <field name="NUM">item</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_get_data">
+        </block>
+
+        <block type="make_arduino_rf24_whatHappened">
+          <field name="name">radio</field>
+          <value name="tx_ok">
+            <block type="make_arduino_define_local_variate_2">
+              <field name="local_variate_name">tx_ok</field>
+            </block>
+          </value>
+          <value name="tx_fail">
+            <block type="make_arduino_define_local_variate_2">
+              <field name="local_variate_name">tx_fail</field>
+            </block>
+          </value>
+          <value name="rx_ready">
+            <block type="make_arduino_define_local_variate_2">
+              <field name="local_variate_name">rx_ready</field>
+            </block>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_write">
+          <value name="buf">
+            <shadow type="math_number">
+              <field name="NUM">mylist</field>
+            </shadow>
+          </value>
+          <value name="len">
+            <shadow type="make_arduino_rf24_length">
+              <field name="type">32</field>
+            </shadow>
+          </value>
+          <value name="multicast">
+            <shadow type="math_number">
+              <field name="NUM">true</field>
+            </shadow>
+            <block type="make_arduino_open_close">
+              <field name="type">false</field>
+            </block>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_write_return">
+          <value name="buf">
+            <shadow type="math_number">
+              <field name="NUM">mylist</field>
+            </shadow>
+          </value>
+          <value name="len">
+            <shadow type="make_arduino_rf24_length">
+              <field name="type">32</field>
+            </shadow>
+          </value>
+          <value name="multicast">
+            <shadow type="math_number">
+              <field name="NUM">true</field>
+            </shadow>
+            <block type="make_arduino_open_close">
+              <field name="type">false</field>
+            </block>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_writeBlocking">
+          <value name="buf">
+            <shadow type="math_number">
+              <field name="NUM">mylist</field>
+            </shadow>
+          </value>
+          <value name="len">
+            <shadow type="make_arduino_rf24_length">
+              <field name="type">32</field>
+            </shadow>
+          </value>
+          <value name="timeout">
+            <shadow type="math_number">
+              <field name="NUM">1000</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_writeBlocking_return">
+          <value name="buf">
+            <shadow type="math_number">
+              <field name="NUM">mylist</field>
+            </shadow>
+          </value>
+          <value name="len">
+            <shadow type="make_arduino_rf24_length">
+              <field name="type">32</field>
+            </shadow>
+          </value>
+          <value name="timeout">
+            <shadow type="math_number">
+              <field name="NUM">1000</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_writeAckPayload">
+          <value name="pipe">
+            <shadow type="make_arduino_rf24_pipe_type">
+              <field name="type">0</field>
+            </shadow>
+          </value>
+          <value name="buf">
+            <shadow type="math_number">
+              <field name="NUM">mylist</field>
+            </shadow>
+          </value>
+          <value name="len">
+            <shadow type="make_arduino_rf24_length">
+              <field name="type">32</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_rf24_read">
+          <value name="buf">
+            <shadow type="math_number">
+              <field name="NUM">mylist</field>
+            </shadow>
+          </value>
+          <value name="len">
+            <shadow type="make_arduino_rf24_length">
+              <field name="type">32</field>
+            </shadow>
+          </value>
+        </block>
+
+      </category>
+    </category>
 
     <category id="mixly_arduino_315MHZ_433MHZ" name="315MHZ/433MHZ无线通信" colour="140">
-      <block type="make_arduino_mhz_send_begin">
-        <value name="mhz_send_pin">
-          <shadow type="pins_digital">
-            <field name="PIN">10</field>
-          </shadow>
-        </value>
-      </block>
+       <category id="mixly_arduino_315MHZ_433MHZ_set" name="设置" colour="140">
 
-      <block type="make_arduino_mhz_receive_begin">
-        <value name="mhz_receive_pin">
-          <shadow type="pins_interrupt"></shadow>
-        </value>
-      </block>
+        <block type="make_arduino_mhz_send_begin">
+          <value name="mhz_send_pin">
+            <shadow type="pins_digital">
+              <field name="PIN">10</field>
+            </shadow>
+          </value>
+        </block>
 
-      <block type="make_arduino_mhz_send_receive_begin">
-        <value name="mhz_send_pin">
-          <shadow type="pins_digital">
-            <field name="PIN">10</field>
-          </shadow>
-        </value>
-        <value name="mhz_receive_pin">
-          <shadow type="pins_interrupt"></shadow>
-        </value>
-      </block>
+        <block type="make_arduino_mhz_receive_begin">
+          <value name="mhz_receive_pin">
+            <shadow type="pins_interrupt"></shadow>
+          </value>
+        </block>
 
-      <block type="make_arduino_mhz_setPulseLength">
-        <value name="mhz_pulselength">
-          <shadow type="math_number">
-            <field name="NUM">300</field>
-          </shadow>
-        </value>
-      </block>
+        <block type="make_arduino_mhz_send_receive_begin">
+          <value name="mhz_send_pin">
+            <shadow type="pins_digital">
+              <field name="PIN">10</field>
+            </shadow>
+          </value>
+          <value name="mhz_receive_pin">
+            <shadow type="pins_interrupt"></shadow>
+          </value>
+        </block>
 
-      <block type="make_arduino_mhz_setProtocol">
-        <value name="mhz_protocol_type">
-          <shadow type="make_arduino_mhz_setProtocol_type">
-          </shadow>
-        </value>
-      </block>
+        <block type="make_arduino_mhz_setPulseLength">
+          <value name="mhz_pulselength">
+            <shadow type="math_number">
+              <field name="NUM">300</field>
+            </shadow>
+          </value>
+        </block>
 
-      <block type="make_arduino_mhz_setRepeatTransmit">
-        <value name="mhz_repeat_data">
-          <shadow type="math_number">
-            <field name="NUM">10</field>
-          </shadow>
-        </value>
-      </block>
+        <block type="make_arduino_mhz_setProtocol">
+          <value name="mhz_protocol_type">
+            <shadow type="make_arduino_mhz_setProtocol_type">
+            </shadow>
+          </value>
+        </block>
 
-      <block type="make_arduino_mhz_setReceiveTolerance">
-        <value name="mhz_tolerance_data">
-          <shadow type="math_number">
-            <field name="NUM">60</field>
-          </shadow>
-        </value>
-      </block>
+        <block type="make_arduino_mhz_setRepeatTransmit">
+          <value name="mhz_repeat_data">
+            <shadow type="math_number">
+              <field name="NUM">10</field>
+            </shadow>
+          </value>
+        </block>
 
-      <block type="make_arduino_mhz_send_decimal_code">
-        <value name="mhz_send_data">
-          <shadow type="math_number">
-            <field name="NUM">5396</field>
-          </shadow>
-        </value>
-        <value name="mhz_send_length">
-          <shadow type="math_number">
-            <field name="NUM">24</field>
-          </shadow>
-        </value>
-      </block>
+        <block type="make_arduino_mhz_setReceiveTolerance">
+          <value name="mhz_tolerance_data">
+            <shadow type="math_number">
+              <field name="NUM">60</field>
+            </shadow>
+          </value>
+        </block>
 
-      <block type="make_arduino_mhz_send_binary_code">
-        <value name="mhz_send_data">
-          <shadow type="text">
-            <field name="TEXT">000000000001010100010001</field>
-          </shadow>
-        </value>
-      </block>
+      </category>
+      <category id="mixly_arduino_315MHZ_433MHZ_send_receive" name="发送/接收" colour="140">
+      
+        <block type="make_arduino_mhz_send_decimal_code">
+          <value name="mhz_send_data">
+            <shadow type="math_number">
+              <field name="NUM">5396</field>
+            </shadow>
+          </value>
+          <value name="mhz_send_length">
+            <shadow type="math_number">
+              <field name="NUM">24</field>
+            </shadow>
+          </value>
+        </block>
 
-      <block type="make_arduino_mhz_send_tri_state_code">
-        <value name="mhz_send_data">
-          <shadow type="text">
-            <field name="TEXT">11000FFF0F0F</field>
-          </shadow>
-        </value>
-      </block>
+        <block type="make_arduino_mhz_send_binary_code">
+          <value name="mhz_send_data">
+            <shadow type="text">
+              <field name="TEXT">000000000001010100010001</field>
+            </shadow>
+          </value>
+        </block>
 
-      <block type="make_arduino_mhz_available">
-      </block>
+        <block type="make_arduino_mhz_send_tri_state_code">
+          <value name="mhz_send_data">
+            <shadow type="text">
+              <field name="TEXT">11000FFF0F0F</field>
+            </shadow>
+          </value>
+        </block>
 
-      <block type="make_arduino_mhz_get_data">
-      </block>
+        <block type="make_arduino_mhz_available">
+        </block>
 
-      <block type="make_arduino_mhz_resetAvailable">
-      </block>
+        <block type="make_arduino_mhz_resetAvailable">
+        </block>
+
+        <block type="make_arduino_mhz_get_data">
+        </block>
+
+      </category>
 
     </category>
   </category>

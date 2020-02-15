@@ -4050,6 +4050,671 @@ Blockly.Blocks.make_arduino_nrf24l01_getData= {
   }
 };
 
+//初始化nRF24L01无线通信模块
+Blockly.Blocks.make_arduino_rf24_begin= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("初始化nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name");
+  this.appendValueInput("ce")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" CE#");
+  this.appendValueInput("csn")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("CSN#");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 获取数据
+Blockly.Blocks.make_arduino_rf24_get_data= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(new Blockly.FieldDropdown([["设备加入SPI网络？","isChipConnected"],["当前连接硬件是nRF24L01+?","isPVariant"],["接收到数据？","available"],["设备出现故障？","failureDetected"],["接收缓冲区已满？","rxFifoFull"],["最近一次写入时收到ACK数据包?","isAckPayloadAvailable"],["清空传输缓冲区，返回状态寄存器当前值","flush_tx"],["清空接收缓冲区，返回状态寄存器当前值","flush_rx"],["返回发送结果，设备进入STANDBY-I模式","txStandBy"],["获取当前配置的射频通道","getChannel"],["获取当前配置的射频功率","getPALevel"],["获取当前配置的空中波特率","getDataRate"],["获取当前配置的CRC校验的校验长度","getCRCLength"],["获取静态数据包长度","getPayloadSize"],["获取动态数据包长度","getDynamicPayloadSize"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 执行某些函数
+Blockly.Blocks.make_arduino_rf24_do= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(new Blockly.FieldDropdown([["开始监听","startListening"],["停止监听","stopListening"],["串口打印设备详细信息","printDetails"],["设备进入掉电模式","powerDown"],["设备进入工作模式","powerUp"],["设备进入STANDBY-I模式","txStandBy"],["复用上次成功发送出的数据包","reUseTX"],["启用ACK数据包","enableAckPayload"],["启用动态数据包","enableDynamicPayloads"],["禁用动态数据包","disableDynamicPayloads"],["为选定的消息启用动态ACK","enableDynamicAck"],["禁用CRC校验","disableCRC"]]), "type");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 打开发送管道
+Blockly.Blocks.make_arduino_rf24_openWritingPipe= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" 打开发送管道");
+  this.appendValueInput("address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("接收端地址");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 打开接收管道
+Blockly.Blocks.make_arduino_rf24_openReadingPipe= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" 打开接收管道");
+  this.appendValueInput("number")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("管道编号");
+  this.appendValueInput("address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("接收端地址");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 接收管道编号
+Blockly.Blocks.make_arduino_rf24_pipe_type= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldDropdown([["0","0"],["1","1"],["2","2"],["3","3"],["4","4"],["5","5"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 关闭接收管道
+Blockly.Blocks.make_arduino_rf24_closeReadingPipe= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" 关闭接收管道");
+  this.appendValueInput("number")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("管道编号");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 接收到数据？ 保存接收管道编号到变量
+Blockly.Blocks.make_arduino_rf24_available= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" 接收到数据？");
+  this.appendValueInput("pipe_num")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("获取接收管道编号到变量");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 设置地址宽度
+Blockly.Blocks.make_arduino_rf24_setAddressWidth= {
+  init: function() { 
+  this.appendValueInput("width")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" 地址宽度设为");
+  this.appendDummyInput()  
+      .appendField("字节");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 定义可用的地址宽度
+Blockly.Blocks.make_arduino_rf24_AddressWidth_data= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldDropdown([["3","3"],["4","4"],["5","5"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 设置射频通道
+Blockly.Blocks.make_arduino_rf24_setChannel= {
+  init: function() { 
+  this.appendValueInput("channel")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" 射频通道设为");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 设置射频功率
+Blockly.Blocks.make_arduino_rf24_setPALevel= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" 射频功率设为")
+      .appendField(new Blockly.FieldDropdown([["-18dBm","RF24_PA_MIN"],["-12dBm","RF24_PA_LOW"],["-6dBm","RF24_PA_HIGH"],["0dBm","RF24_PA_MAX"]]), "type");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 设置空中波特率
+Blockly.Blocks.make_arduino_rf24_setDataRate= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" 空中波特率设为")
+      .appendField(new Blockly.FieldDropdown([["250Kbps","RF24_250KBPS"],["1Mbps","RF24_1MBPS"],["2Mbps","RF24_2MBPS"]]), "type");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 设置CRC校验的校验长度
+Blockly.Blocks.make_arduino_rf24_setCRCLength= {
+  init: function() { 
+  this.appendValueInput("length")
+      .setCheck(null)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" CRC校验的校验长度设为");
+  this.appendDummyInput()  
+      .appendField("字节");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 可设置的CRC校验的校验长度类型
+Blockly.Blocks.make_arduino_rf24_setCRCLength_data= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldDropdown([["8","RF24_CRC_8"],["16","RF24_CRC_16"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 设置静态载荷的长度
+Blockly.Blocks.make_arduino_rf24_setPayloadSize= {
+  init: function() { 
+  this.appendValueInput("length")
+      .setCheck(null)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" 静态数据包长度设为");
+  this.appendDummyInput()  
+      .appendField("字节");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 启用或禁用自动应答
+Blockly.Blocks.make_arduino_rf24_setAutoAck_all= {
+  init: function() { 
+  this.appendValueInput("enable")
+      .setCheck(null)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" 自动应答");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//开启 - 关闭
+Blockly.Blocks.make_arduino_open_close= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldDropdown([["开启","true"],["关闭","false"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 在某个管道上启用或禁用自动应答
+Blockly.Blocks.make_arduino_rf24_setAutoAck= {
+  init: function() { 
+  this.appendValueInput("pipe")
+      .setCheck(null)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" 管道编号");
+  this.appendValueInput("enable")
+      .setCheck(null)  
+      .appendField("自动应答");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 设置自动重发延时和发送次数
+Blockly.Blocks.make_arduino_rf24_setRetries= {
+  init: function() { 
+  this.appendValueInput("delay")
+      .setCheck(null)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" 自动重发延时");
+  this.appendValueInput("count")
+      .setCheck(null)  
+      .appendField("重发次数");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 屏蔽中断
+Blockly.Blocks.make_arduino_rf24_maskIRQ= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" 屏蔽中断");
+  this.appendValueInput("tx_ok")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("传输完成中断");
+  this.appendValueInput("tx_fail")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("传输失败中断");
+  this.appendValueInput("rx_ready")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("接收到数据包中断");
+  this.setInputsInline(false);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 获取中断
+Blockly.Blocks.make_arduino_rf24_whatHappened= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" 清除中断");
+  this.appendValueInput("tx_ok")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("获取 传输完成中断 到变量");
+  this.appendValueInput("tx_fail")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("获取 传输失败中断 到变量");
+  this.appendValueInput("rx_ready")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("获取 接收到数据包中断 到变量");
+  this.setInputsInline(false);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 发送数据
+Blockly.Blocks.make_arduino_rf24_write= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name");
+  this.appendValueInput("buf")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" ")
+      .appendField(new Blockly.FieldDropdown([["发送","write"],["发送(自动重发)","writeFast"]]), "type");
+  this.appendValueInput("len")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("长度");
+  this.appendValueInput("multicast")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("自动应答");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 发送数据，返回发送结果
+Blockly.Blocks.make_arduino_rf24_write_return= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name");
+  this.appendValueInput("buf")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" ")
+      .appendField(new Blockly.FieldDropdown([["发送","write"],["发送(自动重发)","writeFast"]]), "type");
+  this.appendValueInput("len")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("长度");
+  this.appendValueInput("multicast")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("自动应答");
+  this.appendDummyInput()  
+      .appendField("返回发送结果");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 发送数据(可设置超时时间)
+Blockly.Blocks.make_arduino_rf24_writeBlocking= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name");
+  this.appendValueInput("buf")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 发送(自动重发)");
+  this.appendValueInput("len")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("长度");
+  this.appendValueInput("timeout")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("超时时间");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 发送数据(可设置超时时间)，返回发送结果
+Blockly.Blocks.make_arduino_rf24_writeBlocking_return= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name");
+  this.appendValueInput("buf")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 发送(自动重发)");
+  this.appendValueInput("len")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("长度");
+  this.appendValueInput("timeout")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("超时时间");
+  this.appendDummyInput()  
+      .appendField("返回发送结果");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 写入ACK数据包
+Blockly.Blocks.make_arduino_rf24_writeAckPayload= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name")
+      .appendField(" 写入ACK数据包");
+  this.appendValueInput("pipe")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("管道编号");
+  this.appendValueInput("buf")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("数据");
+  this.appendValueInput("len")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("长度");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 读取数据
+Blockly.Blocks.make_arduino_rf24_read= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/2.4G.png", 25, 25, "*"))
+      .appendField("nRF24L01")
+      .appendField(new Blockly.FieldTextInput("radio"), "name");
+  this.appendValueInput("buf")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 读取 保存数据到变量");
+  this.appendValueInput("len")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("长度");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 数据长度定义
+Blockly.Blocks.make_arduino_rf24_length= {
+  init: function() {
+  var length_data = new Array();
+  for(var i = 0;i < 33; i++)
+  {
+    length_data[i] = new Array();
+    for(var j = 0;j < 2;j++)
+    {
+      length_data[i][j] = String(i);
+    }
+  }
+  this.appendDummyInput()
+      .appendField(new Blockly.FieldDropdown(length_data), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 射频通道定义
+Blockly.Blocks.make_arduino_rf24_channel= {
+  init: function() {
+  var channel_data = new Array();
+  for(var i = 0;i < 126; i++)
+  {
+    channel_data[i] = new Array();
+    for(var j = 0;j < 2;j++)
+    {
+      channel_data[i][j] = String(i);
+    }
+  }
+  this.appendDummyInput()
+      .appendField(new Blockly.FieldDropdown(channel_data), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//nRF24L01无线通信模块 重发次数定义
+Blockly.Blocks.make_arduino_rf24_count= {
+  init: function() {
+  var count_data = new Array();
+  for(var i = 0;i < 16; i++)
+  {
+    count_data[i] = new Array();
+    for(var j = 0;j < 2;j++)
+    {
+      count_data[i][j] = String(i);
+    }
+  }
+  this.appendDummyInput()
+      .appendField(new Blockly.FieldDropdown(count_data), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(140);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
 //初始化315/433MHZ无线通信模块的发送管脚
 Blockly.Blocks.make_arduino_mhz_send_begin= {
   init: function() { 
@@ -4145,7 +4810,7 @@ Blockly.Blocks.make_arduino_mhz_setPulseLength= {
       .appendField(new Blockly.FieldTextInput("mySwitch"), "mhz_name");
   this.appendValueInput("mhz_pulselength")
       .setCheck(null)  
-      .appendField(" 设置发送数据用脉冲长度为");
+      .appendField(" 发送数据用脉冲长度设为");
   this.appendDummyInput()  
       .appendField("微秒");
   this.setInputsInline(true);
@@ -4216,7 +4881,7 @@ Blockly.Blocks.make_arduino_mhz_setRepeatTransmit= {
       .appendField(new Blockly.FieldTextInput("mySwitch"), "mhz_name");
   this.appendValueInput("mhz_repeat_data")
       .setCheck(null)  
-      .appendField(" 设置发送数据时重复次数为");
+      .appendField(" 重发次数设为");
   this.setInputsInline(true);
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
@@ -4243,7 +4908,7 @@ Blockly.Blocks.make_arduino_mhz_setReceiveTolerance= {
       .appendField(new Blockly.FieldTextInput("mySwitch"), "mhz_name");
   this.appendValueInput("mhz_tolerance_data")
       .setCheck(null)  
-      .appendField(" 设置接收允许误差为");
+      .appendField(" 接收允许误差设为");
   this.setInputsInline(true);
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);

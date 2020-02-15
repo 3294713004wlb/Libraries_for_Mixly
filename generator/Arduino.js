@@ -2370,6 +2370,293 @@ Blockly.Arduino.make_arduino_nrf24l01_getData = function() {
   return code;
 };
 
+//初始化nRF24L01无线通信模块
+Blockly.Arduino.make_arduino_rf24_begin = function() {
+    var text_name = this.getFieldValue('name');
+    var value_ce = Blockly.Arduino.valueToCode(this, 'ce', Blockly.Arduino.ORDER_ATOMIC);
+    var value_csn = Blockly.Arduino.valueToCode(this, 'csn', Blockly.Arduino.ORDER_ATOMIC);
+
+  Blockly.Arduino.definitions_['include_SPI'] = '#include <SPI.h>';
+  Blockly.Arduino.definitions_['include_nRF24L01'] = '#include "nRF24L01.h"';
+  Blockly.Arduino.definitions_['include_RF24'] = '#include "RF24.h"';
+
+  Blockly.Arduino.definitions_['var_declare_rf24' + text_name] = 'RF24 '+text_name+'('+value_ce+', '+value_csn+');';
+  Blockly.Arduino.setups_['setup_rf24_'+text_name] = text_name+'.begin();';
+  var code = '';
+  return code;
+};
+
+//nRF24L01无线通信模块 获取数据
+Blockly.Arduino.make_arduino_rf24_get_data = function() {
+    var text_name = this.getFieldValue('name');
+    var dropdown_type = this.getFieldValue('type');
+  var code = '';
+  if(dropdown_type == 'failureDetected')
+  {
+    code = text_name+'.'+dropdown_type;
+  }
+  else
+  {
+    code = text_name+'.'+dropdown_type+'()';
+  }
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//nRF24L01无线通信模块 执行某些函数
+Blockly.Arduino.make_arduino_rf24_do = function() {
+    var text_name = this.getFieldValue('name');
+    var dropdown_type = this.getFieldValue('type');
+  if(dropdown_type == 'printDetails')
+  {
+    Blockly.Arduino.definitions_['include_printf'] = '#include "printf.h"';
+    Blockly.Arduino.setups_['setup_printf_begin'] = 'printf_begin();';
+    var code = text_name+'.'+dropdown_type+'();\n';
+  }
+  else
+  {
+    var code = text_name+'.'+dropdown_type+'();\n';
+  }
+  
+  return code;
+};
+
+//nRF24L01无线通信模块 打开发送管道
+Blockly.Arduino.make_arduino_rf24_openWritingPipe = function() {
+    var text_name = this.getFieldValue('name');
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.openWritingPipe('+value_address+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 打开接收管道
+Blockly.Arduino.make_arduino_rf24_openReadingPipe = function() {
+    var text_name = this.getFieldValue('name');
+    var value_number = Blockly.Arduino.valueToCode(this, 'number', Blockly.Arduino.ORDER_ATOMIC);
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.openReadingPipe('+value_number+', '+value_address+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 接收管道编号
+Blockly.Arduino.make_arduino_rf24_pipe_type = function() {
+    var dropdown_type = this.getFieldValue('type');
+  var code = dropdown_type;
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//nRF24L01无线通信模块 关闭接收管道
+Blockly.Arduino.make_arduino_rf24_closeReadingPipe = function() {
+    var text_name = this.getFieldValue('name');
+    var value_number = Blockly.Arduino.valueToCode(this, 'number', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.closeReadingPipe('+value_number+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 接收到数据？ 保存接收管道编号到变量
+Blockly.Arduino.make_arduino_rf24_available = function() {
+    var text_name = this.getFieldValue('name');
+    var value_pipe_num = Blockly.Arduino.valueToCode(this, 'pipe_num', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.available(&'+value_pipe_num+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//nRF24L01无线通信模块 设置地址宽度
+Blockly.Arduino.make_arduino_rf24_setAddressWidth = function() {
+    var value_width = Blockly.Arduino.valueToCode(this, 'width', Blockly.Arduino.ORDER_ATOMIC);
+    var text_name = this.getFieldValue('name');
+  var code = text_name+'.setAddressWidth('+value_width+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 定义可用的地址宽度
+Blockly.Arduino.make_arduino_rf24_AddressWidth_data = function() {
+    var dropdown_type = this.getFieldValue('type');
+  var code = dropdown_type;
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//nRF24L01无线通信模块 设置射频通道
+Blockly.Arduino.make_arduino_rf24_setChannel = function() {
+    var value_channel = Blockly.Arduino.valueToCode(this, 'channel', Blockly.Arduino.ORDER_ATOMIC);
+    var text_name = this.getFieldValue('name');
+  var code = text_name+'.setChannel('+value_channel+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 设置射频功率
+Blockly.Arduino.make_arduino_rf24_setPALevel = function() {
+    var text_name = this.getFieldValue('name');
+    var dropdown_type = this.getFieldValue('type');
+  var code = text_name+'.setPALevel('+dropdown_type+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 设置空中波特率
+Blockly.Arduino.make_arduino_rf24_setDataRate = function() {
+    var text_name = this.getFieldValue('name');
+    var dropdown_type = this.getFieldValue('type');
+  var code = text_name+'.setDataRate('+dropdown_type+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 设置CRC校验的校验长度
+Blockly.Arduino.make_arduino_rf24_setCRCLength = function() {
+    var value_length = Blockly.Arduino.valueToCode(this, 'length', Blockly.Arduino.ORDER_ATOMIC);
+    var text_name = this.getFieldValue('name');
+  var code = text_name+'.setCRCLength('+value_length+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 可设置的CRC校验的校验长度类型
+Blockly.Arduino.make_arduino_rf24_setCRCLength_data = function() {
+    var dropdown_type = this.getFieldValue('type');
+  var code = dropdown_type;
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//nRF24L01无线通信模块 设置静态载荷的长度
+Blockly.Arduino.make_arduino_rf24_setPayloadSize = function() {
+    var value_length = Blockly.Arduino.valueToCode(this, 'length', Blockly.Arduino.ORDER_ATOMIC);
+    var text_name = this.getFieldValue('name');
+  var code = text_name+'.setPayloadSize('+value_length+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 启用或禁用自动应答
+Blockly.Arduino.make_arduino_rf24_setAutoAck_all = function() {
+    var value_enable = Blockly.Arduino.valueToCode(this, 'enable', Blockly.Arduino.ORDER_ATOMIC);
+    var text_name = this.getFieldValue('name');
+  var code = text_name+'.setAutoAck('+value_enable+');\n';
+  return code;
+};
+
+//开启 - 关闭
+Blockly.Arduino.make_arduino_open_close = function() {
+    var dropdown_type = this.getFieldValue('type');
+  var code = dropdown_type;
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//nRF24L01无线通信模块 在某个管道上启用或禁用自动应答
+Blockly.Arduino.make_arduino_rf24_setAutoAck = function() {
+    var value_pipe = Blockly.Arduino.valueToCode(this, 'pipe', Blockly.Arduino.ORDER_ATOMIC);
+    var text_name = this.getFieldValue('name');
+    var value_enable = Blockly.Arduino.valueToCode(this, 'enable', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.setAutoAck('+value_pipe+', '+value_enable+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 设置自动重发延时和发送次数
+Blockly.Arduino.make_arduino_rf24_setRetries = function() {
+    var value_delay = Blockly.Arduino.valueToCode(this, 'delay', Blockly.Arduino.ORDER_ATOMIC);
+    var text_name = this.getFieldValue('name');
+    var value_count = Blockly.Arduino.valueToCode(this, 'count', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.setRetries('+value_delay+', '+value_count+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 屏蔽中断
+Blockly.Arduino.make_arduino_rf24_maskIRQ = function() {
+    var text_name = this.getFieldValue('name');
+    var value_tx_ok = Blockly.Arduino.valueToCode(this, 'tx_ok', Blockly.Arduino.ORDER_ATOMIC);
+    var value_tx_fail = Blockly.Arduino.valueToCode(this, 'tx_fail', Blockly.Arduino.ORDER_ATOMIC);
+    var value_rx_ready = Blockly.Arduino.valueToCode(this, 'rx_ready', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.maskIRQ('+value_tx_ok+', '+value_tx_fail+', '+value_rx_ready+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 获取中断
+Blockly.Arduino.make_arduino_rf24_whatHappened = function() {
+    var text_name = this.getFieldValue('name');
+    var value_tx_ok = Blockly.Arduino.valueToCode(this, 'tx_ok', Blockly.Arduino.ORDER_ATOMIC);
+    var value_tx_fail = Blockly.Arduino.valueToCode(this, 'tx_fail', Blockly.Arduino.ORDER_ATOMIC);
+    var value_rx_ready = Blockly.Arduino.valueToCode(this, 'rx_ready', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.whatHappened('+value_tx_ok+', '+value_tx_fail+', '+value_rx_ready+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 发送数据
+Blockly.Arduino.make_arduino_rf24_write = function() {
+    var text_name = this.getFieldValue('name');
+    var value_buf = Blockly.Arduino.valueToCode(this, 'buf', Blockly.Arduino.ORDER_ATOMIC);
+    var dropdown_type = this.getFieldValue('type');
+    var value_len = Blockly.Arduino.valueToCode(this, 'len', Blockly.Arduino.ORDER_ATOMIC);
+    var value_multicast = Blockly.Arduino.valueToCode(this, 'multicast', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.'+dropdown_type+'(&'+value_buf+', '+value_len+', '+value_multicast+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 发送数据，返回发送结果
+Blockly.Arduino.make_arduino_rf24_write_return = function() {
+    var text_name = this.getFieldValue('name');
+    var value_buf = Blockly.Arduino.valueToCode(this, 'buf', Blockly.Arduino.ORDER_ATOMIC);
+    var dropdown_type = this.getFieldValue('type');
+    var value_len = Blockly.Arduino.valueToCode(this, 'len', Blockly.Arduino.ORDER_ATOMIC);
+    var value_multicast = Blockly.Arduino.valueToCode(this, 'multicast', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.'+dropdown_type+'(&'+value_buf+', '+value_len+', '+value_multicast+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//nRF24L01无线通信模块 发送数据(可设置超时时间)
+Blockly.Arduino.make_arduino_rf24_writeBlocking = function() {
+    var text_name = this.getFieldValue('name');
+    var value_buf = Blockly.Arduino.valueToCode(this, 'buf', Blockly.Arduino.ORDER_ATOMIC);
+    var value_len = Blockly.Arduino.valueToCode(this, 'len', Blockly.Arduino.ORDER_ATOMIC);
+    var value_timeout = Blockly.Arduino.valueToCode(this, 'timeout', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.writeBlocking(&'+value_buf+', '+value_len+', '+value_timeout+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 发送数据(可设置超时时间)，返回发送结果
+Blockly.Arduino.make_arduino_rf24_writeBlocking_return = function() {
+    var text_name = this.getFieldValue('name');
+    var value_buf = Blockly.Arduino.valueToCode(this, 'buf', Blockly.Arduino.ORDER_ATOMIC);
+    var value_len = Blockly.Arduino.valueToCode(this, 'len', Blockly.Arduino.ORDER_ATOMIC);
+    var value_timeout = Blockly.Arduino.valueToCode(this, 'timeout', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.writeBlocking(&'+value_buf+', '+value_len+', '+value_timeout+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//nRF24L01无线通信模块 写入ACK数据包
+Blockly.Arduino.make_arduino_rf24_writeAckPayload = function() {
+    var text_name = this.getFieldValue('name');
+    var value_pipe = Blockly.Arduino.valueToCode(this, 'pipe', Blockly.Arduino.ORDER_ATOMIC);
+    var value_buf = Blockly.Arduino.valueToCode(this, 'buf', Blockly.Arduino.ORDER_ATOMIC);
+    var value_len = Blockly.Arduino.valueToCode(this, 'len', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.writeAckPayload('+value_pipe+', &'+value_buf+', '+value_len+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 读取数据
+Blockly.Arduino.make_arduino_rf24_read = function() {
+    var text_name = this.getFieldValue('name');
+    var value_buf = Blockly.Arduino.valueToCode(this, 'buf', Blockly.Arduino.ORDER_ATOMIC);
+    var value_len = Blockly.Arduino.valueToCode(this, 'len', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.read(&'+value_buf+', '+value_len+');\n';
+  return code;
+};
+
+//nRF24L01无线通信模块 数据长度定义
+Blockly.Arduino.make_arduino_rf24_length = function() {
+    var dropdown_type = this.getFieldValue('type');
+  var code = dropdown_type;
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//nRF24L01无线通信模块 射频通道定义
+Blockly.Arduino.make_arduino_rf24_channel = function() {
+    var dropdown_type = this.getFieldValue('type');
+  var code = dropdown_type;
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//nRF24L01无线通信模块 重发次数定义
+Blockly.Arduino.make_arduino_rf24_count = function() {
+    var dropdown_type = this.getFieldValue('type');
+  var code = dropdown_type;
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
 //初始化315/433MHZ无线通信模块的发送管脚
 Blockly.Arduino.make_arduino_mhz_send_begin = function() {
   this.setTooltip("初始化315/433MHZ无线通信模块的发送管脚");
