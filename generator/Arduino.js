@@ -315,13 +315,13 @@ Blockly.Arduino.make_do_while = function() {
   {
     var code = 'do{\n'
               +''+statements_input_data
-              +'}while(!('+value_select_data+'))\n';
+              +'}while(!('+value_select_data+'));\n';
   }
   else
   {
     var code = 'do{\n'
               +''+statements_input_data
-              +'}while('+value_select_data+')\n';
+              +'}while('+value_select_data+');\n';
   }
   return code;
 };
@@ -4596,6 +4596,107 @@ Blockly.Arduino.make_arduino_tca9548a_set_port_data = function() {
 Blockly.Arduino.make_arduino_tca9548a_get_port = function() {
     var text_tca9548a_name = this.getFieldValue('tca9548a_name');
   var code = ''+text_tca9548a_name+'.get_port()';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//初始化AS608光学指纹传感器
+Blockly.Arduino.make_arduino_as608_begin = function() {
+    var text_as608_name = this.getFieldValue('as608_name');
+    var value_softwire = Blockly.Arduino.valueToCode(this, 'softwire', Blockly.Arduino.ORDER_ATOMIC);
+    var value_password = Blockly.Arduino.valueToCode(this, 'password', Blockly.Arduino.ORDER_ATOMIC);
+    var value_rate = Blockly.Arduino.valueToCode(this, 'rate', Blockly.Arduino.ORDER_ATOMIC);
+
+  Blockly.Arduino.definitions_['include_Adafruit_Fingerprint'] = '#include <Adafruit_Fingerprint.h>';
+  Blockly.Arduino.definitions_['var_declare_zas608_begin_'+text_as608_name] = 'Adafruit_Fingerprint '+text_as608_name+' = Adafruit_Fingerprint(&'+value_softwire+', '+value_password+');';
+  Blockly.Arduino.setups_['setup_as608_begin_'+text_as608_name] = text_as608_name+'.begin('+value_rate+');';
+  var code = '';
+  return code;
+};
+
+//AS608光学指纹传感器 串口传输波特率定义
+Blockly.Arduino.make_arduino_as608_rate = function() {
+    var dropdown_type = this.getFieldValue('type');
+  var code = dropdown_type;
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//AS608光学指纹传感器 获取数据
+Blockly.Arduino.make_arduino_as608_get = function() {
+    var text_as608_name = this.getFieldValue('as608_name');
+    var dropdown_type = this.getFieldValue('type');
+  var code = text_as608_name+'.'+dropdown_type;
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//AS608光学指纹传感器 执行某些函数
+Blockly.Arduino.make_arduino_as608_do = function() {
+    var text_as608_name = this.getFieldValue('as608_name');
+    var dropdown_type = this.getFieldValue('type');
+  var code = text_as608_name+'.'+dropdown_type+';\n';
+  return code;
+};
+
+//AS608光学指纹传感器 指纹图像转为特征模板 返回结果
+Blockly.Arduino.make_arduino_as608_image2Tz_return = function() {
+    var text_as608_name = this.getFieldValue('as608_name');
+    var value_slot = Blockly.Arduino.valueToCode(this, 'slot', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_as608_name+'.image2Tz('+value_slot+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//AS608光学指纹传感器 指纹图像转为特征模板
+Blockly.Arduino.make_arduino_as608_image2Tz = function() {
+    var text_as608_name = this.getFieldValue('as608_name');
+    var value_slot = Blockly.Arduino.valueToCode(this, 'slot', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_as608_name+'.image2Tz('+value_slot+');\n';
+  return code;
+};
+
+//AS608光学指纹传感器 槽位类型
+Blockly.Arduino.make_arduino_as608_image2Tz_slot = function() {
+    var dropdown_type = this.getFieldValue('type');
+  var code = dropdown_type;
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//AS608光学指纹传感器 操作模型 返回结果
+Blockly.Arduino.make_arduino_as608_operate_model_return = function() {
+    var text_as608_name = this.getFieldValue('as608_name');
+    var dropdown_type = this.getFieldValue('type');
+    var value_location = Blockly.Arduino.valueToCode(this, 'location', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_as608_name+'.'+dropdown_type+'('+value_location+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//AS608光学指纹传感器 操作模型
+Blockly.Arduino.make_arduino_as608_operate_model = function() {
+    var text_as608_name = this.getFieldValue('as608_name');
+    var dropdown_type = this.getFieldValue('type');
+    var value_location = Blockly.Arduino.valueToCode(this, 'location', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_as608_name+'.'+dropdown_type+'('+value_location+');\n';
+  return code;
+};
+
+//AS608光学指纹传感器 设置访问密码 返回结果
+Blockly.Arduino.make_arduino_as608_setPassword_return = function() {
+    var text_as608_name = this.getFieldValue('as608_name');
+    var value_password = Blockly.Arduino.valueToCode(this, 'password', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_as608_name+'.setPassword('+value_password+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//AS608光学指纹传感器 设置访问密码
+Blockly.Arduino.make_arduino_as608_setPassword = function() {
+    var text_as608_name = this.getFieldValue('as608_name');
+    var value_password = Blockly.Arduino.valueToCode(this, 'password', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_as608_name+'.setPassword('+value_password+');\n';
+  return code;
+};
+
+//AS608光学指纹传感器 返回值类型
+Blockly.Arduino.make_arduino_as608_get_data = function() {
+    var dropdown_type = this.getFieldValue('type');
+  var code = dropdown_type;
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
@@ -18390,6 +18491,21 @@ Blockly.Arduino.make_arduino_comment_text_2 = function() {
     code = '/*'+code+'*/\n';
   }
   
+  return code;
+};
+
+Blockly.Arduino.make_arduino_comment_text_3 = function() {
+    var text_data = this.getFieldValue('data');
+    var statements_input = Blockly.Arduino.statementToCode(this, 'input');
+  statements_input = statements_input.replace(new RegExp(/\n  /g), "\n");
+  statements_input = statements_input.replace(/(^\s*)|(\s*$)/g, "");//去除两端空格
+  var code = '/*'+text_data+'*/\n'+statements_input+"\n";
+  return code;
+};
+
+Blockly.Arduino.make_arduino_comment_text_4 = function() {
+    var statements_input = Blockly.Arduino.statementToCode(this, 'input');
+  var code = '/*\n'+statements_input+'*/';
   return code;
 };
 

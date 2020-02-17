@@ -9103,6 +9103,236 @@ Blockly.Blocks.make_arduino_tca9548a_get_port= {
   }
 };
 
+//初始化AS608光学指纹传感器
+Blockly.Blocks.make_arduino_as608_begin= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/指纹.png", 25, 25, "*"))
+      .appendField("初始化AS608")
+      .appendField(new Blockly.FieldTextInput("finger"), "as608_name");
+  this.appendValueInput("softwire")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 使用串口");
+  this.appendValueInput("rate")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("波特率");
+  this.appendValueInput("password")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("访问密码");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//AS608光学指纹传感器 串口传输波特率定义
+Blockly.Blocks.make_arduino_as608_rate= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldDropdown([["9600","9600"],["57600","57600"],["115200","115200"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//AS608光学指纹传感器 获取数据
+Blockly.Blocks.make_arduino_as608_get= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/指纹.png", 25, 25, "*"))
+      .appendField("AS608")
+      .appendField(new Blockly.FieldTextInput("finger"), "as608_name")
+      .appendField(new Blockly.FieldDropdown([["访问密码正确？","verifyPassword()"],["获取一张指纹图像 返回结果","getImage()"],["取两个特征模板创建指纹模型 返回结果","createModel()"],["串口发送指纹模型到主机 返回结果","getModel()"],["清空指纹库 返回结果","emptyDatabase()"],["在指纹库中搜索刚创建的指纹模型 返回结果","fingerFastSearch()"],["读取指纹库中模型数量 返回结果","getTemplateCount()"],["获取指纹模型编号","fingerID"],["获取置信度","confidence"],["获取指纹库中模型数量","templateCount"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//AS608光学指纹传感器 执行某些函数
+Blockly.Blocks.make_arduino_as608_do= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/指纹.png", 25, 25, "*"))
+      .appendField("AS608")
+      .appendField(new Blockly.FieldTextInput("finger"), "as608_name")
+      .appendField(new Blockly.FieldDropdown([["获取一张指纹图像","getImage()"],["取两个特征模板创建指纹模型","createModel()"],["串口发送指纹模型到主机","getModel()"],["清空指纹库","emptyDatabase()"],["在指纹库中搜索刚创建的指纹模型","fingerFastSearch()"],["读取指纹库中模型数量","getTemplateCount()"]]), "type");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//AS608光学指纹传感器 指纹图像转为特征模板 返回结果
+Blockly.Blocks.make_arduino_as608_image2Tz_return= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/指纹.png", 25, 25, "*"))
+      .appendField("AS608")
+      .appendField(new Blockly.FieldTextInput("finger"), "as608_name")
+      .appendField(" 指纹图像转为特征模板并保存到");
+  this.appendValueInput("slot")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("槽位");
+  this.appendDummyInput()  
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("返回结果");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//AS608光学指纹传感器 指纹图像转为特征模板
+Blockly.Blocks.make_arduino_as608_image2Tz= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/指纹.png", 25, 25, "*"))
+      .appendField("AS608")
+      .appendField(new Blockly.FieldTextInput("finger"), "as608_name")
+      .appendField(" 指纹图像转为特征模板并保存到");
+  this.appendValueInput("slot")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("槽位");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//AS608光学指纹传感器 槽位类型
+Blockly.Blocks.make_arduino_as608_image2Tz_slot= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldDropdown([["1","1"],["2","2"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//AS608光学指纹传感器 操作模型 返回结果
+Blockly.Blocks.make_arduino_as608_operate_model_return= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/指纹.png", 25, 25, "*"))
+      .appendField("AS608")
+      .appendField(new Blockly.FieldTextInput("finger"), "as608_name")
+      .appendField(new Blockly.FieldDropdown([["储存指纹模型","storeModel"],["加载指纹模型","loadModel"],["删除指纹模型","deleteModel"]]), "type");
+  this.appendValueInput("location")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 位置");
+  this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("返回结果");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//AS608光学指纹传感器 操作模型
+Blockly.Blocks.make_arduino_as608_operate_model= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/指纹.png", 25, 25, "*"))
+      .appendField("AS608")
+      .appendField(new Blockly.FieldTextInput("finger"), "as608_name")
+      .appendField(new Blockly.FieldDropdown([["储存指纹模型","storeModel"],["加载指纹模型","loadModel"],["删除指纹模型","deleteModel"]]), "type");
+  this.appendValueInput("location")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 位置");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//AS608光学指纹传感器 设置访问密码 返回结果
+Blockly.Blocks.make_arduino_as608_setPassword_return= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/指纹.png", 25, 25, "*"))
+      .appendField("AS608")
+      .appendField(new Blockly.FieldTextInput("finger"), "as608_name");
+  this.appendValueInput("password")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 访问密码设为");
+  this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("返回结果");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//AS608光学指纹传感器 设置访问密码
+Blockly.Blocks.make_arduino_as608_setPassword= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/指纹.png", 25, 25, "*"))
+      .appendField("AS608")
+      .appendField(new Blockly.FieldTextInput("finger"), "as608_name");
+  this.appendValueInput("password")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 访问密码设为");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//AS608光学指纹传感器 返回值类型
+Blockly.Blocks.make_arduino_as608_get_data= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldDropdown([["FINGERPRINT_OK","FINGERPRINT_OK"],["FINGERPRINT_PACKETRECIEVEERR","FINGERPRINT_PACKETRECIEVEERR"],["FINGERPRINT_NOFINGER","FINGERPRINT_NOFINGER"],["FINGERPRINT_IMAGEFAIL","FINGERPRINT_IMAGEFAIL"],["FINGERPRINT_IMAGEMESS","FINGERPRINT_IMAGEMESS"],["FINGERPRINT_FEATUREFAIL","FINGERPRINT_FEATUREFAIL"],["FINGERPRINT_NOMATCH","FINGERPRINT_NOMATCH"],["FINGERPRINT_NOTFOUND","FINGERPRINT_NOTFOUND"],["FINGERPRINT_ENROLLMISMATCH","FINGERPRINT_ENROLLMISMATCH"],["FINGERPRINT_BADLOCATION","FINGERPRINT_BADLOCATION"],["FINGERPRINT_DBRANGEFAIL","FINGERPRINT_DBRANGEFAIL"],["FINGERPRINT_UPLOADFEATUREFAIL","FINGERPRINT_UPLOADFEATUREFAIL"],["FINGERPRINT_PACKETRESPONSEFAIL","FINGERPRINT_PACKETRESPONSEFAIL"],["FINGERPRINT_UPLOADFAIL","FINGERPRINT_UPLOADFAIL"],["FINGERPRINT_DELETEFAIL","FINGERPRINT_DELETEFAIL"],["FINGERPRINT_DBCLEARFAIL","FINGERPRINT_DBCLEARFAIL"],["FINGERPRINT_PASSFAIL","FINGERPRINT_PASSFAIL"],["FINGERPRINT_INVALIDIMAGE","FINGERPRINT_INVALIDIMAGE"],["FINGERPRINT_FLASHERR","FINGERPRINT_FLASHERR"],["FINGERPRINT_INVALIDREG","FINGERPRINT_INVALIDREG"],["FINGERPRINT_ADDRCODE","FINGERPRINT_ADDRCODE"],["FINGERPRINT_PASSVERIFY","FINGERPRINT_PASSVERIFY"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
 //初始化OLED(I2C)
 Blockly.Blocks.make_arduino_oled_begin= {
   init: function() { 
@@ -15967,6 +16197,40 @@ Blockly.Blocks['comment_text_create_with_container'] = {
     this.appendStatementInput('STACK');
     this.setTooltip("");
     this.contextMenu = false;
+  }
+};
+
+Blockly.Blocks.make_arduino_comment_text_3= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField("/*")
+      .appendField(new Blockly.FieldTextInput("添加注释"), "data")
+      .appendField("*/");
+  this.appendStatementInput("input")
+      .setCheck(null);
+  this.setInputsInline(false);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour("#6666cc");
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks.make_arduino_comment_text_4= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField("/*");
+  this.appendStatementInput("input")
+      .setCheck(null);
+  this.appendDummyInput()  
+      .appendField("*/");
+  this.setInputsInline(false);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour("#6666cc");
+  this.setTooltip("");
+  this.setHelpUrl("");
   }
 };
 
