@@ -78,6 +78,28 @@ echo A|xcopy %~dp0\Arduino库文件 %n%\libraries\ /s
 echo.
 echo 导入libraries成功
 echo.
+echo 是否想要导入Arduino库和make库的例程到Mixly?
+echo 若想导入，请按Enter键继续；若不想导入，请退出
+echo.
+echo ------------------------------------------------------------------------------------------------------------------------
+echo Mixly例程所在路径 -- %a%\sample\
+echo ------------------------------------------------------------------------------------------------------------------------
+
+echo.
+echo 请确认Mixly例程所在路径是否正确！
+echo 若正确，请按Enter键继续；若不正确，请退出
+pause
+
+del /f /s /q %a%\sample\Arduino库例程\*.*
+rd /q /s %a%\sample\Arduino库例程\
+md %a%\sample\Arduino库例程
+del /f /s /q %a%\sample\make库例程\*.*
+rd /q /s %a%\sample\make库例程\
+md %a%\sample\make库例程
+echo A|xcopy %~dp0\examples %a%\sample\ /s
+
+echo.
+echo 导入Arduino库、make库例程成功
 pause
 exit
 
