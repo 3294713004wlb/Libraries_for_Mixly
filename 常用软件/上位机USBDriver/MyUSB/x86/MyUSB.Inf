@@ -1,0 +1,97 @@
+; MyUSB.Inf - Install information file
+; For MyUSB Finger Module
+; (c) Copyright 2015 SYNOCHIP
+; built by Blue
+; 2015.02.09
+
+[Version]
+Signature="$CHICAGO$"
+Class=SYNO_MyUSB
+ClassGUID={77989ADF-06DB-4025-92E8-40D902C03B1B}
+Provider=%Author%
+DriverVer=02/10/2015,1.0.1.0
+CatalogFile=MyUSB.cat
+CatalogFile.NTx86=MyUSBX86.cat
+;CatalogFile=MyUSB.cat
+
+[ClassInstall32]
+Addreg = SYNOReg
+
+[ClassInstall]
+Addreg = SYNOReg
+
+[ClassInstall32.ntia64]
+Addreg = SYNOReg
+
+[SYNOReg]
+HKR, , , 0, %ClassName%
+HKR, , Icon, , "-1"
+HKR, , NoInstallClass, , 1
+
+
+[SourceDisksNames]
+1=%Disk_Description%,,,
+
+[SourceDisksFiles]
+MyUSB.sys = 1
+
+[Manufacturer]
+%MfgName%=SynoChip, NTx86, NTia64, NTamd64
+
+[SynoChip.NTx86]
+%USB\VID_0451&PID_9005.DeviceDesc%=SYNOMyUSB.Dev, USB\VID_0453&PID_9005
+
+[SynoChip.NTia64]
+%USB\VID_0451&PID_9005.DeviceDesc%=SYNOMyUSB.Dev, USB\VID_0453&PID_9005
+
+[SynoChip.NTamd64]
+%USB\VID_0451&PID_9005.DeviceDesc%=SYNOMyUSB.Dev, USB\VID_0453&PID_9005
+
+[PreCopySection]
+HKR,,NoSetupUI,,1
+
+[DestinationDirs]
+SYNOMyUSB.Files.Ext = 10,System32\Drivers
+SYNOMyUSB.Files.Inf = 10,INF
+
+[SYNOMyUSB.Dev]
+CopyFiles=SYNOMyUSB.Files.Ext,SYNOMyUSB.Files.Inf
+AddReg=SYNOMyUSB.AddReg
+
+[SYNOMyUSB.Dev.NT]
+CopyFiles=SYNOMyUSB.Files.Ext,SYNOMyUSB.Files.Inf
+AddReg=SYNOMyUSB.AddReg
+
+[SYNOMyUSB.Dev.NT.Services]
+Addservice = SYNOMyUSB, 0x00000002, SYNOMyUSB.AddService
+
+[SYNOMyUSB.AddService]
+DisplayName    = %SYNOMyUSB.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 2                  ; SERVICE_AUTO_START=2,SERVICE_DEMAND_START=3
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\MyUSB.sys
+AddReg         = SYNOMyUSB.AddReg
+LoadOrderGroup = Base
+
+[SYNOMyUSB.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,MyUSB.sys
+HKR,"Parameters","MaximumTransferSize",0x10001,4096
+HKR,"Parameters","DebugLevel",0x10001,2
+HKR,"Parameters","BulkUsbEnable",0x10001,1
+
+[SYNOMyUSB.Files.Ext]
+MyUSB.sys
+
+[SYNOMyUSB.Files.Inf]
+;MyUSB.inf
+;---------------------------------------------------------------;
+
+[Strings]
+ClassName= "Finger Device"
+Author="SynoChip Ltd"
+MfgName="SynoChip"
+Disk_Description="Finger Installation Disk"
+USB\VID_0451&PID_9005.DeviceDesc="Fingerprint Capturer"
+SYNOMyUSB.SvcDesc="MyUSB General Purpose USB Driver w/ Keil Monitor. (MyUSB.sys)"
