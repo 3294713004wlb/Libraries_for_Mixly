@@ -541,7 +541,7 @@ Blockly.Blocks['make_type_image'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("图片")
-        .appendField(new Blockly.FieldTextInput("../../media/make/mixly.GIF"), "type_image_place");
+        .appendField(new Blockly.FieldTextInput("../../media/make/Logo_Mixly.png"), "type_image_place");
     this.appendDummyInput()
         .appendField("宽度:")
         .appendField(new Blockly.FieldTextInput("20"), "type_image_width")
