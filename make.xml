@@ -20,7 +20,7 @@ E-mail:3294713004@qq.com
 		
   		<block type="make_sharp">
 	  	</block>
-	  	
+
 	</category>
 
 	<category id="mixly_input" name="输入" colour="230">
@@ -104,36 +104,55 @@ E-mail:3294713004@qq.com
 		</block>
 	</category>
 
-	<category id="mixly_make" name="编辑生成代码" colour="#3366ff">
+	<category id="mixly_make" name="编辑生成代码" colour="#6666cc">
 		<!--
 		<block type="make_generator_code_header_file">
 		</block>
 		-->
-
+		<!--
 		<block type="make_generator_define">
 			<value name="definitions_data">
-	        	<block type="make_generator_longtext">
+	        	<block type="make_generator_text_input_return">
+				</block>
+	    	</value>
+		</block>
+		-->
+
+		<block type="make_generator_define_setup">
+			<value name="definitions_data">
+	        	<block type="make_generator_text_input_return">
 				</block>
 	    	</value>
 		</block>
 
+		<block type="make_generator_define_special">
+			<value name="definitions_data">
+	        	<block type="make_generator_text_input_return">
+				</block>
+	    	</value>
+		</block>
+
+		<!--
 		<block type="make_generator_setup">
 			<value name="setups_data">
-	        	<block type="make_generator_longtext">
+	        	<block type="make_generator_text_input_return">
+				</block>
+			</value>
+		</block>
+		-->
+
+		<block type="make_generator_loop">
+			<value name="loop_data">
+	        	<block type="make_generator_text_input_return">
 				</block>
 			</value>
 		</block>
 
-		<block type="make_generator_loop">
-			<value name="loop_data">
-	        	<block type="make_generator_longtext">
-				</block>
-			</value>
+		<block type="make_generator_text_input">
 		</block>
 
 		<block type="make_generator_longtext_define">
 		</block>
-
 		<!--
 		<block type="make_generator_longtext_setup">
 		</block>

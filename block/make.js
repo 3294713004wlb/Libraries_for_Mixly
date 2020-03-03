@@ -21,12 +21,13 @@ Blockly.Blocks.make_test_2020_01_16= {
 Blockly.Blocks['make_sharp'] = {
   init: function() {
      eval(Blockly.Arduino.make_block);
-  },
-  onchange: function(){
+  }
+  //,
+  //onchange: function(){
     //this.init(); 
     //eval(Blockly.Arduino.make_block);
     //this.setColour(Blockly.Arduino.main_color);
-  }
+  //}
 };
 /*
 Blockly.Blocks['make_main'] = {
@@ -65,6 +66,9 @@ Blockly.Blocks['make_main'] = {
     this.appendDummyInput()
         .appendField("代码区显示:")
         .appendField(new Blockly.FieldCheckbox("true"), "main_show_is_true");
+    //this.appendDummyInput()
+    //    .appendField("使用显示界面中块")
+    //    .appendField(new Blockly.FieldDropdown([["1","1"],["2","2"],["3","3"],["4","4"],["5","5"]]), "type");
     this.appendDummyInput()
         .appendField("名字：")
         .appendField(new Blockly.FieldTextInput("make_main"), "main_0");
@@ -112,9 +116,9 @@ Blockly.Blocks['make_main_color'] = {
   }
 };
 
-var xml = '';
-var block_js = '';
-var generator_js = '';
+//var xml = '';
+//var block_js = '';
+//var generator_js = '';
 Blockly.Blocks['make_main_show_code'] = {
   init: function() {
     this.appendDummyInput('EMPTY1')
@@ -132,8 +136,9 @@ Blockly.Blocks['make_main_show_code'] = {
     this.setColour(90);
  this.setTooltip("");
  this.setHelpUrl("");
-  },
-  onchange:function(){
+  }
+  //,
+  //onchange:function(){
     //测试失败
     /*
     if(xml != Blockly.Arduino.make_xml_code || block_js != Blockly.Arduino.make_block_code || generator_code != Blockly.Arduino.make_generator_code)
@@ -164,13 +169,13 @@ Blockly.Blocks['make_main_show_code'] = {
     */
   
     //var input2 = this.appendDummyInput('EMPTY2');
-    this.setFieldValue(Blockly.Arduino.make_xml_code,"xml_code");
+    //this.setFieldValue(Blockly.Arduino.make_xml_code,"xml_code");
     //var input4 = this.appendDummyInput('EMPTY4');
-    this.setFieldValue(Blockly.Arduino.make_block_code,"block_code");
+    //this.setFieldValue(Blockly.Arduino.make_block_code,"block_code");
     //var input6 = this.appendDummyInput('EMPTY6');
-    this.setFieldValue(Blockly.Arduino.make_generator_code,"generator_code");
-    this.setColour(Blockly.Arduino.main_color);
-  }
+    //this.setFieldValue(Blockly.Arduino.make_generator_code,"generator_code");
+    //this.setColour(Blockly.Arduino.main_color);
+  //}
 };
 
 Blockly.Blocks['make_main_show_code_test'] = {
@@ -541,7 +546,7 @@ Blockly.Blocks['make_type_image'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("图片")
-        .appendField(new Blockly.FieldTextInput("../../media/make/Logo_Mixly.png"), "type_image_place");
+        .appendField(new Blockly.FieldTextInput("../../media/make/mixly.GIF"), "type_image_place");
     this.appendDummyInput()
         .appendField("宽度:")
         .appendField(new Blockly.FieldTextInput("20"), "type_image_width")
@@ -782,16 +787,50 @@ Blockly.Blocks.make_generator_code_header_file= {
 };
 */
 
+Blockly.Blocks.make_generator_define_setup= {
+  init: function() { 
+  this.appendValueInput("definitions_data")
+      .setCheck(null)  
+      .appendField("Blockly.Arduino.")
+      .appendField(new Blockly.FieldDropdown([["definitions","definitions"],["setups","setups"]]), "type")
+      .appendField("_[")
+      .appendField(new Blockly.FieldTextInput("'NAME'"), "definitions_name")
+      .appendField("] =");
+  this.setPreviousStatement(true, "make_input_code");
+  this.setNextStatement(true, "make_input_code");
+  this.setColour("#6666cc");
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
 Blockly.Blocks.make_generator_define= {
   init: function() { 
   this.appendValueInput("definitions_data")
       .setCheck(null)  
-      .appendField("definitions_[")
+      .appendField("Blockly.Arduino.definitions_[")
       .appendField(new Blockly.FieldTextInput("'NAME'"), "definitions_name")
-      .appendField("] = ");
+      .appendField("] =");
   this.setPreviousStatement(true, "make_input_code");
   this.setNextStatement(true, "make_input_code");
-  this.setColour("#3366ff");
+  this.setColour("#6666cc");
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks.make_generator_define_special= {
+  init: function() { 
+  this.appendValueInput("definitions_data")
+      .setCheck(null)  
+      .appendField("Blockly.Arduino.definitions_[")
+      .appendField(new Blockly.FieldDropdown([["'include_'","'include_'+"],["'define_'","'define_'+"],["'var_declare_'","'var_declare_'+"],["'function_'","'function_'+"]]), "type")
+      .appendField("+")
+      .appendField(new Blockly.FieldTextInput("'NAME'"), "definitions_name")
+      .appendField("] =");
+  this.setPreviousStatement(true, "make_input_code");
+  this.setNextStatement(true, "make_input_code");
+  this.setColour("#6666cc");
   this.setTooltip("");
   this.setHelpUrl("");
   }
@@ -801,12 +840,12 @@ Blockly.Blocks.make_generator_setup= {
   init: function() { 
   this.appendValueInput("setups_data")
       .setCheck(null)  
-      .appendField("setups_[")
+      .appendField("Blockly.Arduino.setups_[")
       .appendField(new Blockly.FieldTextInput("'NAME'"), "setups_name")
       .appendField("] = ");
   this.setPreviousStatement(true, "make_input_code");
   this.setNextStatement(true, "make_input_code");
-  this.setColour("#3366ff");
+  this.setColour("#6666cc");
   this.setTooltip("");
   this.setHelpUrl("");
   }
@@ -816,10 +855,10 @@ Blockly.Blocks.make_generator_loop= {
   init: function() { 
   this.appendValueInput("loop_data")
       .setCheck(null)  
-      .appendField("loop =");
+      .appendField("var code =");
   this.setPreviousStatement(true, "make_input_code");
   this.setNextStatement(true, "make_input_code");
-  this.setColour("#3366ff");
+  this.setColour("#6666cc");
   this.setTooltip("");
   this.setHelpUrl("");
   }
@@ -830,7 +869,7 @@ Blockly.Blocks.make_generator_longtext= {
   this.appendDummyInput()  
       .appendField(new Blockly.FieldTextArea("''"), "make_generator_longtext_data");
   this.setOutput(true, "make_input_code");
-  this.setColour("#cc6600");
+  this.setColour("#6666cc");
   this.setTooltip("");
   this.setHelpUrl("");
   }
@@ -842,7 +881,7 @@ Blockly.Blocks.make_generator_longtext_1= {
       .appendField(new Blockly.FieldTextArea("//添加代码"), "make_generator_longtext_data");
   this.setPreviousStatement(true, "make_input_code");
   this.setNextStatement(true, "make_input_code");
-  this.setColour("#3366ff");
+  this.setColour("#6666cc");
   this.setTooltip("");
   this.setHelpUrl("");
   }
@@ -851,12 +890,12 @@ Blockly.Blocks.make_generator_longtext_1= {
 Blockly.Blocks.make_generator_longtext_define= {
   init: function() { 
   this.appendDummyInput()  
-      .appendField("define|setup:");
+      .appendField("/*添加一段代码*/");
   this.appendDummyInput()  
       .appendField(new Blockly.FieldTextArea("//添加代码"), "make_generator_longtext_data");
   this.setPreviousStatement(true, "make_input_code");
   this.setNextStatement(true, "make_input_code");
-  this.setColour("#3366ff");
+  this.setColour("#6666cc");
   this.setTooltip("");
   this.setHelpUrl("");
   }
@@ -886,9 +925,396 @@ Blockly.Blocks.make_generator_longtext_loop= {
       .appendField(new Blockly.FieldTextArea("//添加代码"), "make_generator_longtext_data");
   this.setPreviousStatement(true, "make_input_code");
   this.setNextStatement(true, "make_input_code");
-  this.setColour("#3366ff");
+  this.setColour("#6666cc");
   this.setTooltip("");
   this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks.make_generator_text_input = {
+  /**
+   * Block for creating a list with any number of elements of any type.
+   * @this Blockly.Block
+   */
+   init: function() {
+    this.setColour("#6666cc");
+    this.appendDummyInput("EMPTY0")
+        .appendField("");
+    this.appendDummyInput("EMPTY1")  
+        .appendField("")
+        .appendField(new Blockly.FieldTextInput("               "), "data1");
+    this.appendDummyInput("EMPTY2")  
+        .appendField("");
+    this.itemCount_ = 0;
+    this.updateShape_();
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setMutator(new Blockly.Mutator(['generator_text_create_with_item']));
+    this.setTooltip("");
+  },
+  /**
+   * Create XML to represent list inputs.
+   * @return {Element} XML storage element.
+   * @this Blockly.Block
+   */
+   mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  /**
+   * Parse XML to restore the list inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+   domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  /**
+   * Populate the mutator's dialog with this block's components.
+   * @param {!Blockly.Workspace} workspace Mutator's workspace.
+   * @return {!Blockly.Block} Root block in mutator.
+   * @this Blockly.Block
+   */
+   decompose: function(workspace) {
+    var containerBlock =
+    Blockly.Block.obtain(workspace, 'generator_text_create_with_container');
+    containerBlock.initSvg();
+    var connection = containerBlock.getInput('STACK').connection;
+    for (var i = 0; i < this.itemCount_; i++) {
+      var itemBlock = Blockly.Block.obtain(workspace, 'generator_text_create_with_item');
+      itemBlock.initSvg();
+      connection.connect(itemBlock.previousConnection);
+      connection = itemBlock.nextConnection;
+    }
+    return containerBlock;
+  },
+  /**
+   * Reconfigure this block based on the mutator dialog's components.
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+   compose: function(containerBlock) {
+    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    // Count number of inputs.
+    var connections = [];
+    var i = 0;
+    while (itemBlock) {
+      connections[i] = itemBlock.valueConnection_;
+      itemBlock = itemBlock.nextConnection &&
+      itemBlock.nextConnection.targetBlock();
+      i++;
+    }
+    this.itemCount_ = i;
+    this.updateShape_();
+    // Reconnect any child blocks.
+    for (var i = 0; i < this.itemCount_; i++) {
+      if (connections[i]) {
+        this.getInput('ADD' + i).connection.connect(connections[i]);
+      }
+    }
+  },
+  /**
+   * Store pointers to any connected child blocks.
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+   saveConnections: function(containerBlock) {
+    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    var i = 0;
+    while (itemBlock) {
+      var input = this.getInput('ADD' + i);
+      itemBlock.valueConnection_ = input && input.connection.targetConnection;
+      i++;
+      itemBlock = itemBlock.nextConnection &&
+      itemBlock.nextConnection.targetBlock();
+    }
+  },
+  /**
+   * Modify this block to have the correct number of inputs.
+   * @private
+   * @this Blockly.Block
+   */
+   updateShape_: function() {
+    // Delete everything.
+    var j = 0;
+    while (this.getInput('EMPTY' + j)) {
+      //this.removeInput('EMPTY' + j);
+      j++;
+    }
+    if(j >= 2)
+    {
+      var code = new Array(j - 1);
+      for (var n = 0; n < j-1; n++) {
+        code[n] = this.getFieldValue('data' + (n + 1));
+      }
+    }
+    var k = 0;
+    while (this.getInput('EMPTY' + k)) {
+      this.removeInput('EMPTY' + k);
+      k++;
+    }
+    // Rebuild block.
+    if (this.itemCount_ == 0) {
+      this.appendDummyInput("EMPTY0")
+          .appendField("")
+          .appendField(new Blockly.FieldTextInput("//添加一段代码"), "data1")
+          .appendField("");
+    } else {
+      this.appendDummyInput("EMPTY0")
+          .appendField("");
+      var i = 1;
+      //if(this.itemCount_ < (j-2))
+      for (i = 1; i <= this.itemCount_; i++) {
+        if(i <= j-1)
+        {
+          this.appendDummyInput("EMPTY"+i)  
+              .appendField("")
+              .appendField(new Blockly.FieldTextInput(code[i-1]), "data"+i);
+        }
+        else
+        {
+          this.appendDummyInput("EMPTY"+i)  
+              .appendField("")
+              .appendField(new Blockly.FieldTextInput("               "), "data"+i);
+        }
+      }
+      //this.appendDummyInput("EMPTY"+i)  
+      //    .appendField("");
+    }
+  }
+};
+
+Blockly.Blocks.make_generator_text_input_return = {
+  /**
+   * Block for creating a list with any number of elements of any type.
+   * @this Blockly.Block
+   */
+   init: function() {
+    this.setColour("#6666cc");
+    this.appendDummyInput("EMPTY0")
+        .appendField("");
+    this.appendDummyInput("EMPTY1")  
+        .appendField(new Blockly.FieldTextInput("               "), "data1");
+    this.appendDummyInput("EMPTY2")  
+        .appendField("");
+    this.itemCount_ = 0;
+    this.updateShape_();
+    this.setInputsInline(false);
+    this.setOutput(true, "make_input_code");
+    this.setMutator(new Blockly.Mutator(['generator_text_create_with_item']));
+    this.setTooltip("");
+  },
+  /**
+   * Create XML to represent list inputs.
+   * @return {Element} XML storage element.
+   * @this Blockly.Block
+   */
+   mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  /**
+   * Parse XML to restore the list inputs.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+   domToMutation: function(xmlElement) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  /**
+   * Populate the mutator's dialog with this block's components.
+   * @param {!Blockly.Workspace} workspace Mutator's workspace.
+   * @return {!Blockly.Block} Root block in mutator.
+   * @this Blockly.Block
+   */
+   decompose: function(workspace) {
+    var containerBlock =
+    Blockly.Block.obtain(workspace, 'generator_text_create_with_container');
+    containerBlock.initSvg();
+    var connection = containerBlock.getInput('STACK').connection;
+    for (var i = 0; i < this.itemCount_; i++) {
+      var itemBlock = Blockly.Block.obtain(workspace, 'generator_text_create_with_item');
+      itemBlock.initSvg();
+      connection.connect(itemBlock.previousConnection);
+      connection = itemBlock.nextConnection;
+    }
+    return containerBlock;
+  },
+  /**
+   * Reconfigure this block based on the mutator dialog's components.
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+   compose: function(containerBlock) {
+    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    // Count number of inputs.
+    var connections = [];
+    var i = 0;
+    while (itemBlock) {
+      connections[i] = itemBlock.valueConnection_;
+      itemBlock = itemBlock.nextConnection &&
+      itemBlock.nextConnection.targetBlock();
+      i++;
+    }
+    this.itemCount_ = i;
+    this.updateShape_();
+    // Reconnect any child blocks.
+    for (var i = 0; i < this.itemCount_; i++) {
+      if (connections[i]) {
+        this.getInput('ADD' + i).connection.connect(connections[i]);
+      }
+    }
+  },
+  /**
+   * Store pointers to any connected child blocks.
+   * @param {!Blockly.Block} containerBlock Root block in mutator.
+   * @this Blockly.Block
+   */
+   saveConnections: function(containerBlock) {
+    var itemBlock = containerBlock.getInputTargetBlock('STACK');
+    var i = 0;
+    while (itemBlock) {
+      var input = this.getInput('ADD' + i);
+      itemBlock.valueConnection_ = input && input.connection.targetConnection;
+      i++;
+      itemBlock = itemBlock.nextConnection &&
+      itemBlock.nextConnection.targetBlock();
+    }
+  },
+  /**
+   * Modify this block to have the correct number of inputs.
+   * @private
+   * @this Blockly.Block
+   */
+   updateShape_: function() {
+    // Delete everything.
+    var j = 0;
+    while (this.getInput('EMPTY' + j)) {
+      //this.removeInput('EMPTY' + j);
+      j++;
+    }
+    if(j >= 2)
+    {
+      var code = new Array(j - 1);
+      for (var n = 0; n < j-1; n++) {
+        code[n] = this.getFieldValue('data' + (n + 1));
+      }
+    }
+    var k = 0;
+    while (this.getInput('EMPTY' + k)) {
+      this.removeInput('EMPTY' + k);
+      k++;
+    }
+    // Rebuild block.
+    if (this.itemCount_ == 0) {
+      this.appendDummyInput("EMPTY0")
+          .appendField("")
+          .appendField(new Blockly.FieldTextInput("''"), "data1");
+          //.appendField(";");
+    } else {
+      this.appendDummyInput("EMPTY0")
+          .appendField("");
+      var i = 1;
+      //if(this.itemCount_ < (j-2))
+      for (i = 1; i <= this.itemCount_; i++) {
+        if(i <= j-1)
+        {
+          this.appendDummyInput("EMPTY"+i) 
+              .appendField(new Blockly.FieldTextInput(code[i-1]), "data"+i);
+          /*
+          if(i == this.itemCount_)
+          {
+            this.appendDummyInput("EMPTY"+i)  
+                //.appendField("")
+                .appendField(new Blockly.FieldTextInput(code[i-1]), "data"+i);
+                //.appendField(";");
+          }
+          else
+          {
+            this.appendDummyInput("EMPTY"+i)  
+                //.appendField("")
+                .appendField(new Blockly.FieldTextInput(code[i-1]), "data"+i);
+          }
+          */
+        }
+        else
+        {
+          /*
+          if(i == this.itemCount_)
+          {
+            if(i == 1)
+            {
+              this.appendDummyInput("EMPTY"+i)  
+                  //.appendField("")
+                  .appendField(new Blockly.FieldTextInput("''"), "data"+i);
+                  //.appendField(";");
+            }
+            else
+            {
+              this.appendDummyInput("EMPTY"+i)  
+                  //.appendField("")
+                  .appendField(new Blockly.FieldTextInput("+ ''"), "data"+i);
+                  //.appendField(";");
+            }
+          }
+          else
+          {
+          */
+          if(i == 1)
+          {
+            this.appendDummyInput("EMPTY"+i)  
+                //.appendField("")
+                .appendField(new Blockly.FieldTextInput("''"), "data"+i);
+          }
+          else
+          {
+            this.appendDummyInput("EMPTY"+i)  
+                //.appendField("")
+                .appendField(new Blockly.FieldTextInput("+ ''"), "data"+i);
+          }
+
+          //}
+        }
+      }
+      //this.appendDummyInput("EMPTY"+i)  
+      //    .appendField("");
+    }
+  }
+};
+
+Blockly.Blocks['generator_text_create_with_item'] = {
+  /**
+   * Mutator bolck for adding items.
+   * @this Blockly.Block
+   */
+   init: function() {
+    this.setColour("#6666cc");
+    this.appendDummyInput()
+    .appendField("添加一行代码");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip("");
+    this.contextMenu = false;
+  }
+};
+
+Blockly.Blocks['generator_text_create_with_container'] = {
+  /**
+   * Mutator block for list container.
+   * @this Blockly.Block
+   */
+   init: function() {
+    this.setColour("#6666cc");
+    this.appendDummyInput()
+        .appendField("代码:");
+    this.appendStatementInput('STACK');
+    this.setTooltip("");
+    this.contextMenu = false;
   }
 };
 

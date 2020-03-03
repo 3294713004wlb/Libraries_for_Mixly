@@ -77,7 +77,12 @@ Blockly.Arduino.make_test_2020_01_16 = function() {
 
 Blockly.Arduino.make_sharp = function() {
   var code = '';
-  eval(Blockly.Arduino.make_generator);
+  try{
+    eval(Blockly.Arduino.make_generator);
+  }catch(exception){
+      console.warn(exception);
+      //打印：Unexpected token ILLEGAL
+  }
   //var code = Blockly.Arduino.generator_code_loop;
   //eval(Blockly.Arduino.generator_code_loop);
   //code = "var code = '  {\''+text_keypad_1_1+'\',\''+text_keypad_1_2+'\',\''+text_keypad_1_3+'\',\''+text_keypad_1_4+'\'},'+'\n  {\''+text_keypad_2_1+'\',\''+text_keypad_2_2+'\',\''+text_keypad_2_3+'\',\''+text_keypad_2_4+'\'},'+'\n  {\''+text_keypad_3_1+'\',\''+text_keypad_3_2+'\',\''+text_keypad_3_3+'\',\''+text_keypad_3_4+'\'},'+'\n  {\''+text_keypad_4_1+'\',\''+text_keypad_4_2+'\',\''+text_keypad_4_3+'\',\''+text_keypad_4_4+'\'}'";
@@ -103,7 +108,7 @@ Blockly.Arduino.make_sharp = function() {
 //Blockly.Arduino.generator_code_setup = "";
 //Blockly.Arduino.generator_code_loop = "";
 Blockly.Arduino.make_main = function() {
-  
+  //var dropdown_type = 1;
   var checkbox_main_show_is_true = this.getFieldValue('main_show_is_true') == 'TRUE';
   var text_main_0 = this.getFieldValue('main_0');
   var statements_main_1 = Blockly.Arduino.statementToCode(this, 'main_1');
@@ -113,72 +118,46 @@ Blockly.Arduino.make_main = function() {
   var value_main_3 = Blockly.Arduino.valueToCode(this, 'main_3', Blockly.Arduino.ORDER_ATOMIC);
   var value_main_4 = Blockly.Arduino.valueToCode(this, 'main_4', Blockly.Arduino.ORDER_ATOMIC);
 
+  if(!value_main_4)
+  {
+    value_main_4 = 10;
+    Blockly.Arduino.main_color = 10;
+  }
+  /*
+  if(value_main_4)
+  {
+    var value_main_4_1 = value_main_4;
+    if(value_main_4.indexOf('#') != -1)
+      value_main_4 = '"'+value_main_4+'"';
+    if(dropdown_type == '1')
+      Blockly.Arduino.main_color = value_main_4_1;
+    else if(dropdown_type == '2')                                                  
+      Blockly.Arduino.main_color2 = value_main_4_1;
+    else if(dropdown_type == '3')                                                  
+      Blockly.Arduino.main_color3 = value_main_4_1;
+    else if(dropdown_type == '4')                                                  
+      Blockly.Arduino.main_color4 = value_main_4_1; 
+    else                                                  
+      Blockly.Arduino.main_color5 = value_main_4_1;
+  }
+  else
+  {
+    if(dropdown_type == '1')
+      Blockly.Arduino.main_color = '10';
+    else if(dropdown_type == '2')                                                  
+      Blockly.Arduino.main_color2 = '10';
+    else if(dropdown_type == '3')                                                  
+      Blockly.Arduino.main_color3 = '10';
+    else if(dropdown_type == '4')                                                  
+      Blockly.Arduino.main_color4 = '10'; 
+    else                                                  
+      Blockly.Arduino.main_color5 = value_main_4;
+  }
+  */
   var statements_make_generator_code_data = Blockly.Arduino.statementToCode(this, 'make_generator_code_data');
 
-  var statements_make_generator_code_data_1 = statements_make_generator_code_data.split('');
-  var choice = 0;
-  var make_generator_code_define = "";
-  var make_generator_code_setup = "";
-  var make_generator_code_loop = "";
-
-  var count = 0;
-
-  for(var data of statements_make_generator_code_data_1)
-  {
-    if(data == "♠")
-    {
-      choice = 0;
-      continue;
-    }
-    else if(data == "♥")
-    {
-      choice = 1;
-      continue;
-    }
-    else if(data == "♦")
-    {
-      choice = 2;
-      continue;
-    }
-    if(choice == 0)
-    {
-      make_generator_code_define = make_generator_code_define + data;
-    }
-    else if(choice == 1)
-    {
-      make_generator_code_setup = make_generator_code_setup + data;
-    }
-    else
-    {
-      //if(count <=2)
-      //{
-        //count++;
-        //continue;
-      //}
-      make_generator_code_loop = make_generator_code_loop + data;
-    }
-  }
-  Blockly.Arduino.generator_code_define = make_generator_code_define;
-  Blockly.Arduino.generator_code_setup = make_generator_code_setup;
-  Blockly.Arduino.generator_code_loop = make_generator_code_loop;
-
-  if(!Blockly.Arduino.generator_code_loop)
-  {
-    Blockly.Arduino.generator_code_loop = '';
-  }
-
-  
   Blockly.Arduino.statements_main_1 = statements_main_1;
-  //var statements_main_2 = "";
-  /*
-  var statements_main_1_1 = "";
-  var statements_main_2_1 = "";
-  var num = statements_main_1.lastIndexOf('♦');
-  statements_main_1_1 = statements_main_1.substring(0,num);
-  var statements_main_2 = statements_main_1.substring(num + 1,);
-  statements_main_1 = statements_main_1_1;
-  */
-
+  
   var statements_main_1_data = statements_main_1.split('');
   var choice = 1;
   statements_main_1 = "";
@@ -350,30 +329,6 @@ Blockly.Arduino.make_main = function() {
     Blockly.Arduino.make_inline = false;
   }
 
-  /*
-  var this_sharp = "";
-  if(dropdown_sharp == "sharp_1")
-  {
-    this_sharp = '';
-  }
-  else if(dropdown_sharp == "sharp_5")
-  {
-    this_sharp = "  this.setOutput(true, null);\n";
-  }
-  else if (dropdown_sharp == "sharp_4") 
-  {
-    this_sharp = "  this.setPreviousStatement(true, null);\n  this.setNextStatement(true, null);\n";
-  }
-  else if(dropdown_sharp == "sharp_3")
-  {
-    this_sharp = "  this.setPreviousStatement(true, null);\n";
-  }
-  else if(dropdown_sharp == "sharp_2")
-  {
-    this_sharp = "  this.setNextStatement(true, null);\n";
-  }
-  */
-
   Blockly.Arduino.definitions_xml = '<block type="' + text_main_0 + '">'
                                   + '\n</block>';            
   Blockly.Arduino.make_xml_code = Blockly.Arduino.definitions_xml;                                               
@@ -410,190 +365,130 @@ Blockly.Arduino.make_main = function() {
                              + this_sharp
                              // + '  this.setColour('+value_main_4+');\n'
                              + '  this.setTooltip('+value_main_2+');\n'
-                             + '  this.setHelpUrl('+value_main_3+');\n'; 
-
-  Blockly.Arduino.make_block_code = Blockly.Arduino.definitions_block;                                                   
-
-  if(statements_main_1 == "")
+                             + '  this.setHelpUrl('+value_main_3+');\n';
+  Blockly.Arduino.make_block_code = Blockly.Arduino.definitions_block;
+  /* 
+  if(dropdown_type == '1')
+    Blockly.Arduino.make_block_code = Blockly.Arduino.definitions_block; 
+  else if(dropdown_type == '2')                                                  
+    Blockly.Arduino.make_block_code2 = Blockly.Arduino.definitions_block; 
+  else if(dropdown_type == '3')                                                  
+    Blockly.Arduino.make_block_code3 = Blockly.Arduino.definitions_block; 
+  else if(dropdown_type == '4')                                                  
+    Blockly.Arduino.make_block_code4 = Blockly.Arduino.definitions_block; 
+  else                                                  
+    Blockly.Arduino.make_block_code5 = Blockly.Arduino.definitions_block; 
+  */
+  
+  if(dropdown_sharp == "sharp_5")
   {
-    if(dropdown_sharp == "sharp_5")
-    {
-      if(Blockly.Arduino.generator_code_loop)
-      {
-        Blockly.Arduino.definitions_generator = 'Blockly.Arduino.' + text_main_0 + ' = function() {'
-                                              +''+ statements_main_2 
-                                              //'\n'
-                                              + Blockly.Arduino.generator_code_define
-                                              + Blockly.Arduino.generator_code_setup
-                                              //+ '\n  var code = \''+Blockly.Arduino.generator_code_loop+'\';'
-                                              + '\n  var ' + Blockly.Arduino.generator_code_loop
-                                              + '\n  return [code, Blockly.Arduino.ORDER_ATOMIC];'
-                                              + '\n};\n';
-        //Blockly.Arduino.make_generator = statements_main_2 
-                                        //'\n'
-        //                                + '\nvar code = \'\';'
-        //                                + 'return [code, Blockly.Arduino.ORDER_ATOMIC];\n';   
-      }
-      else
-      {
-        Blockly.Arduino.definitions_generator = 'Blockly.Arduino.' + text_main_0 + ' = function() {'
-                                              +''+ statements_main_2 
-                                              //'\n'
-                                              + Blockly.Arduino.generator_code_define
-                                              + Blockly.Arduino.generator_code_setup
-                                              //+ '\n  var code = \''+Blockly.Arduino.generator_code_loop+'\';'
-                                              + '\n  var code = \'\';'
-                                              + '\n  return [code, Blockly.Arduino.ORDER_ATOMIC];'
-                                              + '\n};\n';
-        //Blockly.Arduino.make_generator = statements_main_2 
-                                        //'\n'
-        //                                + '\nvar code = \'\';'
-        //                                + 'return [code, Blockly.Arduino.ORDER_ATOMIC];\n';   
-      }                                                     
-    }
-    else
-    {
-      if(Blockly.Arduino.generator_code_loop)
-      {
-        Blockly.Arduino.definitions_generator = 'Blockly.Arduino.' + text_main_0 + ' = function() {'
-                                              +''+ statements_main_2 
-                                              //'\n'
-                                              + Blockly.Arduino.generator_code_define
-                                              + Blockly.Arduino.generator_code_setup
-                                              //+ '\n  var code = \''+Blockly.Arduino.generator_code_loop+'\';'
-                                              + '\n  var ' + Blockly.Arduino.generator_code_loop
-                                              + '\n  return code;'
-                                              + '\n};\n';
-        //Blockly.Arduino.make_generator = statements_main_2 
-                                        //'\n'
-        //                                + '\nvar code = \'\';'
-        //                                + '\nreturn code;\n';  
-      }
-      else
-      {
-
-      }
-        Blockly.Arduino.definitions_generator = 'Blockly.Arduino.' + text_main_0 + ' = function() {'
-                                              +''+ statements_main_2 
-                                              //'\n'
-                                              + Blockly.Arduino.generator_code_define
-                                              + Blockly.Arduino.generator_code_setup
-                                              //+ '\n  var code = \''+Blockly.Arduino.generator_code_loop+'\';'
-                                              + '\n  var code = \'\';'
-                                              + '\n  return code;'
-                                              + '\n};\n';
-        //Blockly.Arduino.make_generator = statements_main_2 
-                                        //'\n'
-        //                                + '\nvar code = \'\';'
-        //                                + '\nreturn code;\n';   
-    }
+    if(statements_make_generator_code_data.indexOf("var code") == -1)
+      statements_make_generator_code_data+='  var code = \'\';\n'
+    Blockly.Arduino.definitions_generator = 'Blockly.Arduino.' + text_main_0 + ' = function() {'
+                                          + statements_main_2 + '\n'
+                                          + statements_make_generator_code_data
+                                          + '  return [code, Blockly.Arduino.ORDER_ATOMIC];\n'
+                                          + '};\n';
   }
   else
   {
-     if(dropdown_sharp == "sharp_5")
-    {
-      if(Blockly.Arduino.generator_code_loop)
-      {
-        Blockly.Arduino.definitions_generator = 'Blockly.Arduino.' + text_main_0 + ' = function() {'
-                                              +''+ statements_main_2 
-                                              //'\n'
-                                              //+ statements_main_1
-                                              + Blockly.Arduino.generator_code_define
-                                              + Blockly.Arduino.generator_code_setup
-                                              //+ '\n  var code = \''+Blockly.Arduino.generator_code_loop+'\';'
-                                              + '\n  var ' + Blockly.Arduino.generator_code_loop
-                                              + '\n  return [code, Blockly.Arduino.ORDER_ATOMIC];'
-                                              + '\n};\n';  
-        //Blockly.Arduino.make_generator = statements_main_2 
-                                        //'\n'
-                                        //+ statements_main_1
-        //                                + '\nvar code = \'\';'
-        //                                + '\nreturn [code, Blockly.Arduino.ORDER_ATOMIC];\n';  
-      }
-      else
-      {
-        Blockly.Arduino.definitions_generator = 'Blockly.Arduino.' + text_main_0 + ' = function() {'
-                                              +''+ statements_main_2 
-                                              //'\n'
-                                              //+ statements_main_1
-                                              + Blockly.Arduino.generator_code_define
-                                              + Blockly.Arduino.generator_code_setup
-                                              //+ '\n  var code = \''+Blockly.Arduino.generator_code_loop+'\';'
-                                              + '\n  var code = \'\';'
-                                              + '\n  return [code, Blockly.Arduino.ORDER_ATOMIC];'
-                                              + '\n};\n';  
-        //Blockly.Arduino.make_generator = statements_main_2 
-                                        //'\n'
-                                        //+ statements_main_1
-        //                                + '\nvar code = \'\';'
-        //                                + '\nreturn [code, Blockly.Arduino.ORDER_ATOMIC];\n';     
-      }                                      
-    }
-    else
-    {
-      if(Blockly.Arduino.generator_code_loop)
-      {
-        Blockly.Arduino.definitions_generator = 'Blockly.Arduino.' + text_main_0 + ' = function() {'
-                                              +''+ statements_main_2 
-                                              //'\n'
-                                              //+ statements_main_1
-                                              + Blockly.Arduino.generator_code_define
-                                              + Blockly.Arduino.generator_code_setup
-                                              //+ '\n  var code = \''+Blockly.Arduino.generator_code_loop+'\';'
-                                              + '\n  var ' + Blockly.Arduino.generator_code_loop
-                                              + '\n  return code;'
-                                              + '\n};\n';
-        //Blockly.Arduino.make_generator = statements_main_2 
-                                        //'\n'
-                                        //+ statements_main_1
-        //                                + '\nvar code = \'\';'
-        //                                + '\nreturn code;\n';  
-      }
-      else
-      {
-        Blockly.Arduino.definitions_generator = 'Blockly.Arduino.' + text_main_0 + ' = function() {'
-                                              +''+ statements_main_2 
-                                              //'\n'
-                                              //+ statements_main_1
-                                              + Blockly.Arduino.generator_code_define
-                                              + Blockly.Arduino.generator_code_setup
-                                              //+ '\n  var code = \''+Blockly.Arduino.generator_code_loop+'\';'
-                                              + '\n  var code = \'\';'
-                                              + '\n  return code;'
-                                              + '\n};\n';
-        //Blockly.Arduino.make_generator = statements_main_2 
-                                        //'\n'
-                                        //+ statements_main_1
-        //                                + '\nvar code = \'\';'
-        //                                + '\nreturn code;\n';   
-      }                                                  
-    }
+    if(statements_make_generator_code_data.indexOf("var code") == -1)
+      statements_make_generator_code_data+='  var code = \'\';\n'
+    Blockly.Arduino.definitions_generator = 'Blockly.Arduino.' + text_main_0 + ' = function() {'
+                                          +''+ statements_main_2  + '\n'
+                                          + statements_make_generator_code_data
+                                          + '  return code;\n'
+                                          + '};\n';
   }
   Blockly.Arduino.make_generator_code = Blockly.Arduino.definitions_generator; 
+  /*
+  if(dropdown_type == '1')
+    Blockly.Arduino.make_generator_code = Blockly.Arduino.definitions_generator; 
+  else if(dropdown_type == '2')                                                  
+    Blockly.Arduino.make_generator_code2 = Blockly.Arduino.definitions_generator; 
+  else if(dropdown_type == '3')                                                  
+    Blockly.Arduino.make_generator_code3 = Blockly.Arduino.definitions_generator; 
+  else if(dropdown_type == '4')                                                  
+    Blockly.Arduino.make_generator_code4 = Blockly.Arduino.definitions_generator; 
+  else                                                  
+    Blockly.Arduino.make_generator_code5 = Blockly.Arduino.definitions_generator; 
+  */
 
   if(checkbox_main_show_is_true)
   {
     Blockly.Arduino.definitions_['var_mixly_generator'] = Blockly.Arduino.definitions_generator;
     Blockly.Arduino.definitions_['var_mixly_block'] = Blockly.Arduino.definitions_block;
-    Blockly.Arduino.definitions_['var_mixly_axml'] = Blockly.Arduino.definitions_xml + '\n';
+    Blockly.Arduino.definitions_['var_mixly_axml'] = Blockly.Arduino.definitions_xml + '\n'; 
+    /*
+    if(dropdown_type == '1')
+    {
+      Blockly.Arduino.definitions_['var_mixly_generator1'] = Blockly.Arduino.definitions_generator;
+      Blockly.Arduino.definitions_['var_mixly_block1'] = Blockly.Arduino.definitions_block;
+      Blockly.Arduino.definitions_['var_mixly_axml1'] = Blockly.Arduino.definitions_xml + '\n'; 
+    }
+    else if(dropdown_type == '2') 
+    {                                                 
+      Blockly.Arduino.definitions_['var_mixly_generator2'] = Blockly.Arduino.definitions_generator;
+      Blockly.Arduino.definitions_['var_mixly_block2'] = Blockly.Arduino.definitions_block;
+      Blockly.Arduino.definitions_['var_mixly_axml2'] = Blockly.Arduino.definitions_xml + '\n'; 
+    }
+    else if(dropdown_type == '3')    
+    {                                              
+      Blockly.Arduino.definitions_['var_mixly_generator3'] = Blockly.Arduino.definitions_generator;
+      Blockly.Arduino.definitions_['var_mixly_block3'] = Blockly.Arduino.definitions_block;
+      Blockly.Arduino.definitions_['var_mixly_axml3'] = Blockly.Arduino.definitions_xml + '\n'; 
+    }
+    else if(dropdown_type == '4')        
+    {
+      Blockly.Arduino.definitions_['var_mixly_generator4'] = Blockly.Arduino.definitions_generator;
+      Blockly.Arduino.definitions_['var_mixly_block4'] = Blockly.Arduino.definitions_block;
+      Blockly.Arduino.definitions_['var_mixly_axml4'] = Blockly.Arduino.definitions_xml + '\n'; 
+    }
+    else    
+    {                                              
+      Blockly.Arduino.definitions_['var_mixly_generator5'] = Blockly.Arduino.definitions_generator;
+      Blockly.Arduino.definitions_['var_mixly_block5'] = Blockly.Arduino.definitions_block;
+      Blockly.Arduino.definitions_['var_mixly_axml5'] = Blockly.Arduino.definitions_xml + '\n'; 
+    }
+    //Blockly.Arduino.definitions_['var_mixly_generator'] = Blockly.Arduino.definitions_generator;
+    //Blockly.Arduino.definitions_['var_mixly_block'] = Blockly.Arduino.definitions_block;
+    //Blockly.Arduino.definitions_['var_mixly_axml'] = Blockly.Arduino.definitions_xml + '\n';
+    */
   }
   else
   {
     Blockly.Arduino.definitions_['var_mixly_generator'] = '';
     Blockly.Arduino.definitions_['var_mixly_block'] = '';
     Blockly.Arduino.definitions_['var_mixly_axml'] = '';
+    /*
+    for(var i = 1;i <= 5;i++)
+    {
+      Blockly.Arduino.definitions_['var_mixly_generator'+i] = '';
+      Blockly.Arduino.definitions_['var_mixly_block'+i] = '';
+      Blockly.Arduino.definitions_['var_mixly_axml'+i] = ''; 
+    }
+    */
   }
-
-  Blockly.Arduino.make_generator = statements_main_2 + Blockly.Arduino.generator_code_define + Blockly.Arduino.generator_code_setup + Blockly.Arduino.generator_code_loop;
-  //Blockly.Arduino.make_generator = statements_main_2 + Blockly.Arduino.generator_code_define + Blockly.Arduino.generator_code_setup;
-  //Blockly.Arduino.make_generator = Blockly.Arduino.make_generator.replace('\n',' ');
-  //Blockly.Arduino.definitions_['var_mixly_xml'] = '<block type="'+text_main_0+'">\n'                                         //    + '<value name="main_0">';
+  /*
+  if(dropdown_type == '1')
+    Blockly.Arduino.make_generator = statements_main_2 + statements_make_generator_code_data.replace('var code','code');
+  else if(dropdown_type == '2')                                                  
+    Blockly.Arduino.make_generator2 = statements_main_2 + statements_make_generator_code_data.replace('var code','code');
+  else if(dropdown_type == '3')                                                  
+    Blockly.Arduino.make_generator3 = statements_main_2 + statements_make_generator_code_data.replace('var code','code');
+  else if(dropdown_type == '4')                                                  
+    Blockly.Arduino.make_generator4 = statements_main_2 + statements_make_generator_code_data.replace('var code','code');
+  else                                                  
+    Blockly.Arduino.make_generator5 = statements_main_2 + statements_make_generator_code_data.replace('var code','code');
+  */
+  Blockly.Arduino.make_generator = statements_main_2 + statements_make_generator_code_data.replace('var code','code');
   return '';
 };
 
 
 Blockly.Arduino['make_main_color'] = function() {
   var angle_main_color = this.getFieldValue('main_color');
+  /*
   if(angle_main_color)
   {
     Blockly.Arduino.main_color = angle_main_color;
@@ -602,6 +497,8 @@ Blockly.Arduino['make_main_color'] = function() {
   {
     Blockly.Arduino.main_color = "10";
   }
+  */
+  Blockly.Arduino.main_color = angle_main_color;
   return [angle_main_color, Blockly.Arduino.ORDER_ATOMIC];
 };
 
@@ -609,7 +506,10 @@ Blockly.Arduino['make_main_show_code'] = function() {
   var text_xml_code = this.getFieldValue('xml_code');
   var text_block_code = this.getFieldValue('block_code');
   var text_generator_code = this.getFieldValue('generator_code');
-  
+  this.setFieldValue(Blockly.Arduino.make_xml_code,"xml_code");
+  this.setFieldValue(Blockly.Arduino.make_block_code,"block_code");
+  this.setFieldValue(Blockly.Arduino.make_generator_code,"generator_code");
+  this.setColour(Blockly.Arduino.main_color);
   var code = '';
   return code;
 };
@@ -1214,24 +1114,81 @@ Blockly.Arduino.make_generator_code_header_file = function() {
 };
 */
 
-Blockly.Arduino.make_generator_define = function() {
+Blockly.Arduino.make_generator_define_setup = function() {
+    var dropdown_type = this.getFieldValue('type');
     var value_definitions_data = Blockly.Arduino.valueToCode(this, 'definitions_data', Blockly.Arduino.ORDER_ATOMIC);
     var text_definitions_name = this.getFieldValue('definitions_name');
-  var code = '♠\n' + 'Blockly.Arduino.definitions_['+text_definitions_name+'] = '+value_definitions_data+';';
+  var data = 'Blockly.Arduino.'+dropdown_type+'_['+text_definitions_name+'] = ';
+  var length = data.length;
+  var add = '';
+  while(length--)
+    add+=' ';
+  
+  if(!value_definitions_data)
+    var code = 'Blockly.Arduino.'+dropdown_type+'_['+text_definitions_name+'] = \'\';\n';
+  else
+  {
+    value_definitions_data = value_definitions_data.replace(new RegExp(/\n/g),'\n'+add);
+    var code = 'Blockly.Arduino.'+dropdown_type+'_['+text_definitions_name+'] = '+value_definitions_data+';\n';
+  }
   return code;
 };
 
+Blockly.Arduino.make_generator_define = function() {
+    var value_definitions_data = Blockly.Arduino.valueToCode(this, 'definitions_data', Blockly.Arduino.ORDER_ATOMIC);
+    var text_definitions_name = this.getFieldValue('definitions_name');
+  var data = 'Blockly.Arduino.definitions_['+text_definitions_name+'] = ';
+  var length = data.length;
+  var add = '';
+  while(length--)
+    add+=' ';
+  value_definitions_data = value_definitions_data.replace(new RegExp(/\n/g),'\n'+add);
+  var code = /*'♠\n' + */'Blockly.Arduino.definitions_['+text_definitions_name+'] = '+value_definitions_data+';\n';
+  return code;
+};
+
+Blockly.Arduino.make_generator_define_special = function() {
+    var dropdown_type = this.getFieldValue('type');
+    var value_definitions_data = Blockly.Arduino.valueToCode(this, 'definitions_data', Blockly.Arduino.ORDER_ATOMIC);
+    var text_definitions_name = this.getFieldValue('definitions_name');
+  var data = 'Blockly.Arduino.definitions_['+dropdown_type+text_definitions_name+'] = ';
+  var length = data.length;
+  var add = '';
+  while(length--)
+    add+=' ';
+  
+  if(!value_definitions_data)
+    var code = /*'♠\n' + */'Blockly.Arduino.definitions_['+dropdown_type+text_definitions_name+'] = \'\';\n';
+  else
+  {
+    value_definitions_data = value_definitions_data.replace(new RegExp(/\n/g),'\n'+add);
+    var code = /*'♠\n' + */'Blockly.Arduino.definitions_['+dropdown_type+text_definitions_name+'] = '+value_definitions_data+';\n';
+  }
+  return code;
+};
 
 Blockly.Arduino.make_generator_setup = function() {
     var value_setups_data = Blockly.Arduino.valueToCode(this, 'setups_data', Blockly.Arduino.ORDER_ATOMIC);
     var text_setups_name = this.getFieldValue('setups_name');
-  var code = '♥\n' + 'Blockly.Arduino.setups_['+text_setups_name+'] = '+value_setups_data+';';
+  var data = 'Blockly.Arduino.setups_['+text_setups_name+'] = ';
+  var length = data.length;
+  var add = '';
+  while(length--)
+    add+=' ';
+  value_setups_data = value_setups_data.replace(new RegExp(/\n/g),'\n'+add);
+  var code = /*'♥\n' + */'Blockly.Arduino.setups_['+text_setups_name+'] = '+value_setups_data+';\n';
   return code;
 };
 
 Blockly.Arduino.make_generator_loop = function() {
     var value_loop_data = Blockly.Arduino.valueToCode(this, 'loop_data', Blockly.Arduino.ORDER_ATOMIC);
-  var code = '♦' + 'code = ' + value_loop_data + ';';
+  var data = 'var code = ';
+  var length = data.length;
+  var add = '';
+  while(length--)
+    add+=' ';
+  value_loop_data = value_loop_data.replace(new RegExp(/\n/g),'\n'+add);
+  var code = /*'♦' + */'var code = ' + value_loop_data + ';\n';
   return code;
 };
 
@@ -1249,7 +1206,7 @@ Blockly.Arduino.make_generator_longtext_1 = function() {
 
 Blockly.Arduino.make_generator_longtext_define = function() {
     var text_make_generator_longtext_data = this.getFieldValue('make_generator_longtext_data');
-  var code = '♠\n' + text_make_generator_longtext_data;
+  var code = /*'♠\n' + */text_make_generator_longtext_data+'\n';
   return code;
 };
 
@@ -1263,8 +1220,50 @@ Blockly.Arduino.make_generator_longtext_setup = function() {
 
 Blockly.Arduino.make_generator_longtext_loop = function() {
     var text_make_generator_longtext_data = this.getFieldValue('make_generator_longtext_data');
-  var code = '♦' + text_make_generator_longtext_data;
+  var code = /*'♦' + */text_make_generator_longtext_data;
   return code;
+};
+
+Blockly.Arduino.make_generator_text_input = function() {
+  if(this.itemCount_)
+  {
+    var code1 = new Array(this.itemCount_);
+    for (var n = 0; n < this.itemCount_; n++) {
+      code1[n] = this.getFieldValue('data' + (n + 1));
+    }
+    var code = '';
+    for (var n = 0; n < this.itemCount_; n++) {
+      code = code + code1[n] + '\n';
+    }
+  }
+  else
+  {
+    var code = this.getFieldValue('data1');
+    code = code+'\n';
+  }
+  
+  return code;
+};
+
+Blockly.Arduino.make_generator_text_input_return = function() {
+  if(this.itemCount_)
+  {
+    var code1 = new Array(this.itemCount_);
+    for (var n = 0; n < this.itemCount_; n++) {
+      code1[n] = this.getFieldValue('data' + (n + 1));
+    }
+    var code = '';
+    for (var n = 0; n < this.itemCount_-1; n++) {
+      code = code + code1[n] + '\n';
+    }
+    code = code + code1[this.itemCount_-1];
+  }
+  else
+  {
+    var code = this.getFieldValue('data1');
+  }
+  
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 //将文本或符号编码
