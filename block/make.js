@@ -4,8 +4,6 @@ goog.provide('Blockly.Blocks.make');
 goog.require('Blockly.Blocks');
 
 
-//Blockly.Blocks.make.HUE = 20;
-
 Blockly.Blocks.make_test_2020_01_16= {
   init: function() { 
   this.appendDummyInput()  
@@ -20,7 +18,39 @@ Blockly.Blocks.make_test_2020_01_16= {
 
 Blockly.Blocks['make_sharp'] = {
   init: function() {
-     eval(Blockly.Arduino.make_block);
+    try{
+      if(!Blockly.Arduino.make_block)
+      {
+        Blockly.Arduino.make_block = 'this.setColour(90);';
+      }
+      eval(Blockly.Arduino.make_block);
+      Blockly.Arduino.make_block_select = '0';
+    }catch(exception){
+        //console.warn(exception);
+        //打印：Unexpected token ILLEGAL
+        var make_block_length = Blockly.Arduino.make_block;
+        if(make_block_length.length >= 1)
+          Blockly.Arduino.make_block_select = '1';
+        else
+          Blockly.Arduino.make_block_select = '0';
+        this.setColour(90);
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+    //eval(Blockly.Arduino.make_block);
+  },
+  onchange: function(){
+    if(Blockly.Arduino.make_block_select == '1' && Blockly.Arduino.make_generator_select == '1')
+      this.setWarningText("block/xxx.js、generator/xxx.js下代码均存在错误，请修改！");
+      //this.setTooltip("block/xxx、generator/xxx.js下代码均存在错误，请修改！");
+    else if(Blockly.Arduino.make_block_select == '1' && Blockly.Arduino.make_generator_select != '1')
+      this.setWarningText("block/xxx.js下代码存在错误，请修改！");
+      //this.setTooltip("block/xxx.js下代码均存在错误，请修改！");
+    else if(Blockly.Arduino.make_block_select != '1' && Blockly.Arduino.make_generator_select == '1')
+      this.setWarningText("generator/xxx.js下代码存在错误，请修改！");
+      //this.setTooltip("generator/xxx.js下代码存在错误，请修改！");
+    else
+      this.setWarningText(null);
   }
   //,
   //onchange: function(){
@@ -110,9 +140,23 @@ Blockly.Blocks['make_main_color'] = {
     this.setColour(90);
  this.setTooltip("");
  this.setHelpUrl("");
-  },
-  onchange: function(){
-    this.setColour(Blockly.Arduino.main_color);
+  }
+  //,
+  //onchange: function(){
+    
+  //}
+};
+
+Blockly.Blocks.make_color_define= {
+  init: function() {
+  this.appendDummyInput()
+      .appendField("\"#")
+      .appendField(new Blockly.FieldTextInput("8A2BE2"), "data")
+      .appendField("\"");
+  this.setOutput(true, null);
+  this.setColour("#8A2BE2");
+  this.setTooltip("");
+  this.setHelpUrl("");
   }
 };
 
@@ -134,8 +178,8 @@ Blockly.Blocks['make_main_show_code'] = {
     this.appendDummyInput('EMPTY6')
         .appendField(new Blockly.FieldTextArea(""), "generator_code");
     this.setColour(90);
- this.setTooltip("");
- this.setHelpUrl("");
+    this.setTooltip("");
+    this.setHelpUrl("");
   }
   //,
   //onchange:function(){

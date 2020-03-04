@@ -102,6 +102,9 @@ E-mail:3294713004@qq.com
 
 		<block type="make_main_color">
 		</block>
+
+		<block type="make_color_define">
+		</block>
 	</category>
 
 	<category id="mixly_make" name="编辑生成代码" colour="#6666cc">

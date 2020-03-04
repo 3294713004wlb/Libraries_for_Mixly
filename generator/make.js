@@ -79,8 +79,14 @@ Blockly.Arduino.make_sharp = function() {
   var code = '';
   try{
     eval(Blockly.Arduino.make_generator);
+    Blockly.Arduino.make_generator_select = '0';
   }catch(exception){
-      console.warn(exception);
+    var make_generator_length = Blockly.Arduino.make_generator;
+    if(make_generator_length.length >= 1)
+      Blockly.Arduino.make_generator_select = '1';
+    else
+      Blockly.Arduino.make_generator_select = '0';
+      //console.warn(exception);
       //打印：Unexpected token ILLEGAL
   }
   //var code = Blockly.Arduino.generator_code_loop;
@@ -499,7 +505,25 @@ Blockly.Arduino['make_main_color'] = function() {
   }
   */
   Blockly.Arduino.main_color = angle_main_color;
+  this.setColour(Blockly.Arduino.main_color);
   return [angle_main_color, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+Blockly.Arduino.make_color = function() { 
+  var colour_color_data = this.getFieldValue('color_data');
+  var code = '"'+colour_color_data+'"';
+  Blockly.Arduino.main_color = this.getFieldValue('color_data');
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+Blockly.Arduino.make_color_define = function() {
+    var text_data = this.getFieldValue('data');
+  var code = '"#'+text_data+'"';
+  var data = '#'+text_data;
+  Blockly.Arduino.main_color = data;
+  if(data.length == 7)
+    this.setColour(data);
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino['make_main_show_code'] = function() {
@@ -1012,13 +1036,6 @@ Blockly.Arduino['make_type_image'] = function() {
     return '';
 };
 
-Blockly.Arduino.make_color = function() { 
-  var colour_color_data = this.getFieldValue('color_data');
-  var code = '"'+colour_color_data+'"';
-  Blockly.Arduino.main_color = this.getFieldValue('color_data');
-  return [code, Blockly.Arduino.ORDER_ATOMIC];
-};
-
 Blockly.Arduino.test_1 = function() {
   var code = new Array(this.itemCount_);
   for (var n = 0; n < this.itemCount_; n++) {
@@ -1027,7 +1044,6 @@ Blockly.Arduino.test_1 = function() {
   }
   return '';
 };
-
 
 Blockly.Arduino.make_o = function() { 
   var value_u = Blockly.Arduino.valueToCode(this, 'u', Blockly.Arduino.ORDER_ATOMIC);
