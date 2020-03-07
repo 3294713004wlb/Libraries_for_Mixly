@@ -1054,10 +1054,10 @@ Blockly.Arduino.math_map_float = function() {
 
   if(value_x == '') value_x = '10.00';
 
-  Blockly.Arduino.definitions_['function_map_float'] = 'float mapfloat(float x, float in_min, float in_max, float out_min, float out_max)'
+  Blockly.Arduino.definitions_['function_mapfloat'] = 'float mapfloat(float x, float in_min, float in_max, float out_min, float out_max)'
                                                   +'\n{'
                                                   +'\n  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;'
-                                                  +'\n}'
+                                                  +'\n}';
   var code = 'mapfloat('+value_x+', '+value_in_min+', '+value_in_max+', '+value_out_min+', '+value_out_max+')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
@@ -1775,7 +1775,7 @@ Blockly.Arduino.keypad_4_3_start = function() {
   return code;
 };
 
-
+/*
 Blockly.Arduino.Arduino_keypad_4_4_start = function() {
   var text_keypad_name = this.getFieldValue('keypad_name');
   var text_keypad_row = Blockly.Arduino.valueToCode(this, 'keypad_row',Blockly.Arduino.ORDER_ATOMIC);
@@ -1798,7 +1798,9 @@ Blockly.Arduino.Arduino_keypad_4_4_start = function() {
   var code = '';
   return code;
 };
+*/
 
+/*
 Blockly.Arduino.keypad_row_data= function() {
   var pin_keypad_row_1 = Blockly.Arduino.valueToCode(this, 'keypad_row_1',Blockly.Arduino.ORDER_ATOMIC);
   var pin_keypad_row_2 = Blockly.Arduino.valueToCode(this, 'keypad_row_2',Blockly.Arduino.ORDER_ATOMIC);
@@ -1847,6 +1849,7 @@ Blockly.Arduino.keypad_type_data= function() {
    '\n  {\''+text_keypad_4_1+'\',\''+text_keypad_4_2+'\',\''+text_keypad_4_3+'\',\''+text_keypad_4_4+'\'}';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
+*/
 
 Blockly.Arduino.Arduino_keypad_4_3_start = function() {
   var text_keypad_name = this.getFieldValue('keypad_name');
@@ -10289,6 +10292,7 @@ Blockly.Arduino.make_tool_modulus_1 = function() {
   var code = '';
   return code;
 };
+
 var img = new Image();
 Blockly.Arduino.make_tool_modulus_2 = function() {
     var dropdown_bitmap_formats = this.getFieldValue('bitmap_formats');

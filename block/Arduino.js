@@ -3020,6 +3020,7 @@ Blockly.Blocks['keypad_4_3_start'] = {
   }
 };
 
+/*
 Blockly.Blocks['Arduino_keypad_4_4_start'] = {
   init: function() {
     this.appendDummyInput()
@@ -3046,7 +3047,9 @@ Blockly.Blocks['Arduino_keypad_4_4_start'] = {
  this.setHelpUrl("");
   }
 };
+*/
 
+/*
 Blockly.Blocks['keypad_row_data'] = {
   init: function() {
     this.appendValueInput("keypad_row_1", Number)
@@ -3072,7 +3075,9 @@ Blockly.Blocks['keypad_row_data'] = {
  this.setHelpUrl("");
   }
 };
+*/
 
+/*
 Blockly.Blocks['keypad_col_data'] = {
   init: function() {
     this.appendValueInput("keypad_col_1", Number)
@@ -3098,7 +3103,9 @@ Blockly.Blocks['keypad_col_data'] = {
  this.setHelpUrl("");
   }
 };
+*/
 
+/*
 Blockly.Blocks['keypad_type_data'] = {
   init: function() {
     this.appendDummyInput()
@@ -3134,6 +3141,7 @@ Blockly.Blocks['keypad_type_data'] = {
  this.setHelpUrl("");
   }
 };
+*/
 
 Blockly.Blocks['Arduino_keypad_4_3_start'] = {
   init: function() {
@@ -3156,7 +3164,7 @@ Blockly.Blocks['Arduino_keypad_4_3_start'] = {
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("键盘样式#");
     this.setNextStatement(true, null);
-    this.setColour(285);
+    this.setColour(40);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -3182,7 +3190,7 @@ Blockly.Blocks['keypad_4_3_row_data'] = {
         .appendField("4#");
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(330);
+    this.setColour(40);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -3204,7 +3212,7 @@ Blockly.Blocks['keypad_4_3_col_data'] = {
         .appendField("3#");
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(330);
+    this.setColour(40);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -3236,7 +3244,7 @@ Blockly.Blocks['keypad_4_3_type_data'] = {
         .appendField(new Blockly.FieldTextInput("0"), "keypad_4_2")
         .appendField(new Blockly.FieldTextInput("#"), "keypad_4_3");
     this.setOutput(true, null);
-    this.setColour(180);
+    this.setColour(40);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -3263,7 +3271,7 @@ Blockly.Blocks['Arduino_keypad_1_4_start'] = {
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("键盘样式#");
     this.setNextStatement(true, null);
-    this.setColour(285);
+    this.setColour(40);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -3277,7 +3285,7 @@ Blockly.Blocks['keypad_1_4_row_data'] = {
         .appendField("1#");
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(330);
+    this.setColour(40);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -3303,7 +3311,7 @@ Blockly.Blocks['keypad_1_4_col_data'] = {
         .appendField("4#");
     this.setInputsInline(true);
     this.setOutput(true, null);
-    this.setColour(330);
+    this.setColour(40);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -3321,7 +3329,7 @@ Blockly.Blocks['keypad_1_4_type_data'] = {
         .appendField(new Blockly.FieldTextInput("3"), "keypad_1_3")
         .appendField(new Blockly.FieldTextInput("4"), "keypad_1_4");
     this.setOutput(true, null);
-    this.setColour(180);
+    this.setColour(40);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -3360,7 +3368,7 @@ Blockly.Blocks.keypad_n_n_type_data= {
       .appendField(new Blockly.FieldTextInput(""), "keypad_4_3")
       .appendField(new Blockly.FieldTextInput(""), "keypad_4_4");
   this.setOutput(true, null);
-  this.setColour(180);
+  this.setColour(40);
   this.setTooltip("4×4矩阵键盘按键");
   this.setHelpUrl("");
   },
@@ -3487,7 +3495,7 @@ Blockly.Blocks.keypad_n_n_start_1 = {
         .appendField("键盘样式(数组)");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(285);
+    this.setColour(40);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -3515,7 +3523,7 @@ Blockly.Blocks.keypad_n_n_start = {
         .appendField("键盘样式#");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(285);
+    this.setColour(40);
  this.setTooltip("此图形块为测试图形块，暂时可以满足基本的使用");
  this.setHelpUrl("");
   }
@@ -3528,7 +3536,7 @@ Blockly.Blocks.keypad_n_n_row_col_data_1 = {
    * @this Blockly.Block
    */
    init: function() {
-    this.setColour(330);
+    this.setColour(40);
     this.itemCount_ = 4;
     this.updateShape_();
     this.setInputsInline(true);
@@ -3642,7 +3650,7 @@ Blockly.Blocks['keypad_create_with_item'] = {
    * @this Blockly.Block
    */
    init: function() {
-    this.setColour(330);
+    this.setColour(40);
     this.appendDummyInput()
     .appendField(Blockly.Msg.LISTS_CREATE_WITH_ITEM_TITLE);
     this.setPreviousStatement(true);
@@ -3658,7 +3666,7 @@ Blockly.Blocks['keypad_create_with_container'] = {
    * @this Blockly.Block
    */
    init: function() {
-    this.setColour(330);
+    this.setColour(40);
     this.appendDummyInput()
         .appendField("管脚");
     this.appendStatementInput('STACK');
@@ -3675,7 +3683,7 @@ Blockly.Blocks['get_keypad_num'] = {
         .appendField("按键数值");
     this.setInputsInline(true);
      this.setOutput(true, null);
-    this.setColour(285);
+    this.setColour(40);
  this.setTooltip("矩阵键盘获取按键值，返回数据的类型为char");
  this.setHelpUrl("");
   }
@@ -3699,7 +3707,7 @@ Blockly.Blocks['arduino_keypad_event'] = {
         .setCheck(null)
         .appendField("执行");
     this.setInputsInline(false);
-    this.setColour(285);
+    this.setColour(40);
  this.setTooltip("");
  this.setHelpUrl("");
   }
