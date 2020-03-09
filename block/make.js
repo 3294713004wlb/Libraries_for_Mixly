@@ -166,15 +166,15 @@ Blockly.Blocks.make_color_define= {
 Blockly.Blocks['make_main_show_code'] = {
   init: function() {
     this.appendDummyInput('EMPTY1')
-        .appendField("XML:");
+        .appendField("xxx.xml:");
     this.appendDummyInput('EMPTY2')
         .appendField(new Blockly.FieldTextArea(""), "xml_code");
     this.appendDummyInput('EMPTY3')
-        .appendField("Block Definition:");
+        .appendField("block/xxx.js:");
     this.appendDummyInput('EMPTY4')
         .appendField(new Blockly.FieldTextArea(""), "block_code");
     this.appendDummyInput('EMPTY5')
-        .appendField("Generator stub:");
+        .appendField("generator/xxx.js:");
     this.appendDummyInput('EMPTY6')
         .appendField(new Blockly.FieldTextArea(""), "generator_code");
     this.setColour(90);
@@ -182,7 +182,7 @@ Blockly.Blocks['make_main_show_code'] = {
     this.setHelpUrl("");
   }
   //,
-  //onchange:function(){
+  //onchange: function(){
     //测试失败
     /*
     if(xml != Blockly.Arduino.make_xml_code || block_js != Blockly.Arduino.make_block_code || generator_code != Blockly.Arduino.make_generator_code)
@@ -219,7 +219,30 @@ Blockly.Blocks['make_main_show_code'] = {
     //var input6 = this.appendDummyInput('EMPTY6');
     //this.setFieldValue(Blockly.Arduino.make_generator_code,"generator_code");
     //this.setColour(Blockly.Arduino.main_color);
+
+    //if (!this.workspace) {
+      // Block has been deleted.
+    //  return;
+    //}
+   
+    //this.setFieldValue(Blockly.Arduino.make_xml_code,"xml_code");
+    //this.setFieldValue(Blockly.Arduino.make_block_code,"block_code");
+    //this.setFieldValue(Blockly.Arduino.make_generator_code,"generator_code");
+    //this.setColour(Blockly.Arduino.main_color);
   //}
+  ,
+  onchange: function() {
+    var xml = Blockly.Arduino.make_xml_code;
+    var block_js = Blockly.Arduino.make_block_code;
+    var generator_js = Blockly.Arduino.make_generator_code;
+    //xml = xml.substring(0,xml.length - 2);
+    block_js = block_js.substring(0,block_js.length - 1);
+    generator_js = generator_js.substring(0,generator_js.length - 1);
+    this.setFieldValue(xml,"xml_code");
+    this.setFieldValue(block_js,"block_code");
+    this.setFieldValue(generator_js,"generator_code");
+    this.setColour(Blockly.Arduino.main_color);
+  }
 };
 
 Blockly.Blocks['make_main_show_code_test'] = {

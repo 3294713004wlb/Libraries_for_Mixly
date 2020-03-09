@@ -530,10 +530,10 @@ Blockly.Arduino['make_main_show_code'] = function() {
   var text_xml_code = this.getFieldValue('xml_code');
   var text_block_code = this.getFieldValue('block_code');
   var text_generator_code = this.getFieldValue('generator_code');
-  this.setFieldValue(Blockly.Arduino.make_xml_code,"xml_code");
-  this.setFieldValue(Blockly.Arduino.make_block_code,"block_code");
-  this.setFieldValue(Blockly.Arduino.make_generator_code,"generator_code");
-  this.setColour(Blockly.Arduino.main_color);
+  //this.setFieldValue(Blockly.Arduino.make_xml_code,"xml_code");
+  //this.setFieldValue(Blockly.Arduino.make_block_code,"block_code");
+  //this.setFieldValue(Blockly.Arduino.make_generator_code,"generator_code");
+  //this.setColour(Blockly.Arduino.main_color);
   var code = '';
   return code;
 };
