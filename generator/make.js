@@ -1401,9 +1401,16 @@ Blockly.Arduino.make_block_to_zh_hans = function() {
       {
         if(convert_data)
         {
-          select++;
-          output_data = output_data + 'Blockly.MIXLY' + '_' + name_data + '_' + select;
-          zh_hans_data1 = zh_hans_data1 + 'Blockly.MIXLY' + '_' + name_data + '_' + select + ' = ' + '\'' + convert_data + '\';\n';
+          if(escape(convert_data).indexOf("%u") != -1 && escape(convert_data).indexOf("../../media/") == -1)
+          {
+            select++;
+            output_data = output_data + 'Blockly.MIXLY' + '_' + name_data + '_' + select;
+            zh_hans_data1 = zh_hans_data1 + 'Blockly.MIXLY' + '_' + name_data + '_' + select + ' = ' + '\'' + convert_data + '\';\n';
+          }
+          else
+          {
+            output_data = output_data + '"' + convert_data + '"';
+          }
           convert_data = '';
           output_data+=i;
         }

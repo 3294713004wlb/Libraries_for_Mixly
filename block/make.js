@@ -93,41 +93,44 @@ Blockly.Blocks['make_main'] = {
 
 Blockly.Blocks['make_main'] = {
   init: function() {
-    this.appendDummyInput()
-        .appendField("代码区显示:")
-        .appendField(new Blockly.FieldCheckbox("true"), "main_show_is_true");
-    //this.appendDummyInput()
-    //    .appendField("使用显示界面中块")
-    //    .appendField(new Blockly.FieldDropdown([["1","1"],["2","2"],["3","3"],["4","4"],["5","5"]]), "type");
-    this.appendDummyInput()
-        .appendField("名字：")
-        .appendField(new Blockly.FieldTextInput("make_main"), "main_0");
-    this.appendStatementInput("main_1")
-        .setCheck("make_input");
-    this.appendDummyInput()
-        .appendField("输入")
-        .appendField(new Blockly.FieldDropdown([["自动的","automatic"], ["外部的","external"], ["内联的","inline"]]), "input_drop");
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown([["无连接口","sharp_1"], ["上连接口","sharp_2"], ["下连接口","sharp_3"], ["上下连接口","sharp_4"], ["左连接口","sharp_5"]]), "sharp");
-    this.appendValueInput("main_2")
-        .setCheck(null)
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("提示信息：");
-    this.appendValueInput("main_3")
-        .setCheck(null)
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("帮助信息：");
-    this.appendValueInput("main_4")
-        .setCheck(null)
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("块颜色：");
-    this.appendDummyInput()  
-        .appendField("输出代码：");
-    this.appendStatementInput("make_generator_code_data")
-        .setCheck("make_input_code");
-    this.setColour(20);
- this.setTooltip("");
- this.setHelpUrl("");
+  this.appendDummyInput()
+      .appendField("代码区显示:")
+      .appendField(new Blockly.FieldCheckbox("true"), "main_show_is_true");
+  //this.appendDummyInput()
+  //    .appendField("使用显示界面中块")
+  //    .appendField(new Blockly.FieldDropdown([["1","1"],["2","2"],["3","3"],["4","4"],["5","5"]]), "type");
+  this.appendDummyInput()
+      .appendField("名字:")
+      .appendField(new Blockly.FieldTextInput("make_main"), "main_0");
+  this.appendDummyInput()
+      .appendField("block/xxx.js:");
+  this.appendStatementInput("main_1")
+      .setCheck("make_input");
+  this.appendDummyInput()
+      .appendField("输入类型:")
+      .appendField(new Blockly.FieldDropdown([["自动","automatic"], ["外部输入","external"], ["单行输入","inline"]]), "input_drop");
+  this.appendDummyInput()
+      .appendField("接口类型:")
+      .appendField(new Blockly.FieldDropdown([["无连接口","sharp_1"], ["上连接口","sharp_2"], ["下连接口","sharp_3"], ["上下连接口","sharp_4"], ["左连接口","sharp_5"]]), "sharp");
+  this.appendValueInput("main_2")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("提示信息:");
+  this.appendValueInput("main_3")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("帮助信息:");
+  this.appendValueInput("main_4")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("块颜色:");
+  this.appendDummyInput()  
+      .appendField("generator/xxx.js:");
+  this.appendStatementInput("make_generator_code_data")
+      .setCheck("make_input_code");
+  this.setColour(20);
+  this.setTooltip("");
+  this.setHelpUrl("");
   }
 };
 
@@ -177,6 +180,8 @@ Blockly.Blocks['make_main_show_code'] = {
         .appendField("generator/xxx.js:");
     this.appendDummyInput('EMPTY6')
         .appendField(new Blockly.FieldTextArea(""), "generator_code");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
     this.setColour(90);
     this.setTooltip("");
     this.setHelpUrl("");
@@ -232,6 +237,10 @@ Blockly.Blocks['make_main_show_code'] = {
   //}
   ,
   onchange: function() {
+    if (!this.workspace) {
+      // Block has been deleted.
+      return;
+    }
     var xml = Blockly.Arduino.make_xml_code;
     var block_js = Blockly.Arduino.make_block_code;
     var generator_js = Blockly.Arduino.make_generator_code;
@@ -520,7 +529,7 @@ Blockly.Blocks.make_type_dropdown_image = {
   init: function() {
     this.appendDummyInput()
         .appendField("图片")
-        .appendField(new Blockly.FieldTextInput("../../media/make/mixly.GIF"), "type_image_place");
+        .appendField(new Blockly.FieldTextInput("../../media/make/Logo_Mixly.png"), "type_image_place");
     this.appendDummyInput()
         .appendField("宽度:")
         .appendField(new Blockly.FieldTextInput("20"), "type_image_width")
@@ -613,7 +622,7 @@ Blockly.Blocks['make_type_image'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("图片")
-        .appendField(new Blockly.FieldTextInput("../../media/make/mixly.GIF"), "type_image_place");
+        .appendField(new Blockly.FieldTextInput("../../media/make/Logo_Mixly.png"), "type_image_place");
     this.appendDummyInput()
         .appendField("宽度:")
         .appendField(new Blockly.FieldTextInput("20"), "type_image_width")
