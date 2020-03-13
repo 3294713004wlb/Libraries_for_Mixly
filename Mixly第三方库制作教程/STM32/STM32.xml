@@ -1,0 +1,65 @@
+﻿ <!--
+type="company" 
+block="block/STM32.js" 
+generator="generator/STM32.js" 
+language="language/STM32/"
+examples="examples/STM32"
+media="media/STM32"
+pin="companypin/STM32"
+lib="STM32"
+hardware="hardware/arduino" 
+-->
+<!-- 
+Author:
+Date:
+E-mail:
+-->
+<script type="text/javascript" src="../../blocks/company/STM32.js"></script>
+<script type="text/javascript" src="../../generators/arduino/company/STM32.js"></script>
+<category id="mixly_test" name="总类" colour="0">
+
+    <category id="mixly_test_1" name="分类1" colour="90">
+
+    	<block type="controls_whileUntil">
+		    <field name="MODE">WHILE</field>
+		    <value name="BOOL">
+		      <shadow type="logic_boolean">
+		        <field name="BOOL">TRUE</field>
+		      </shadow>
+		    </value>
+		    <statement name="DO">
+		      <block type="serial_println">
+		        <field name="serial_select">Serial</field>
+		        <value name="CONTENT">
+		          <block type="text">
+		            <field name="TEXT">一个测试块</field>
+		          </block>
+		        </value>
+		      </block>
+		    </statement>
+		  </block>
+
+		  <block type="math_random_seed">
+		    <value name="NUM">
+		      <shadow type="math_number">
+		        <field name="NUM">997</field>
+		      </shadow>
+		      <shadow type="controls_millis">
+		        <field name="UNIT">millis</field>
+		      </shadow>
+		    </value>
+		  </block>
+
+    </category>
+
+    <category id="mixly_test_2" name="分类2" colour="180">
+    </category>
+    <category id="mixly_test_3" name="分类3" colour="270">
+    </category>
+    <category id="mixly_test_4" name="分类4" colour="0">
+    </category>
+ </category>
+
+
+
+
