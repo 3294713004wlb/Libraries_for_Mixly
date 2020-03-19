@@ -1,8 +1,8 @@
-import os
+﻿import os
 
-libraries_name = "lib_AS608" #用于定义存放 Arduino库文件 的目录名
-block_name = "AS608" #用于定义block&generator下文件和xml文件的文件名
-name = "AS608指纹识别传感器" #用于定义存放所有文件夹的目录名
+libraries_name = "lib_morse_keyboard" #用于定义存放 Arduino库文件 的目录名
+block_name = "USB_morse_keyboard" #用于定义block&generator下文件和xml文件的文件名
+name = "USB鼠标键盘模拟" #用于定义存放所有文件夹的目录名
 
 dir = os.getcwd()+ "\\Mixly库目录" #用于定义生成的文件夹要存放的位置
 print(dir)
@@ -40,6 +40,8 @@ xml.write("Author:\n")
 xml.write("Date:\n")
 xml.write("E-mail:\n")
 xml.write("-->\n")
+xml.write("<script type=\"text/javascript\" src=\"../../blocks/company/" + block_name + ".js\"></script>\n")
+xml.write("<script type=\"text/javascript\" src=\"../../generators/arduino/company/" + block_name + ".js\"></script>")
 xml.close()
 
 dir_generator = dir + "\\generator"
