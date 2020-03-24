@@ -6455,6 +6455,99 @@ E-mail:3294713004@qq.com
           </value>
         </block>
       </category>
+      <category id="mixly_arduino_pcf8591" name="PCF8591 AD转换模块" colour="40">
+        <block type="make_arduino_pcf8591_begin">
+          <value name="pcf8591_address">
+            <shadow type="math_number">
+              <field name="NUM">0x48</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_pcf8591_begin_sda_scl">
+          <value name="pcf8591_sda">
+            <shadow type="pins_digital">
+                <field name="PIN">2</field>
+            </shadow>
+          </value>
+          <value name="pcf8591_scl">
+            <shadow type="pins_digital">
+                <field name="PIN">3</field>
+            </shadow>
+          </value>
+          <value name="pcf8591_address">
+            <shadow type="math_number">
+              <field name="NUM">0x48</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_pcf8591_analogRead">
+          <value name="pin">
+            <shadow type="make_arduino_pcf8591_read_pin">
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_pcf8591_analogWrite">
+          <value name="data">
+            <shadow type="math_number">
+              <field name="NUM">0</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_pcf8591_voltageRead">
+          <field name="pcf8591_name">pcf8591</field>
+          <value name="pin">
+            <shadow type="make_arduino_pcf8591_read_pin">
+            </shadow>
+          </value>
+          <value name="microcontrollerReferenceVoltage">
+            <shadow type="logic_boolean">
+              <field name="BOOL">TRUE</field>
+            </shadow>
+          </value>
+          <value name="referenceVoltage">
+            <shadow type="math_number">
+              <field name="NUM">5</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_pcf8591_voltageWrite">
+          <value name="data">
+            <shadow type="math_number">
+              <field name="NUM">0</field>
+            </shadow>
+          </value>
+          <value name="microcontrollerReferenceVoltage">
+            <shadow type="logic_boolean">
+              <field name="BOOL">TRUE</field>
+            </shadow>
+          </value>
+          <value name="referenceVoltage">
+            <shadow type="math_number">
+              <field name="NUM">5</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_pcf8591_voltageRead_1">
+          <value name="pin">
+            <shadow type="make_arduino_pcf8591_read_pin">
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_pcf8591_voltageWrite_1">
+          <value name="data">
+            <shadow type="math_number">
+              <field name="NUM">0</field>
+            </shadow>
+          </value>
+        </block>
+      </category>
     </category>
 
     <category id="mixly_max30102_sensor" name="心率传感器" colour="40">
@@ -7513,6 +7606,461 @@ E-mail:3294713004@qq.com
           </block>
 
         </category>
+        <category id="mixly_arduino_as608_fingerfastsearch" name="指纹比对" colour="40">
+
+          <block type="make_arduino_comment_text_3">
+            <field name="data">指纹比对，在指纹库中搜索刚创建的指纹模型</field>
+            <statement name="input">
+              <block type="make_arduino_define_local_variate_1">
+                <field name="local_variate_name">p</field>
+                <value name="local_variate_data">
+                  <block type="make_arduino_as608_get">
+                    <field name="as608_name">finger</field>
+                    <field name="type">fingerFastSearch()</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_if">
+                    <mutation elseif="2" else="1"></mutation>
+                    <value name="IF0">
+                      <block type="logic_compare">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="make_arduino_define_local_variate_2">
+                            <field name="local_variate_name">p</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="make_arduino_as608_get_data">
+                            <field name="type">FINGERPRINT_OK</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="text">
+                            <field name="TEXT">指纹匹配成功</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="serial_println">
+                            <field name="serial_select">Serial</field>
+                            <value name="CONTENT">
+                              <block type="link_text">
+                                <mutation items="2"></mutation>
+                                <value name="ADD0">
+                                  <block type="text">
+                                    <field name="TEXT">指纹模型编号:</field>
+                                  </block>
+                                </value>
+                                <value name="ADD1">
+                                  <block type="make_arduino_as608_get">
+                                    <field name="as608_name">finger</field>
+                                    <field name="type">fingerID</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                    <value name="IF1">
+                      <block type="logic_compare">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="make_arduino_define_local_variate_2">
+                            <field name="local_variate_name">p</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="make_arduino_as608_get_data">
+                            <field name="type">FINGERPRINT_NOTFOUND</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO1">
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="text">
+                            <field name="TEXT">指纹匹配失败</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <value name="IF2">
+                      <block type="logic_compare">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="make_arduino_define_local_variate_2">
+                            <field name="local_variate_name">p</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="make_arduino_as608_get_data">
+                            <field name="type">FINGERPRINT_PACKETRECIEVEERR</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO2">
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="text">
+                            <field name="TEXT">通信错误</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <statement name="ELSE">
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="text">
+                            <field name="TEXT">未知错误</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="link_text">
+                            <mutation items="2"></mutation>
+                            <value name="ADD0">
+                              <block type="text">
+                                <field name="TEXT">置信度:</field>
+                              </block>
+                            </value>
+                            <value name="ADD1">
+                              <block type="make_arduino_as608_get">
+                                <field name="as608_name">finger</field>
+                                <field name="type">confidence</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+
+        </category>
+        <category id="mixly_arduino_as608_gettemplatecount" name="读取指纹库中模型数量" colour="40">
+
+          <block type="make_arduino_comment_text_3">
+            <field name="data">读取指纹库中的模型数量</field>
+            <statement name="input">
+              <block type="make_arduino_define_local_variate_1">
+                <field name="local_variate_name">p</field>
+                <value name="local_variate_data">
+                  <block type="make_arduino_as608_get">
+                    <field name="as608_name">finger</field>
+                    <field name="type">getTemplateCount()</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_if">
+                    <mutation elseif="1" else="1"></mutation>
+                    <value name="IF0">
+                      <block type="logic_compare">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="make_arduino_define_local_variate_2">
+                            <field name="local_variate_name">p</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="make_arduino_as608_get_data">
+                            <field name="type">FINGERPRINT_OK</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="text">
+                            <field name="TEXT">指纹库读取成功</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <value name="IF1">
+                      <block type="logic_compare">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="make_arduino_define_local_variate_2">
+                            <field name="local_variate_name">p</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="make_arduino_as608_get_data">
+                            <field name="type">FINGERPRINT_PACKETRECIEVEERR</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO1">
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="text">
+                            <field name="TEXT">通信错误</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <statement name="ELSE">
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="text">
+                            <field name="TEXT">未知错误</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="link_text" inline="false">
+                            <mutation items="3"></mutation>
+                            <value name="ADD0">
+                              <block type="text">
+                                <field name="TEXT">指纹库中目前有</field>
+                              </block>
+                            </value>
+                            <value name="ADD1">
+                              <block type="make_arduino_as608_get">
+                                <field name="as608_name">finger</field>
+                                <field name="type">templateCount</field>
+                              </block>
+                            </value>
+                            <value name="ADD2">
+                              <block type="text">
+                                <field name="TEXT">个指纹模型</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+
+        </category>
+        <category id="mixly_arduino_as608_loadmodel" name="加载指纹模型" colour="40">
+
+          <block type="make_arduino_comment_text_3">
+            <field name="data">加载指纹库中的一个模型到buffer1</field>
+            <statement name="input">
+              <block type="make_arduino_define_local_variate_1">
+                <field name="local_variate_name">p</field>
+                <value name="local_variate_data">
+                  <block type="make_arduino_as608_operate_model_return">
+                    <field name="as608_name">finger</field>
+                    <field name="type">loadModel</field>
+                    <value name="location">
+                      <shadow type="math_number">
+                        <field name="NUM">0</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_if">
+                    <mutation elseif="2" else="1"></mutation>
+                    <value name="IF0">
+                      <block type="logic_compare">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="make_arduino_define_local_variate_2">
+                            <field name="local_variate_name">p</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="make_arduino_as608_get_data">
+                            <field name="type">FINGERPRINT_OK</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="text">
+                            <field name="TEXT">加载成功</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <value name="IF1">
+                      <block type="logic_compare">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="make_arduino_define_local_variate_2">
+                            <field name="local_variate_name">p</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="make_arduino_as608_get_data">
+                            <field name="type">FINGERPRINT_PACKETRECIEVEERR</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO1">
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="text">
+                            <field name="TEXT">通信错误</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <value name="IF2">
+                      <block type="logic_compare">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="make_arduino_define_local_variate_2">
+                            <field name="local_variate_name">p</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="make_arduino_as608_get_data">
+                            <field name="type">FINGERPRINT_BADLOCATION</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO2">
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="text">
+                            <field name="TEXT">储存位置无效</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <statement name="ELSE">
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="text">
+                            <field name="TEXT">未知错误</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+
+        </category>
+        <category id="mixly_arduino_as608_getmodel" name="发送指纹模型到主机" colour="40">
+
+          <block type="make_arduino_comment_text_3">
+            <field name="data">将buffer1中指纹模型发送到主机</field>
+            <statement name="input">
+              <block type="make_arduino_define_local_variate_1">
+                <field name="local_variate_name">p</field>
+                <value name="local_variate_data">
+                  <block type="make_arduino_as608_get">
+                    <field name="as608_name">finger</field>
+                    <field name="type">getModel()</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_if">
+                    <mutation elseif="1" else="1"></mutation>
+                    <value name="IF0">
+                      <block type="logic_compare">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="make_arduino_define_local_variate_2">
+                            <field name="local_variate_name">p</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="make_arduino_as608_get_data">
+                            <field name="type">FINGERPRINT_OK</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="text">
+                            <field name="TEXT">发送成功</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <value name="IF1">
+                      <block type="logic_compare">
+                        <field name="OP">EQ</field>
+                        <value name="A">
+                          <block type="make_arduino_define_local_variate_2">
+                            <field name="local_variate_name">p</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="make_arduino_as608_get_data">
+                            <field name="type">FINGERPRINT_PACKETRECIEVEERR</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO1">
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="text">
+                            <field name="TEXT">通信错误</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <statement name="ELSE">
+                      <block type="serial_println">
+                        <field name="serial_select">Serial</field>
+                        <value name="CONTENT">
+                          <block type="text">
+                            <field name="TEXT">未知错误</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+
+        </category>
         <category id="mixly_arduino_as608_deletemodel" name="删除指纹模型" colour="40">
 
           <block type="make_arduino_comment_text_3">
@@ -7763,311 +8311,6 @@ E-mail:3294713004@qq.com
                         <value name="CONTENT">
                           <block type="text">
                             <field name="TEXT">模型无法写入闪存</field>
-                          </block>
-                        </value>
-                      </block>
-                    </statement>
-                    <statement name="ELSE">
-                      <block type="serial_println">
-                        <field name="serial_select">Serial</field>
-                        <value name="CONTENT">
-                          <block type="text">
-                            <field name="TEXT">未知错误</field>
-                          </block>
-                        </value>
-                      </block>
-                    </statement>
-                  </block>
-                </next>
-              </block>
-            </statement>
-          </block>
-
-        </category>
-        <category id="mixly_arduino_as608_fingerfastsearch" name="指纹比对" colour="40">
-
-          <block type="make_arduino_comment_text_3">
-            <field name="data">指纹比对，在指纹库中搜索刚创建的指纹模型</field>
-            <statement name="input">
-              <block type="make_arduino_define_local_variate_1">
-                <field name="local_variate_name">p</field>
-                <value name="local_variate_data">
-                  <block type="make_arduino_as608_get">
-                    <field name="as608_name">finger</field>
-                    <field name="type">fingerFastSearch()</field>
-                  </block>
-                </value>
-                <next>
-                  <block type="controls_if">
-                    <mutation elseif="2" else="1"></mutation>
-                    <value name="IF0">
-                      <block type="logic_compare">
-                        <field name="OP">EQ</field>
-                        <value name="A">
-                          <block type="make_arduino_define_local_variate_2">
-                            <field name="local_variate_name">p</field>
-                          </block>
-                        </value>
-                        <value name="B">
-                          <block type="make_arduino_as608_get_data">
-                            <field name="type">FINGERPRINT_OK</field>
-                          </block>
-                        </value>
-                      </block>
-                    </value>
-                    <statement name="DO0">
-                      <block type="serial_println">
-                        <field name="serial_select">Serial</field>
-                        <value name="CONTENT">
-                          <block type="text">
-                            <field name="TEXT">指纹匹配成功</field>
-                          </block>
-                        </value>
-                      </block>
-                    </statement>
-                    <value name="IF1">
-                      <block type="logic_compare">
-                        <field name="OP">EQ</field>
-                        <value name="A">
-                          <block type="make_arduino_define_local_variate_2">
-                            <field name="local_variate_name">p</field>
-                          </block>
-                        </value>
-                        <value name="B">
-                          <block type="make_arduino_as608_get_data">
-                            <field name="type">FINGERPRINT_NOTFOUND</field>
-                          </block>
-                        </value>
-                      </block>
-                    </value>
-                    <statement name="DO1">
-                      <block type="serial_println">
-                        <field name="serial_select">Serial</field>
-                        <value name="CONTENT">
-                          <block type="text">
-                            <field name="TEXT">指纹匹配失败</field>
-                          </block>
-                        </value>
-                      </block>
-                    </statement>
-                    <value name="IF2">
-                      <block type="logic_compare">
-                        <field name="OP">EQ</field>
-                        <value name="A">
-                          <block type="make_arduino_define_local_variate_2">
-                            <field name="local_variate_name">p</field>
-                          </block>
-                        </value>
-                        <value name="B">
-                          <block type="make_arduino_as608_get_data">
-                            <field name="type">FINGERPRINT_PACKETRECIEVEERR</field>
-                          </block>
-                        </value>
-                      </block>
-                    </value>
-                    <statement name="DO2">
-                      <block type="serial_println">
-                        <field name="serial_select">Serial</field>
-                        <value name="CONTENT">
-                          <block type="text">
-                            <field name="TEXT">通信错误</field>
-                          </block>
-                        </value>
-                      </block>
-                    </statement>
-                    <statement name="ELSE">
-                      <block type="serial_println">
-                        <field name="serial_select">Serial</field>
-                        <value name="CONTENT">
-                          <block type="text">
-                            <field name="TEXT">未知错误</field>
-                          </block>
-                        </value>
-                      </block>
-                    </statement>
-                  </block>
-                </next>
-              </block>
-            </statement>
-          </block>
-
-        </category>
-        <category id="mixly_arduino_as608_loadmodel" name="加载指纹模型" colour="40">
-
-          <block type="make_arduino_comment_text_3">
-            <field name="data">加载指纹库中的一个模型到buffer1</field>
-            <statement name="input">
-              <block type="make_arduino_define_local_variate_1">
-                <field name="local_variate_name">p</field>
-                <value name="local_variate_data">
-                  <block type="make_arduino_as608_operate_model_return">
-                    <field name="as608_name">finger</field>
-                    <field name="type">loadModel</field>
-                    <value name="location">
-                      <shadow type="math_number">
-                        <field name="NUM">0</field>
-                      </shadow>
-                    </value>
-                  </block>
-                </value>
-                <next>
-                  <block type="controls_if">
-                    <mutation elseif="2" else="1"></mutation>
-                    <value name="IF0">
-                      <block type="logic_compare">
-                        <field name="OP">EQ</field>
-                        <value name="A">
-                          <block type="make_arduino_define_local_variate_2">
-                            <field name="local_variate_name">p</field>
-                          </block>
-                        </value>
-                        <value name="B">
-                          <block type="make_arduino_as608_get_data">
-                            <field name="type">FINGERPRINT_OK</field>
-                          </block>
-                        </value>
-                      </block>
-                    </value>
-                    <statement name="DO0">
-                      <block type="serial_println">
-                        <field name="serial_select">Serial</field>
-                        <value name="CONTENT">
-                          <block type="text">
-                            <field name="TEXT">加载成功</field>
-                          </block>
-                        </value>
-                      </block>
-                    </statement>
-                    <value name="IF1">
-                      <block type="logic_compare">
-                        <field name="OP">EQ</field>
-                        <value name="A">
-                          <block type="make_arduino_define_local_variate_2">
-                            <field name="local_variate_name">p</field>
-                          </block>
-                        </value>
-                        <value name="B">
-                          <block type="make_arduino_as608_get_data">
-                            <field name="type">FINGERPRINT_PACKETRECIEVEERR</field>
-                          </block>
-                        </value>
-                      </block>
-                    </value>
-                    <statement name="DO1">
-                      <block type="serial_println">
-                        <field name="serial_select">Serial</field>
-                        <value name="CONTENT">
-                          <block type="text">
-                            <field name="TEXT">通信错误</field>
-                          </block>
-                        </value>
-                      </block>
-                    </statement>
-                    <value name="IF2">
-                      <block type="logic_compare">
-                        <field name="OP">EQ</field>
-                        <value name="A">
-                          <block type="make_arduino_define_local_variate_2">
-                            <field name="local_variate_name">p</field>
-                          </block>
-                        </value>
-                        <value name="B">
-                          <block type="make_arduino_as608_get_data">
-                            <field name="type">FINGERPRINT_BADLOCATION</field>
-                          </block>
-                        </value>
-                      </block>
-                    </value>
-                    <statement name="DO2">
-                      <block type="serial_println">
-                        <field name="serial_select">Serial</field>
-                        <value name="CONTENT">
-                          <block type="text">
-                            <field name="TEXT">储存位置无效</field>
-                          </block>
-                        </value>
-                      </block>
-                    </statement>
-                    <statement name="ELSE">
-                      <block type="serial_println">
-                        <field name="serial_select">Serial</field>
-                        <value name="CONTENT">
-                          <block type="text">
-                            <field name="TEXT">未知错误</field>
-                          </block>
-                        </value>
-                      </block>
-                    </statement>
-                  </block>
-                </next>
-              </block>
-            </statement>
-          </block>
-
-        </category>
-
-        <category id="mixly_arduino_as608_getmodel" name="发送指纹模型到主机" colour="40">
-
-          <block type="make_arduino_comment_text_3">
-            <field name="data">将buffer1中指纹模型发送到主机</field>
-            <statement name="input">
-              <block type="make_arduino_define_local_variate_1">
-                <field name="local_variate_name">p</field>
-                <value name="local_variate_data">
-                  <block type="make_arduino_as608_get">
-                    <field name="as608_name">finger</field>
-                    <field name="type">getModel()</field>
-                  </block>
-                </value>
-                <next>
-                  <block type="controls_if">
-                    <mutation elseif="1" else="1"></mutation>
-                    <value name="IF0">
-                      <block type="logic_compare">
-                        <field name="OP">EQ</field>
-                        <value name="A">
-                          <block type="make_arduino_define_local_variate_2">
-                            <field name="local_variate_name">p</field>
-                          </block>
-                        </value>
-                        <value name="B">
-                          <block type="make_arduino_as608_get_data">
-                            <field name="type">FINGERPRINT_OK</field>
-                          </block>
-                        </value>
-                      </block>
-                    </value>
-                    <statement name="DO0">
-                      <block type="serial_println">
-                        <field name="serial_select">Serial</field>
-                        <value name="CONTENT">
-                          <block type="text">
-                            <field name="TEXT">发送成功</field>
-                          </block>
-                        </value>
-                      </block>
-                    </statement>
-                    <value name="IF1">
-                      <block type="logic_compare">
-                        <field name="OP">EQ</field>
-                        <value name="A">
-                          <block type="make_arduino_define_local_variate_2">
-                            <field name="local_variate_name">p</field>
-                          </block>
-                        </value>
-                        <value name="B">
-                          <block type="make_arduino_as608_get_data">
-                            <field name="type">FINGERPRINT_PACKETRECIEVEERR</field>
-                          </block>
-                        </value>
-                      </block>
-                    </value>
-                    <statement name="DO1">
-                      <block type="serial_println">
-                        <field name="serial_select">Serial</field>
-                        <value name="CONTENT">
-                          <block type="text">
-                            <field name="TEXT">通信错误</field>
                           </block>
                         </value>
                       </block>

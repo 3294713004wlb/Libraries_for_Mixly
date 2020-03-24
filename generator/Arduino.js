@@ -4518,6 +4518,99 @@ Blockly.Arduino.make_arduino_mcp23017_getLastInterrupt = function() {
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
+//初始化PCF8591 AD转换模块
+Blockly.Arduino.make_arduino_pcf8591_begin = function() {
+  this.setTooltip("初始化PCF8591 AD转换模块");
+    var text_pcf8591_name = this.getFieldValue('pcf8591_name');
+    var value_pcf8591_address = Blockly.Arduino.valueToCode(this, 'pcf8591_address', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_'+'Arduino'] = '#include "Arduino.h"';
+  Blockly.Arduino.definitions_['include_'+'PCF8591'] = '#include "PCF8591.h"';
+  Blockly.Arduino.definitions_['var_declare_'+text_pcf8591_name] = 'PCF8591 '+text_pcf8591_name+'('+value_pcf8591_address+');';
+  Blockly.Arduino.setups_['pcf8591_begin'] = text_pcf8591_name+'.begin();';
+  var code = '';
+  return code;
+};
+
+//初始化PCF8591 AD转换模块 可设置SDA & SCL
+Blockly.Arduino.make_arduino_pcf8591_begin_sda_scl = function() {
+  this.setTooltip("初始化PCF8591 AD转换模块");
+    var text_pcf8591_name = this.getFieldValue('pcf8591_name');
+    var value_pcf8591_sda = Blockly.Arduino.valueToCode(this, 'pcf8591_sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_pcf8591_scl = Blockly.Arduino.valueToCode(this, 'pcf8591_scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_pcf8591_address = Blockly.Arduino.valueToCode(this, 'pcf8591_address', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_'+'Arduino'] = '#include "Arduino.h"';
+  Blockly.Arduino.definitions_['include_'+'PCF8591'] = '#include "PCF8591.h"';
+  Blockly.Arduino.definitions_['var_declare_'+text_pcf8591_name] = 'PCF8591 '+text_pcf8591_name+'('+value_pcf8591_address+', '+value_pcf8591_sda+', '+value_pcf8591_scl+');';
+  Blockly.Arduino.setups_['pcf8591_begin'] = text_pcf8591_name+'.begin();';
+  var code = '';
+  return code;
+};
+
+//PCF8591 获取模拟输入管脚的值
+Blockly.Arduino.make_arduino_pcf8591_analogRead = function() {
+  this.setTooltip("PCF8591 AD转换模块 获取模拟输入管脚的值");
+    var text_pcf8591_name = this.getFieldValue('pcf8591_name');
+    var value_pin = Blockly.Arduino.valueToCode(this, 'pin', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_pcf8591_name+'.analogRead('+value_pin+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//PCF8591 输入管脚定义
+Blockly.Arduino.make_arduino_pcf8591_read_pin = function() {
+    var dropdown_type = this.getFieldValue('type');
+  var code = dropdown_type;
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//PCF8591 设置模拟输出管脚的值
+Blockly.Arduino.make_arduino_pcf8591_analogWrite = function() {
+  this.setTooltip("PCF8591 AD转换模块 设置模拟输出管脚的值");
+    var text_pcf8591_name = this.getFieldValue('pcf8591_name');
+    var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_pcf8591_name+'.analogWrite('+value_data+');\n';
+  return code;
+};
+
+//PCF8591 获取输入管脚的电压值
+Blockly.Arduino.make_arduino_pcf8591_voltageRead = function() {
+  this.setTooltip("PCF8591 AD转换模块 获取输入管脚的电压值");
+    var text_pcf8591_name = this.getFieldValue('pcf8591_name');
+    var value_pin = Blockly.Arduino.valueToCode(this, 'pin', Blockly.Arduino.ORDER_ATOMIC);
+    var value_microcontrollerReferenceVoltage = Blockly.Arduino.valueToCode(this, 'microcontrollerReferenceVoltage', Blockly.Arduino.ORDER_ATOMIC);
+    var value_referenceVoltage = Blockly.Arduino.valueToCode(this, 'referenceVoltage', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_pcf8591_name+'.voltageRead('+value_pin+', '+value_microcontrollerReferenceVoltage+', '+value_referenceVoltage+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//PCF8591 设置输出管脚的电压值
+Blockly.Arduino.make_arduino_pcf8591_voltageWrite = function() {
+  this.setTooltip("PCF8591 AD转换模块 设置输出管脚的电压值");
+    var text_pcf8591_name = this.getFieldValue('pcf8591_name');
+    var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
+    var value_microcontrollerReferenceVoltage = Blockly.Arduino.valueToCode(this, 'microcontrollerReferenceVoltage', Blockly.Arduino.ORDER_ATOMIC);
+    var value_referenceVoltage = Blockly.Arduino.valueToCode(this, 'referenceVoltage', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_pcf8591_name+'.voltageWrite('+value_data+', '+value_microcontrollerReferenceVoltage+', '+value_referenceVoltage+');\n';
+  return code;
+};
+
+//PCF8591 获取输入管脚的电压值-无参考电压
+Blockly.Arduino.make_arduino_pcf8591_voltageRead_1 = function() {
+  this.setTooltip("PCF8591 AD转换模块 获取输入管脚的电压值");
+    var text_pcf8591_name = this.getFieldValue('pcf8591_name');
+    var value_pin = Blockly.Arduino.valueToCode(this, 'pin', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_pcf8591_name+'.voltageRead('+value_pin+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//PCF8591 设置输出管脚的电压值-无参考电压
+Blockly.Arduino.make_arduino_pcf8591_voltageWrite_1 = function() {
+  this.setTooltip("PCF8591 AD转换模块 设置输出管脚的电压值");
+    var text_pcf8591_name = this.getFieldValue('pcf8591_name');
+    var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_pcf8591_name+'.voltageWrite('+value_data+');\n';
+  return code;
+};
+
 //初始化PAJ7620手势传感器
 Blockly.Arduino.make_arduino_paj7620_begin = function() {
   Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';

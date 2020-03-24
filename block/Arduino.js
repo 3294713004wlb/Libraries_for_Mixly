@@ -8926,6 +8926,294 @@ Blockly.Blocks.make_arduino_mcp23017_getLastInterrupt= {
   }
 };
 
+//初始化PCF8591 AD转换模块
+Blockly.Blocks.make_arduino_pcf8591_begin= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/输入输出/输入输出_3.png", 25, 25, "*"))
+      .appendField("初始化PCF8591(I2C)")
+      .appendField(new Blockly.FieldTextInput("pcf8591"), "pcf8591_name");
+  this.appendValueInput("pcf8591_address")
+      .setCheck(null)  
+      .appendField(" 地址");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化PCF8591 AD转换模块\n"
+   +"2.语法:\n"
+   +"->PCF8591(uint8_t address)\n"
+   +"3.参数:\n"
+   +"->address:7位的器件地址(可选)\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//初始化PCF8591 AD转换模块 可设置SDA & SCL
+Blockly.Blocks.make_arduino_pcf8591_begin_sda_scl= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/输入输出/输入输出_3.png", 25, 25, "*"))
+      .appendField("初始化PCF8591(I2C)")
+      .appendField(new Blockly.FieldTextInput("pcf8591"), "pcf8591_name");
+  this.appendValueInput("pcf8591_sda")
+      .setCheck(null)  
+      .appendField(" SDA#");
+  this.appendValueInput("pcf8591_scl")
+      .setCheck(null)  
+      .appendField("SCL#");
+  this.appendValueInput("pcf8591_address")
+      .setCheck(null)  
+      .appendField("地址");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化PCF8591 AD转换模块\n"
+   +"2.语法:\n"
+   +"->PCF8591(uint8_t address, uint8_t sda, uint8_t scl)\n"
+   +"3.参数:\n"
+   +"->address:7位的器件地址(可选)\n"
+   +"->sda:器件的SDA管脚\n"
+   +"->scl:器件的SCL管脚\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//PCF8591 获取模拟输入管脚的值
+Blockly.Blocks.make_arduino_pcf8591_analogRead= {
+  init: function() { 
+  this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/输入输出/输入输出_3.png", 25, 25, "*"))
+      .appendField("PCF8591")
+      .appendField(new Blockly.FieldTextInput("pcf8591"), "pcf8591_name")
+      .appendField(" 模拟输入");
+  this.appendValueInput("pin")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("管脚#");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->PCF8591 AD转换模块 获取模拟输入管脚的值\n"
+   +"2.语法:\n"
+   +"->uint8_t analogRead(uint8_t channel, byte readType = SINGLE_ENDED_INPUT)\n"
+   +"3.参数:\n"
+   +"->channel:器件的某个输入管脚\n"
+   +"->readType:读取类型(已取默认值)\n"
+   +"4.返回值:uint8_t型数据"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//PCF8591 输入管脚定义
+Blockly.Blocks.make_arduino_pcf8591_read_pin= {
+  init: function() { 
+  this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(new Blockly.FieldDropdown([["AIN0","AIN0"],["AIN1","AIN1"],["AIN2","AIN2"],["AIN3","AIN3"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//PCF8591 设置模拟输出管脚的值
+Blockly.Blocks.make_arduino_pcf8591_analogWrite= {
+  init: function() { 
+  this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/输入输出/输入输出_3.png", 25, 25, "*"))
+      .appendField("PCF8591")
+      .appendField(new Blockly.FieldTextInput("pcf8591"), "pcf8591_name")
+      .appendField(" 模拟输出")
+      .appendField("管脚AOUT赋值为");
+  this.appendValueInput("data")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT);
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->PCF8591 AD转换模块 设置模拟输出管脚的值\n"
+   +"2.语法:\n"
+   +"->void analogWrite(uint8_t value)\n"
+   +"3.参数:\n"
+   +"->value:设置器件管脚AOUT的模拟输出量(0~255)\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//PCF8591 获取输入管脚的电压值
+Blockly.Blocks.make_arduino_pcf8591_voltageRead= {
+  init: function() { 
+  this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/输入输出/输入输出_3.png", 25, 25, "*"))
+      .appendField("PCF8591")
+      .appendField(new Blockly.FieldTextInput("pcf8591"), "pcf8591_name")
+      .appendField(" 获取电压");
+  this.appendValueInput("pin")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("管脚#");
+  this.appendValueInput("microcontrollerReferenceVoltage")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("板卡电源作为参考电压？");
+  this.appendValueInput("referenceVoltage")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("参考电压");
+  this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("V");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->PCF8591 AD转换模块 获取输入管脚的电压值\n"
+   +"2.语法:\n"
+   +"->float voltageRead(uint8_t analogPin, bool microcontrollerReferenceVoltage = true, float referenceVoltage = 5.0)\n"
+   +"3.参数:\n"
+   +"->analogPin:器件的某个输入管脚\n"
+   +"->microcontrollerReferenceVoltage:选择是否启用电源电压作为获取电压值的参考电压\n"
+   +"->referenceVoltage:若不启用电源电压作为获参考电压，则可自行设置参考电压值\n"
+   +"4.返回值:float型数据\n"
+   +"返回电压值的计算公式：analogRead(analogPin)*voltageRef/255，其中voltageRef = 电源电压或referenceVoltage"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//PCF8591 设置输出管脚的电压值
+Blockly.Blocks.make_arduino_pcf8591_voltageWrite= {
+  init: function() { 
+  this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/输入输出/输入输出_3.png", 25, 25, "*"))
+      .appendField("PCF8591")
+      .appendField(new Blockly.FieldTextInput("pcf8591"), "pcf8591_name");
+  this.appendValueInput("data")
+      .setCheck(null)  
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField(" 管脚AOUT电压设为");
+  this.appendDummyInput()  
+      .appendField("V ");
+  this.appendValueInput("microcontrollerReferenceVoltage")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("板卡电源作为参考电压？");
+  this.appendValueInput("referenceVoltage")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("参考电压");
+  this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("V");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->PCF8591 AD转换模块 设置输出管脚的电压值\n"
+   +"2.语法:\n"
+   +"->void voltageWrite(float value, bool microcontrollerReferenceVoltage = true, float referenceVoltage = 5.0)\n"
+   +"3.参数:\n"
+   +"->value:设置输出的电压大小\n"
+   +"->microcontrollerReferenceVoltage:选择是否启用电源电压作为获取电压值的参考电压\n"
+   +"->referenceVoltage:若不启用电源电压作为获参考电压，则可自行设置参考电压值\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//PCF8591 获取输入管脚的电压值-无参考电压
+Blockly.Blocks.make_arduino_pcf8591_voltageRead_1= {
+  init: function() { 
+  this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/输入输出/输入输出_3.png", 25, 25, "*"))
+      .appendField("PCF8591")
+      .appendField(new Blockly.FieldTextInput("pcf8591"), "pcf8591_name")
+      .appendField(" 获取电压");
+  this.appendValueInput("pin")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("管脚#");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+  +"->PCF8591 AD转换模块 获取输入管脚的电压值\n"
+   +"2.语法:\n"
+   +"->float voltageRead(uint8_t analogPin, bool microcontrollerReferenceVoltage = true, float referenceVoltage = 5.0)\n"
+   +"3.参数:\n"
+   +"->analogPin:器件的某个输入管脚\n"
+   +"->microcontrollerReferenceVoltage:选择是否启用电源电压作为获取电压值的参考电压(已使用默认值)\n"
+   +"->referenceVoltage:若不启用电源电压作为获参考电压，则可自行设置参考电压值(已使用默认值)\n"
+   +"4.返回值:float型数据\n"
+   +"返回电压值的计算公式：analogRead(analogPin)*voltageRef/255，其中voltageRef = 电源电压"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//PCF8591 设置输出管脚的电压值-无参考电压
+Blockly.Blocks.make_arduino_pcf8591_voltageWrite_1= {
+  init: function() { 
+  this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/输入输出/输入输出_3.png", 25, 25, "*"))
+      .appendField("PCF8591")
+      .appendField(new Blockly.FieldTextInput("pcf8591"), "pcf8591_name");
+  this.appendValueInput("data")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 管脚AOUT电压设为");
+  this.appendDummyInput()  
+      .appendField("V");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->PCF8591 AD转换模块 设置输出管脚的电压值\n"
+   +"2.语法:\n"
+   +"->void voltageWrite(float value, bool microcontrollerReferenceVoltage = true, float referenceVoltage = 5.0)\n"
+   +"3.参数:\n"
+   +"->value:设置输出的电压大小\n"
+   +"->microcontrollerReferenceVoltage:选择是否启用电源电压作为获取电压值的参考电压(已使用默认值)\n"
+   +"->referenceVoltage:若不启用电源电压作为获参考电压，则可自行设置参考电压值(已使用默认值)\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
 //初始化PAJ7620手势传感器
 Blockly.Blocks.make_arduino_paj7620_begin= {
   init: function() { 

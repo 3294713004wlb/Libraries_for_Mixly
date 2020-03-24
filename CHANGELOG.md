@@ -1,14 +1,21 @@
 #### 更新日志
+
+#### 2020-03-24
+
+- 添加 PCF8591 AD转换模块(添加详细说明)
+- 添加 examples/Arduino库例程/PCF8591/PCF8591_串口打印模拟输入管脚值设置模拟输出管脚值.mix
+- 添加 examples/Arduino库例程/PCF8591/PCF8591_串口打印模拟输入管脚值设置模拟输出管脚值.mix
+
 #### 2020-02-18
 * 修复 do-while图形块生成代码出错的bug
 * 添加 图形块在 传感器/AS608光学指纹传感器(暂时缺少详细说明)
-* 添加 examples/Arduino/AS608光学指纹传感器/AS608_指纹录入、比对、删除和指纹库清空_2020.02.17.mix
+* 添加 examples/Arduino/AS608光学指纹传感器/AS608_指纹录入、比对、删除和指纹库清空2020.02.17.mix
 * 添加 examples/make/AS608光学指纹传感器/
 
 #### 2020-02-15
 * 重写 maker/通信/nRF24L01无线通信下 所有功能块(保留原来功能块在block和generator下代码)(暂时缺少详细说明)
 * 添加 examples/Arduino/nRF24L01无线通信/nrf24L01发送&接收测试_2020.02.15.mix
-* 添加 examples/Arduino/nRF24L01无线通信/nrf24L01发送&接收_自动应答测试_2020.02.15.mix
+* 添加 examples/Arduino/nRF24L01无线通信/nrf24L01发送&接收_自动应答测试2020.02.15.mix
 * 调整 maker/通信/USB鼠标键盘模拟下 功能块顺序
 * 调整 maker/通信/315MHZ/433MHZ无线通信下 功能块顺序
 

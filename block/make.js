@@ -1501,3 +1501,11 @@ Blockly.Blocks.make_create_input= {
   }
 };
 
+
+
+
+/*
+document.getElementById('button_test').onclick = function() {
+  open_exe('file:///D:\\mixly\\杂项\\14，ATK-AS608指纹识别模块\\2，配套软件\\指纹模块测试上位机\\指纹测试.exe');
+};
+*/
