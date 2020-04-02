@@ -2,25 +2,26 @@
 
 ## 安装步骤
 
-### 方法一：
+### 方法一(无一键更新)：
+-  下载仓库[Libraries_for_Mixly_simplify](https://gitee.com/smilebrightly/Libraries_for_Mixly_simplify)下的所有文件，下载完成后，将压缩包解压到一个容易寻找的文件夹里。
 
-- 在使用Arduino库之前，请先将此库下面名为 Arduino库文件 文件夹下的所有文件拷贝(或剪切)到mixly/arduino-1.x.x/libraries文件夹下！
+-  在使用Arduino库之前，请先将文件夹下名为 Arduino库文件 文件夹下的所有文件拷贝(或剪切)到mixly/arduino-1.x.x/libraries文件夹下！
 
-- 如果mixly/arduino-1.x.x文件夹下无libraries文件夹，需先在此位置新建一名为 libraries 的文件夹，而后再执行步骤(1)
+-  如果mixly/arduino-1.x.x文件夹下无libraries文件夹，需先在此位置新建一名为 libraries 的文件夹，而后再执行上个步骤。
 
-- 点击mixly中的导入库，选中Arduino库下的 Arduino.xml 文件，即可完成此库的导入
+-  点击mixly中的导入库，选中Arduino库下的 Arduino.xml 文件，即可完成此库的导入。
 
-- Arduino库中一些功能块的示例程序放在了库中的examples/Arduino库例程文件夹下面
+-  Arduino库中一些功能块的示例程序放在了库中的examples/Arduino库例程文件夹下面。
 
--  若想自己制作mixly中的图形块，点击mixly中的导入库，选中Arduino库下的 make.xml 文件，即可导入mixly第三方库制作库，具体的制作过程可以参考examples/make库例程下的文件
+-  若想自己制作mixly中的图形块，点击mixly中的导入库，选中Arduino库下的 make.xml 文件，即可导入mixly第三方库制作库，具体的制作过程可以参考examples/make库例程下的文件。
 
-### 方法二：
+### 方法二(带一键更新)：
+-  使用git clone命令克隆此仓库下的所有文件到一个文件夹。
+-  克隆结束后，修改文件夹下 address.txt、address_arduino.txt 中的示例地址。找到Mixly的存放位置，拷贝此路径替换 address.txt 中示例路径，找到Arduino存放位置，拷贝此路径替换 address_arduino.txt 中的示例路径。
 
--  修改 address.txt、address_arduino.txt中示例地址。找到Mixly的存放位置，拷贝此路径替换 address.txt 中示例路径，找到Arduino存放位置，拷贝此路径替换 address_arduino.txt 中的示例路径
+-  拷贝目录下的 address.txt 、address_arduino.txt到C盘。
 
--  拷贝目录下的 address.txt 、address_arduino.txt到C盘
-
--  运行 导入Arduino库到Mixly.bat， 当显示复制了xxx个文件时，说明导入库成功
+-  运行 导入Arduino库到Mixly.bat， 当显示复制了xxx个文件时，说明导入库成功。
 
 
 

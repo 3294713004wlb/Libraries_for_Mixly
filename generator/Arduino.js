@@ -74,6 +74,14 @@ Blockly.Arduino.variables_declare = function() {
 
 
 
+//取地址或取地址所对应的值
+Blockly.Arduino.make_get_address = function() {
+    var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
+    var dropdown_type = this.getFieldValue('type');
+  var code = dropdown_type+'('+value_data+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
 Blockly.Arduino.arduino_const_variate = function() {
     var value_const_variate_data = Blockly.Arduino.valueToCode(this, 'const_variate_data', Blockly.Arduino.ORDER_ATOMIC);
     var text_const_variate_name = this.getFieldValue('const_variate_name');
@@ -116,7 +124,7 @@ Blockly.Arduino.arduino_define_global_variate = function() {
     var text_global_variate_name = this.getFieldValue('global_variate_name');
     var dropdown_global_variate_type = this.getFieldValue('global_variate_type');
 
-  if (dropdown_global_variate_type == 'String' || dropdown_global_variate_type == 'uint8_t' || dropdown_global_variate_type == 'uint16_t' || dropdown_global_variate_type == 'uint32_t' || dropdown_global_variate_type == 'uint64_t' || dropdown_global_variate_type == 'char *')
+  if (dropdown_global_variate_type == 'String')
     Blockly.Arduino.definitions_['var_declare' + text_global_variate_name] = dropdown_global_variate_type + ' ' + text_global_variate_name + ';';
   else
     Blockly.Arduino.definitions_['var_declare' + text_global_variate_name] = 'volatile ' + dropdown_global_variate_type + ' ' + text_global_variate_name + ';';
@@ -144,15 +152,29 @@ Blockly.Arduino.arduino_define_global_variate_0 = function() {
     var value_global_variate_data = Blockly.Arduino.valueToCode(this, 'global_variate_data', Blockly.Arduino.ORDER_ATOMIC);
     var text_global_variate_name = this.getFieldValue('global_variate_name');
     var dropdown_global_variate_type = this.getFieldValue('global_variate_type');
-
-  Blockly.Arduino.definitions_['var_declare' + text_global_variate_name] = 'volatile ' + dropdown_global_variate_type + ' ' + text_global_variate_name + ';';
-
+  if (dropdown_global_variate_type == 'String')
+    Blockly.Arduino.definitions_['var_declare' + text_global_variate_name] = dropdown_global_variate_type + ' ' + text_global_variate_name + ';';
+  else
+    Blockly.Arduino.definitions_['var_declare' + text_global_variate_name] = 'volatile ' + dropdown_global_variate_type + ' ' + text_global_variate_name + ';';
   var code = '';
   return code;
 };
 
+Blockly.Arduino.make_arduino_define_global_variate_1 = function() {
+    var value_global_variate_data = Blockly.Arduino.valueToCode(this, 'global_variate_data', Blockly.Arduino.ORDER_ATOMIC);
+    var text_global_variate_name = this.getFieldValue('global_variate_name');
+  var code = text_global_variate_name + ' = ' + value_global_variate_data + ';\n';
+  return code;
+};
+
+Blockly.Arduino.make_arduino_define_global_variate_2 = function() {
+    var text_global_variate_name = this.getFieldValue('global_variate_name');
+    var code = text_global_variate_name;
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
 Blockly.Arduino['arduino_define_static_global_variate'] = function() {
-  var text_static_variate_name = this.getFieldValue('static_variate_name');
+  var text_static_variate_name = this.getFieldValue('global_static_variate_name');
   var dropdown_static_variate_value = this.getFieldValue('static_variate_value');
   var value_static_variate_get_data = Blockly.Arduino.valueToCode(this, 'static_variate_get_data', Blockly.Arduino.ORDER_ATOMIC);
 
@@ -180,19 +202,19 @@ Blockly.Arduino['arduino_define_static_global_variate'] = function() {
 
 Blockly.Arduino.make_arduino_define_static_global_variate_1 = function() {
     var value_static_variate_data = Blockly.Arduino.valueToCode(this, 'static_variate_data', Blockly.Arduino.ORDER_ATOMIC);
-    var text_static_variate_name = this.getFieldValue('static_variate_name');
+    var text_static_variate_name = this.getFieldValue('global_static_variate_name');
     var code = text_static_variate_name + ' = ' + value_static_variate_data + ';\n';
   return code;
 };
 
 Blockly.Arduino.make_arduino_define_static_global_variate_2 = function() {
-    var text_static_variate_name = this.getFieldValue('static_variate_name');
+    var text_static_variate_name = this.getFieldValue('global_static_variate_name');
     var code = text_static_variate_name;
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino['arduino_define_static_local_variate'] = function() {
-  var text_static_variate_name = this.getFieldValue('static_variate_name');
+  var text_static_variate_name = this.getFieldValue('local_static_variate_name');
   var dropdown_static_variate_value = this.getFieldValue('static_variate_value');
   var value_static_variate_get_data = Blockly.Arduino.valueToCode(this, 'static_variate_get_data', Blockly.Arduino.ORDER_ATOMIC);
 
@@ -218,13 +240,13 @@ Blockly.Arduino['arduino_define_static_local_variate'] = function() {
 
 Blockly.Arduino.make_arduino_define_static_local_variate_1 = function() {
     var value_static_variate_data = Blockly.Arduino.valueToCode(this, 'static_variate_data', Blockly.Arduino.ORDER_ATOMIC);
-    var text_static_variate_name = this.getFieldValue('static_variate_name');
+    var text_static_variate_name = this.getFieldValue('local_static_variate_name');
     var code = text_static_variate_name + ' = ' + value_static_variate_data + ';\n';
   return code;
 };
 
 Blockly.Arduino.make_arduino_define_static_local_variate_2 = function() {
-    var text_static_variate_name = this.getFieldValue('static_variate_name');
+    var text_static_variate_name = this.getFieldValue('local_static_variate_name');
     var code = text_static_variate_name;
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
@@ -1059,6 +1081,52 @@ Blockly.Arduino.math_map_float = function() {
                                                   +'\n  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;'
                                                   +'\n}';
   var code = 'mapfloat('+value_x+', '+value_in_min+', '+value_in_max+', '+value_out_min+', '+value_out_max+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//获取一个数据的最低位或第二低位的字节数据
+Blockly.Arduino.math_lowByte_highByte = function() {
+  this.setTooltip("获取变量的最低位或第二低位的字节数据");
+    var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
+    var dropdown_type = this.getFieldValue('type');
+  var code = dropdown_type+'('+value_data+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//获取一个数据的某个位的值
+Blockly.Arduino.math_bitRead = function() {
+  this.setTooltip("获取变量的某个位的值");
+    var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
+    var value_bit = Blockly.Arduino.valueToCode(this, 'bit', Blockly.Arduino.ORDER_ATOMIC);
+  var code = 'bitRead('+value_data+', '+value_bit+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//设置数据某个位的值
+Blockly.Arduino.math_bitWrite = function() {
+  this.setTooltip("设置数据某个位的值");
+    var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
+    var value_bit = Blockly.Arduino.valueToCode(this, 'bit', Blockly.Arduino.ORDER_ATOMIC);
+    var value_set = Blockly.Arduino.valueToCode(this, 'set', Blockly.Arduino.ORDER_ATOMIC);
+  var code = 'bitWrite('+value_data+', '+value_bit+', '+value_set+');\n';
+  return code;
+};
+
+//对一个数据的某个位置1或置0
+Blockly.Arduino.math_bitSet_bitClear = function() {
+  this.setTooltip("对一个数据的某个位置1或置0");
+    var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
+    var value_bit = Blockly.Arduino.valueToCode(this, 'bit', Blockly.Arduino.ORDER_ATOMIC);
+    var dropdown_type = this.getFieldValue('type');
+  var code = dropdown_type+'('+value_data+', '+value_bit+');\n';
+  return code;
+};
+
+//计算指定位的值（0位是1，1位是2，2位4，以此类推）
+Blockly.Arduino.math_bit = function() {
+  this.setTooltip("计算指定位的值(0位是1，1位是2，2位4，以此类推)");
+    var value_bit = Blockly.Arduino.valueToCode(this, 'bit', Blockly.Arduino.ORDER_ATOMIC);
+  var code = 'bit('+value_bit+')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
@@ -9526,6 +9594,12 @@ Blockly.Arduino.make_arduino_pid_get = function() {
     var dropdown_type = this.getFieldValue('type');
   var code = ''+text_pid_name+'.'+dropdown_type+'()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+Blockly.Arduino.make_tool_normal = function() {
+    var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
+  var code = value_data+';\n';
+  return code;
 };
 
 Blockly.Arduino.make_tool = function() {

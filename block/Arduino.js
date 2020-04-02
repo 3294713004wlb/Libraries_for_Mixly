@@ -34,9 +34,697 @@ Blockly.Blocks['variables_declare'] = {
 };
 
 
+Blockly.Blocks.const_variable = function(workspace) {
+  var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+  var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+  xmlText = xmlText.replace(/<field name=\"const_variate_name\">/g,"☀");
+  var num = -1;
+  var data = '';
+  var select = false;
+  var block_data=new Array();
+  for(var i of xmlText)
+  {
+    if(i == "☀")
+    {
+      num++;
+      select = true;
+      continue;
+    }
+    if(select)
+    {
+      if(i == '<')
+      {
+        if(data == '' || data.indexOf(' ') != -1)
+          num--;
+        else
+        {
+          var j = 0;
+          for(j = 0;j < num;j++)
+          {
+            if(block_data[j] == data)
+              break;
+          }
+          if(j == num)
+            block_data[num] = data;
+          else
+          {
+            num--;
+          }
+        }
+        select = false;
+        data='';
+      }
+      else
+      {
+        data+=i;
+      }
+    }
+  }
+  var xmlList = [];
+  if(num == -1)
+  {
+    var blockText = '<xml>' +
+                    '<block type="arduino_const_variate">' +
+                    '<field name="const_variate_name">num</field>' +
+                    '<field name="const_variate_type">int</field>' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    var blockText = '<xml>' +
+                      '<block type="arduino_const_variate_1">' +
+                      '<field name="const_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    var blockText = '<xml>' +
+                    '<block type="make_get_address">' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+  }
+  else
+  {
+    var blockText = '<xml>' +
+                    '<block type="arduino_const_variate">' +
+                    '<field name="const_variate_name">num</field>' +
+                    '<field name="const_variate_type">int</field>' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    var blockText = '<xml>' +
+                      '<block type="arduino_const_variate_1">' +
+                      '<field name="const_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    var blockText = '<xml>' +
+                    '<block type="make_get_address">' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    for(var k = 0;k <= num;k++)
+    {
+      var blockText = '<xml>' +
+                      '<block type="arduino_const_variate_1">' +
+                      '<field name="const_variate_name">'+block_data[k]+'</field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    }
+  }
+  return xmlList;
+};
 
+Blockly.Blocks.global_variable = function(workspace) {
+  var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+  var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+  xmlText = xmlText.replace(/<field name=\"global_variate_name\">/g,"☀");
+  var num = -1;
+  var data = '';
+  var select = false;
+  var block_data=new Array();
+  for(var i of xmlText)
+  {
+    if(i == "☀")
+    {
+      num++;
+      select = true;
+      continue;
+    }
+    if(select)
+    {
+      if(i == '<')
+      {
+        if(data == '' || data.indexOf(' ') != -1)
+          num--;
+        else
+        {
+          var j = 0;
+          for(j = 0;j < num;j++)
+          {
+            if(block_data[j] == data)
+              break;
+          }
+          if(j == num)
+            block_data[num] = data;
+          else
+          {
+            num--;
+          }
+        }
+        select = false;
+        data='';
+      }
+      else
+      {
+        data+=i;
+      }
+    }
+  }
+  var xmlList = [];
+  if(num == -1)
+  {
+    var blockText = '<xml>' +
+                    '<block type="arduino_define_global_variate">' +
+                    '<field name="global_variate_name">item</field>' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    var blockText = '<xml>' +
+                    '<block type="arduino_define_global_variate_0">' +
+                    '<field name="global_variate_name">item</field>' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    var blockText = '<xml>' +
+                      '<block type="make_arduino_define_global_variate_1">' +
+                      '<field name="global_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_global_variate_2">' +
+                      '<field name="global_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    var blockText = '<xml>' +
+                    '<block type="make_get_address">' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+  }
+  else
+  {
+    var blockText = '<xml>' +
+                    '<block type="arduino_define_global_variate">' +
+                    '<field name="global_variate_name">item</field>' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    var blockText = '<xml>' +
+                    '<block type="arduino_define_global_variate_0">' +
+                    '<field name="global_variate_name">item</field>' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    var blockText = '<xml>' +
+                      '<block type="make_arduino_define_global_variate_1">' +
+                      '<field name="global_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_global_variate_2">' +
+                      '<field name="global_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    var blockText = '<xml>' +
+                    '<block type="make_get_address">' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    for(var k = 0;k <= num;k++)
+    {
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_global_variate_1">' +
+                      '<field name="global_variate_name">'+block_data[k]+'</field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_global_variate_2">' +
+                      '<field name="global_variate_name">'+block_data[k]+'</field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    }
+  }
+  return xmlList;
+};
 
+Blockly.Blocks.local_variable = function(workspace) {
+  var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+  var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+  xmlText = xmlText.replace(/<field name=\"local_variate_name\">/g,"☀");
+  var num = -1;
+  var data = '';
+  var select = false;
+  var block_data=new Array();
+  for(var i of xmlText)
+  {
+    if(i == "☀")
+    {
+      num++;
+      select = true;
+      continue;
+    }
+    if(select)
+    {
+      if(i == '<')
+      {
+        if(data == '' || data.indexOf(' ') != -1)
+          num--;
+        else
+        {
+          var j = 0;
+          for(j = 0;j < num;j++)
+          {
+            if(block_data[j] == data)
+              break;
+          }
+          if(j == num)
+            block_data[num] = data;
+          else
+          {
+            num--;
+          }
+        }
+        select = false;
+        data='';
+      }
+      else
+      {
+        data+=i;
+      }
+    }
+  }
+  var xmlList = [];
+  if(num == -1)
+  {
+    var blockText = '<xml>' +
+                    '<block type="make_arduino_define_local_variate">' +
+                    '<field name="local_variate_name">item</field>' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    var blockText = '<xml>' +
+                    '<block type="make_arduino_define_local_variate_0">' +
+                    '<field name="local_variate_name">item</field>' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    var blockText = '<xml>' +
+                      '<block type="make_arduino_define_local_variate_1">' +
+                      '<field name="local_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_local_variate_2">' +
+                      '<field name="local_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    var blockText = '<xml>' +
+                    '<block type="make_get_address">' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+  }
+  else
+  {
+    var blockText = '<xml>' +
+                    '<block type="make_arduino_define_local_variate">' +
+                    '<field name="local_variate_name">item</field>' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    var blockText = '<xml>' +
+                    '<block type="make_arduino_define_local_variate_0">' +
+                    '<field name="local_variate_name">item</field>' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    var blockText = '<xml>' +
+                      '<block type="make_arduino_define_local_variate_1">' +
+                      '<field name="local_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_local_variate_2">' +
+                      '<field name="local_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    var blockText = '<xml>' +
+                    '<block type="make_get_address">' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    for(var k = 0;k <= num;k++)
+    {
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_local_variate_1">' +
+                      '<field name="local_variate_name">'+block_data[k]+'</field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_local_variate_2">' +
+                      '<field name="local_variate_name">'+block_data[k]+'</field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    }
+  }
+  return xmlList;
+};
 
+Blockly.Blocks.global_static_variable = function(workspace) {
+  var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+  var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+  xmlText = xmlText.replace(/<field name=\"global_static_variate_name\">/g,"☀");
+  var num = -1;
+  var data = '';
+  var select = false;
+  var block_data=new Array();
+  for(var i of xmlText)
+  {
+    if(i == "☀")
+    {
+      num++;
+      select = true;
+      continue;
+    }
+    if(select)
+    {
+      if(i == '<')
+      {
+        if(data == '' || data.indexOf(' ') != -1)
+          num--;
+        else
+        {
+          var j = 0;
+          for(j = 0;j < num;j++)
+          {
+            if(block_data[j] == data)
+              break;
+          }
+          if(j == num)
+            block_data[num] = data;
+          else
+          {
+            num--;
+          }
+        }
+        select = false;
+        data='';
+      }
+      else
+      {
+        data+=i;
+      }
+    }
+  }
+  var xmlList = [];
+  if(num == -1)
+  {
+    var blockText = '<xml>' +
+                    '<block type="arduino_define_static_global_variate">' +
+                    '<field name="global_static_variate_name">item</field>' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    var blockText = '<xml>' +
+                      '<block type="make_arduino_define_static_global_variate_1">' +
+                      '<field name="global_static_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_static_global_variate_2">' +
+                      '<field name="global_static_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    var blockText = '<xml>' +
+                    '<block type="make_get_address">' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+  }
+  else
+  {
+    var blockText = '<xml>' +
+                    '<block type="arduino_define_static_global_variate">' +
+                    '<field name="global_static_variate_name">item</field>' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    var blockText = '<xml>' +
+                      '<block type="make_arduino_define_static_global_variate_1">' +
+                      '<field name="global_static_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_static_global_variate_2">' +
+                      '<field name="global_static_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    var blockText = '<xml>' +
+                    '<block type="make_get_address">' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    for(var k = 0;k <= num;k++)
+    {
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_static_global_variate_1">' +
+                      '<field name="global_static_variate_name">'+block_data[k]+'</field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_static_global_variate_2">' +
+                      '<field name="global_static_variate_name">'+block_data[k]+'</field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    }
+  }
+  return xmlList;
+};
+
+Blockly.Blocks.local_static_variable = function(workspace) {
+  var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+  var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+  xmlText = xmlText.replace(/<field name=\"local_static_variate_name\">/g,"☀");
+  var num = -1;
+  var data = '';
+  var select = false;
+  var block_data=new Array();
+  for(var i of xmlText)
+  {
+    if(i == "☀")
+    {
+      num++;
+      select = true;
+      continue;
+    }
+    if(select)
+    {
+      if(i == '<')
+      {
+        if(data == '' || data.indexOf(' ') != -1)
+          num--;
+        else
+        {
+          var j = 0;
+          for(j = 0;j < num;j++)
+          {
+            if(block_data[j] == data)
+              break;
+          }
+          if(j == num)
+            block_data[num] = data;
+          else
+          {
+            num--;
+          }
+        }
+        select = false;
+        data='';
+      }
+      else
+      {
+        data+=i;
+      }
+    }
+  }
+  var xmlList = [];
+  if(num == -1)
+  {
+    var blockText = '<xml>' +
+                    '<block type="arduino_define_static_local_variate">' +
+                    '<field name="local_static_variate_name">item</field>' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    var blockText = '<xml>' +
+                      '<block type="make_arduino_define_static_local_variate_1">' +
+                      '<field name="local_static_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_static_local_variate_2">' +
+                      '<field name="local_static_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    var blockText = '<xml>' +
+                    '<block type="make_get_address">' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+  }
+  else
+  {
+    var blockText = '<xml>' +
+                    '<block type="arduino_define_static_local_variate">' +
+                    '<field name="local_static_variate_name">item</field>' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    var blockText = '<xml>' +
+                      '<block type="make_arduino_define_static_local_variate_1">' +
+                      '<field name="local_static_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_static_local_variate_2">' +
+                      '<field name="local_static_variate_name"></field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    var blockText = '<xml>' +
+                    '<block type="make_get_address">' +
+                    '</block>' +
+                    '</xml>';
+    var block = Blockly.Xml.textToDom(blockText).firstChild;
+    xmlList.push(block);
+    for(var k = 0;k <= num;k++)
+    {
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_static_local_variate_1">' +
+                      '<field name="local_static_variate_name">'+block_data[k]+'</field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+      var blockText = '<xml>' +
+                      '<block type="make_arduino_define_static_local_variate_2">' +
+                      '<field name="local_static_variate_name">'+block_data[k]+'</field>' +
+                      '</block>' +
+                      '</xml>';
+      var block = Blockly.Xml.textToDom(blockText).firstChild;
+      xmlList.push(block);
+    }
+  }
+  return xmlList;
+};
+
+//取地址或取地址所对应的值
+Blockly.Blocks.make_get_address= {
+  init: function() { 
+  this.appendValueInput("data")
+      .setCheck(null)  
+      .appendField(new Blockly.FieldDropdown([["取地址","&"],["取地址所指值","*"]]), "type");
+  this.setOutput(true, null);
+  this.setColour(230);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+Blockly.variate_type = [
+  ["整数","int"],
+  ["无符号整数","unsigned int"],
+  ["长整数","long"],
+  ["无符号长整数","unsigned long"],
+  ["单精度浮点数","float"],
+  ["双精度浮点数","double"],
+  ["布尔","boolean"],
+  ["字符","char"],
+  ["无符号字符","unsigned char"],
+  ["字符串","String"],
+  ["字节","byte"],
+  ["字","word"],
+  ["uint8_t","uint8_t"],
+  ["uint16_t","uint16_t"],
+  ["uint32_t","uint32_t"],
+  ["uint64_t","uint64_t"],
+  ["int*","int*"],
+  ["unsigned int*","unsigned int*"],
+  ["long*","long*"],
+  ["unsigned long*","unsigned long*"],
+  ["float*","float*"],
+  ["double*","double*"],
+  ["boolean*","boolean*"],
+  ["char*","char*"],
+  ["unsigned char*","unsigned char*"],
+  ["String*","String*"],
+  ["byte*","byte*"],
+  ["word*","word*"],
+  ["uint8_t*","uint8_t*"],
+  ["uint16_t*","uint16_t*"],
+  ["uint32_t*","uint32_t*"],
+  ["uint64_t*","uint64_t*"]
+  ];
 Blockly.Blocks.arduino_const_variate= {
   init: function() { 
   this.appendValueInput("const_variate_data")
@@ -44,7 +732,7 @@ Blockly.Blocks.arduino_const_variate= {
       .appendField("声明 常量")
       .appendField(new Blockly.FieldTextInput("num"), "const_variate_name")
       .appendField("为")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["布尔","boolean"],["字符","char"],["无符号字符","unsigned char"],["char *","char *"],["字符串","String"],["字节","byte"],["字","word"]]), "const_variate_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "const_variate_type")
       .appendField("并赋值");
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
@@ -73,7 +761,7 @@ Blockly.Blocks.arduino_define_global_variate= {
       .appendField("声明 全局变量")
       .appendField(new Blockly.FieldTextInput("item"), "global_variate_name")
       .appendField("为")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["布尔","boolean"],["字符","char"],["无符号字符","unsigned char"],["char *","char *"],["字符串","String"],["字节","byte"],["字","word"]]), "global_variate_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "global_variate_type")
       .appendField("并赋值");
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
@@ -89,9 +777,34 @@ Blockly.Blocks.arduino_define_global_variate_0= {
       .appendField("声明 全局变量")
       .appendField(new Blockly.FieldTextInput("item"), "global_variate_name")
       .appendField("为")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["布尔","boolean"],["字符","char"],["无符号字符","unsigned char"],["char *","char *"],["字符串","String"],["字节","byte"],["字","word"]]), "global_variate_type");
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "global_variate_type");
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
+  this.setColour(330);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks.make_arduino_define_global_variate_1= {
+  init: function() { 
+  this.appendValueInput("global_variate_data")
+      .setCheck(null)  
+      .appendField(new Blockly.FieldTextInput("item"), "global_variate_name")
+      .appendField("赋值为");
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(330);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks.make_arduino_define_global_variate_2= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldTextInput("item"), "global_variate_name");
+  this.setOutput(true, null);
   this.setColour(330);
   this.setTooltip("");
   this.setHelpUrl("");
@@ -103,9 +816,9 @@ Blockly.Blocks['arduino_define_static_global_variate'] = {
     this.appendValueInput("static_variate_get_data")
         .setCheck(null)
         .appendField("声明 静态全局变量")
-        .appendField(new Blockly.FieldTextInput("state1"), "static_variate_name")
+        .appendField(new Blockly.FieldTextInput("state1"), "global_static_variate_name")
         .appendField("为")
-        .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["布尔","boolean"],["字符","char"],["无符号字符","unsigned char"],["字符串","String"],["字节","byte"],["字","word"]]), "static_variate_value")
+        .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "static_variate_value")
         .appendField("并赋值");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -119,7 +832,7 @@ Blockly.Blocks.make_arduino_define_static_global_variate_1= {
   init: function() { 
   this.appendValueInput("static_variate_data")
       .setCheck(null)  
-      .appendField(new Blockly.FieldTextInput("state1"), "static_variate_name")
+      .appendField(new Blockly.FieldTextInput("state1"), "global_static_variate_name")
       .appendField("赋值为");
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
@@ -132,7 +845,7 @@ Blockly.Blocks.make_arduino_define_static_global_variate_1= {
 Blockly.Blocks.make_arduino_define_static_global_variate_2= {
   init: function() { 
   this.appendDummyInput()  
-      .appendField(new Blockly.FieldTextInput("state1"), "static_variate_name");
+      .appendField(new Blockly.FieldTextInput("state1"), "global_static_variate_name");
   this.setOutput(true, null);
   this.setColour("#9999ff");
   this.setTooltip("");
@@ -145,9 +858,9 @@ Blockly.Blocks['arduino_define_static_local_variate'] = {
     this.appendValueInput("static_variate_get_data")
         .setCheck(null)
         .appendField("声明 静态局部变量")
-        .appendField(new Blockly.FieldTextInput("state2"), "static_variate_name")
+        .appendField(new Blockly.FieldTextInput("state2"), "local_static_variate_name")
         .appendField("为")
-        .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["布尔","boolean"],["字符","char"],["无符号字符","unsigned char"],["字符串","String"],["字节","byte"],["字","word"]]), "static_variate_value")
+        .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "static_variate_value")
         .appendField("并赋值");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -161,7 +874,7 @@ Blockly.Blocks.make_arduino_define_static_local_variate_1= {
   init: function() { 
   this.appendValueInput("static_variate_data")
       .setCheck(null)  
-      .appendField(new Blockly.FieldTextInput("state2"), "static_variate_name")
+      .appendField(new Blockly.FieldTextInput("state2"), "local_static_variate_name")
       .appendField("赋值为");
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
@@ -174,7 +887,7 @@ Blockly.Blocks.make_arduino_define_static_local_variate_1= {
 Blockly.Blocks.make_arduino_define_static_local_variate_2= {
   init: function() { 
   this.appendDummyInput()  
-      .appendField(new Blockly.FieldTextInput("state2"), "static_variate_name");
+      .appendField(new Blockly.FieldTextInput("state2"), "local_static_variate_name");
   this.setOutput(true, null);
   this.setColour("#ff9966");
   this.setTooltip("");
@@ -189,7 +902,7 @@ Blockly.Blocks.make_arduino_define_local_variate= {
       .appendField("声明 局部变量")
       .appendField(new Blockly.FieldTextInput("state"), "local_variate_name")
       .appendField("为")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["布尔","boolean"],["字符","char"],["无符号字符","unsigned char"],["char *","char *"],["字符串","String"],["字节","byte"],["字","word"]]), "local_variate_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "local_variate_type")
       .appendField("并赋值");
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
@@ -205,7 +918,7 @@ Blockly.Blocks.make_arduino_define_local_variate_0= {
       .appendField("声明 局部变量")
       .appendField(new Blockly.FieldTextInput("state"), "local_variate_name")
       .appendField("为")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["布尔","boolean"],["字符","char"],["无符号字符","unsigned char"],["char *","char *"],["字符串","String"],["字节","byte"],["字","word"]]), "local_variate_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "local_variate_type")
       .appendField("");
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
@@ -245,7 +958,7 @@ Blockly.Blocks.make_arduino_define_local_variate_3= {
   this.appendValueInput("local_variate_data")
       .setCheck(null)  
       .appendField("")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["布尔","boolean"],["字符","char"],["无符号字符","unsigned char"],["char *","char *"],["字符串","String"],["字节","byte"],["字","word"]]), "local_variate_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "local_variate_type")
       .appendField(new Blockly.FieldTextInput("state"), "local_variate_name")
       .appendField("赋值为");
   this.setOutput(true, null);
@@ -372,7 +1085,7 @@ Blockly.Blocks.lists_create_with_1= {
   init: function() { 
   this.appendDummyInput()  
       .appendField("初始化数组为 ")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["char *","char *"],["字符串","String"]]), "lists_create_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "lists_create_type")
       .appendField(new Blockly.FieldTextInput("mylist"), "lists_create_name")
       .appendField("[")
       .appendField(new Blockly.FieldTextInput("3"), "lists_create_length")
@@ -391,7 +1104,7 @@ Blockly.Blocks.lists_create_with_1_change1= {
   this.appendValueInput("list_data")
       .setCheck(null)  
       .appendField("初始化数组为 ")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["char *","char *"],["字符串","String"]]), "lists_create_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "lists_create_type")
       .appendField(new Blockly.FieldTextInput("mylist"), "lists_create_name")
       .appendField("[");
   this.appendDummyInput()  
@@ -409,7 +1122,7 @@ Blockly.Blocks.part_lists_create_with_1= {
   init: function() { 
   this.appendDummyInput()  
       .appendField("创建局部数组为 ")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["char *","char *"],["字符串","String"]]), "lists_create_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "lists_create_type")
       .appendField(new Blockly.FieldTextInput("mylist"), "lists_create_name")
       .appendField("[")
       .appendField(new Blockly.FieldTextInput("3"), "lists_create_length")
@@ -428,7 +1141,7 @@ Blockly.Blocks.part_lists_create_with_1_change1= {
   this.appendValueInput("list_data")
       .setCheck(null)  
       .appendField("创建局部数组为 ")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["char *","char *"],["字符串","String"]]), "lists_create_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "lists_create_type")
       .appendField(new Blockly.FieldTextInput("mylist"), "lists_create_name")
       .appendField("[");
   this.appendDummyInput()  
@@ -447,7 +1160,7 @@ Blockly.Blocks.char_lists_create_with_1= {
   this.appendValueInput("list_data")
       .setCheck(null)  
       .appendField("初始化数组为 ")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["char *","char *"],["字符串","String"]]), "lists_create_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "lists_create_type")
       .appendField(new Blockly.FieldTextInput("mylist"), "lists_create_name")
       .appendField("[")
       .appendField("]并赋值");
@@ -465,7 +1178,7 @@ Blockly.Blocks.part_char_lists_create_with_1= {
   this.appendValueInput("list_data")
       .setCheck(null)  
       .appendField("创建局部数组为 ")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["char *","char *"],["字符串","String"]]), "lists_create_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "lists_create_type")
       .appendField(new Blockly.FieldTextInput("mylist"), "lists_create_name")
       .appendField("[")
       .appendField("]并赋值");
@@ -486,7 +1199,7 @@ Blockly.Blocks.part_lists_create_with = {
    init: function() {
     this.setColour(Blockly.Blocks.lists.HUE);
     this.appendDummyInput("")
-    .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["char *","char *"],["字符串","String"]]), "TYPE")
+    .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "TYPE")
     .appendField(' ')
     .appendField(new Blockly.FieldTextInput('mylist'), 'VAR')
     .appendField('[')
@@ -612,7 +1325,7 @@ Blockly.Blocks['part_lists_create_with_text'] = {
   init: function() {
     this.setColour(Blockly.Blocks.lists.HUE);
     this.appendDummyInput("")
-    .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["char *","char *"],["字符串","String"]]), "TYPE")
+    .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "TYPE")
     .appendField(' ')
     .appendField(new Blockly.FieldTextInput('mylist'), 'VAR')
     .appendField('[')
@@ -680,7 +1393,7 @@ Blockly.Blocks.lists_create_with_2= {
   init: function() { 
   this.appendDummyInput()  
       .appendField("初始化二维数组为 ")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["char *","char *"],["字符串","String"]]), "lists_create_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "lists_create_type")
       .appendField(new Blockly.FieldTextInput("mylist"), "lists_create_name")
       .appendField("[")
       .appendField(new Blockly.FieldTextInput("3"), "lists_create_length_1")
@@ -701,7 +1414,7 @@ Blockly.Blocks.lists_create_with_2_change1= {
   this.appendValueInput("lists_data1")
       .setCheck(null)  
       .appendField("初始化二维数组为 ")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["char *","char *"],["字符串","String"]]), "lists_create_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "lists_create_type")
       .appendField(new Blockly.FieldTextInput("mylist"), "lists_create_name")
       .appendField("[");
   this.appendValueInput("lists_data2")
@@ -722,7 +1435,7 @@ Blockly.Blocks.part_lists_create_with_2= {
   init: function() { 
   this.appendDummyInput()  
       .appendField("创建局部二维数组为 ")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["char *","char *"],["字符串","String"]]), "lists_create_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "lists_create_type")
       .appendField(new Blockly.FieldTextInput("mylist"), "lists_create_name")
       .appendField("[")
       .appendField(new Blockly.FieldTextInput("3"), "lists_create_length_1")
@@ -743,7 +1456,7 @@ Blockly.Blocks.part_lists_create_with_2_change1= {
   this.appendValueInput("lists_data1")
       .setCheck(null)  
       .appendField("创建局部二维数组为 ")
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["char *","char *"],["字符串","String"]]), "lists_create_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "lists_create_type")
       .appendField(new Blockly.FieldTextInput("mylist"), "lists_create_name")
       .appendField("[");
   this.appendValueInput("lists_data2")
@@ -765,7 +1478,7 @@ Blockly.Blocks.lists_create_with_2_1= {
   this.appendDummyInput()  
       .appendField("初始化二维数组为");
   this.appendDummyInput()  
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["字符串","String"]]), "lists_create_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "lists_create_type")
       .appendField(new Blockly.FieldTextInput("mylist"), "lists_create_name")
       .appendField("[ ][ ]");
   this.appendStatementInput("lists_with_2_1_data")
@@ -785,7 +1498,7 @@ Blockly.Blocks.part_lists_create_with_2_1= {
   this.appendDummyInput()  
       .appendField("创建局部二维数组为");
   this.appendDummyInput()  
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["字符串","String"]]), "lists_create_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "lists_create_type")
       .appendField(new Blockly.FieldTextInput("mylist"), "lists_create_name")
       .appendField("[ ][ ]");
   this.appendStatementInput("lists_with_2_1_data")
@@ -805,7 +1518,7 @@ Blockly.Blocks.lists_create_with_2_1_new_2019_10_18= {
   this.appendDummyInput()  
       .appendField("初始化二维数组为");
   this.appendDummyInput()  
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["字符串","String"]]), "lists_create_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "lists_create_type")
       .appendField(new Blockly.FieldTextInput("mylist"), "lists_create_name")
       .appendField("[")
       .appendField(new Blockly.FieldTextInput("3"), "lists_num_1")
@@ -829,7 +1542,7 @@ Blockly.Blocks.part_lists_create_with_2_1_new_2019_10_18= {
   this.appendDummyInput()  
       .appendField("创建局部二维数组为");
   this.appendDummyInput()  
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["字符","char"],["字节","byte"],["字符串","String"]]), "lists_create_type")
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "lists_create_type")
       .appendField(new Blockly.FieldTextInput("mylist"), "lists_create_name")
       .appendField("[")
       .appendField(new Blockly.FieldTextInput("3"), "lists_num_1")
@@ -1068,7 +1781,7 @@ Blockly.Blocks.lists_with_2_get_length= {
       .appendField(new Blockly.FieldDropdown([["行数","row"],["列数","col"]]), "type");
   this.setInputsInline(true);
   this.setOutput(true, null);
-  this.setColour(240);
+  this.setColour(Blockly.Blocks.lists.HUE);
   this.setTooltip("");
   this.setHelpUrl("");
   }
@@ -1129,7 +1842,7 @@ Blockly.Blocks.lists_with_2_return_data= {
 Blockly.Blocks.make_arduino_variate= {
   init: function() { 
   this.appendDummyInput()  
-      .appendField(new Blockly.FieldDropdown([["整数","int"],["无符号整数","unsigned int"],["长整数","long"],["无符号长整数","unsigned long"],["uint8_t","uint8_t"],["uint16_t","uint16_t"],["uint32_t","uint32_t"],["uint64_t","uint64_t"],["单精度浮点数","float"],["双精度浮点数","double"],["布尔","boolean"],["字符","char"],["无符号字符","unsigned char"],["字符串","String"],["字节","byte"],["字","word"]]), "variate_type");
+      .appendField(new Blockly.FieldDropdown(Blockly.variate_type), "variate_type");
   this.setOutput(true, null);
   this.setColour(Blockly.Blocks.math.HUE);
   this.setTooltip("");
@@ -1157,10 +1870,6 @@ Blockly.Blocks.math_sizeof= {
    +"->2 - 无符号整数\n"
    +"->4 - 长整数\n"
    +"->4 - 无符号长整数\n"
-   +"->1 - uint8_t\n"
-   +"->2 - uint16_t\n"
-   +"->4 - uint32_t\n"
-   +"->8 - uint64_t\n"
    +"->4 - 单精度浮点数\n"
    +"->4 - 双精度浮点数\n"
    +"->1 - 布尔\n"
@@ -1168,7 +1877,11 @@ Blockly.Blocks.math_sizeof= {
    +"->1 - 无符号字符\n"
    +"->6 - 字符串\n"
    +"->1 - 字节\n"
-   +"->2 - 字"
+   +"->2 - 字\n"
+   +"->1 - uint8_t\n"
+   +"->2 - uint16_t\n"
+   +"->4 - uint32_t\n"
+   +"->8 - uint64_t"
     );
   this.setHelpUrl("");
   }
@@ -1373,7 +2086,7 @@ Blockly.Blocks.math_operation= {
       .setCheck(null);
   this.appendValueInput("math_operation_input")
       .setCheck(null)  
-      .appendField(new Blockly.FieldDropdown([["+=","+="],["-=","-="],["*=","*="],["/=","/="],["%=","%="]]), "math_operation_type");
+      .appendField(new Blockly.FieldDropdown([["+=","+="],["-=","-="],["*=","*="],["/=","/="],["%=","%="],["&=","&="],["|=","|="]]), "math_operation_type");
   this.setInputsInline(true);
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
@@ -1467,6 +2180,147 @@ Blockly.Blocks.math_map_float= {
      +"->out_min:输出区间上的最小值\n"
      +"->out_max:输出区间上的最大值\n"
      +"4.返回值:float型数据(映射之后的值)"
+      );
+  this.setHelpUrl("");
+  }
+};
+
+//获取一个数据的最低位或第二低位的字节数据
+Blockly.Blocks.math_lowByte_highByte= {
+  init: function() { 
+  this.appendValueInput("data")
+      .setCheck(null);
+  this.appendDummyInput()  
+      .appendField("获取")
+      .appendField(new Blockly.FieldDropdown([["最低位字节","lowByte"],["第二低位字节","highByte"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(Blockly.Blocks.math.HUE);
+  this.setTooltip(
+      "1.功能:\n"
+     +"->获取最低位字节 - 提取一个变量的低位(最右边)字节\n"
+     +"->获取第二低位字节 - 提取一个字节的高位(最左边的)，或一个更长的字节的第二低位字节\n"
+     +"2.语法:\n"
+     +"->获取最低位字节 - byte lowByte(x)\n"
+     +"->获取第二低位字节 - byte highByte(x)\n"
+     +"3.参数:\n"
+     +"->x:任何类型的值\n"
+     +"4.返回值:byte型数据"
+      );
+  this.setHelpUrl("");
+  }
+};
+
+//获取一个数据的某个位的值
+Blockly.Blocks.math_bitRead= {
+  init: function() { 
+  this.appendValueInput("data")
+      .setCheck(null);
+  this.appendValueInput("bit")
+      .setCheck(null)  
+      .appendField("获取 位#");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(Blockly.Blocks.math.HUE);
+  this.setTooltip(
+      "1.功能:\n"
+     +"->获取变量的某个位的值\n"
+     +"2.语法:\n"
+     +"->boolean bitRead(x, n)\n"
+     +"3.参数:\n"
+     +"->x:想要被读取的数\n"
+     +"->n:被读取的位，0是最低有效位(最右边)\n"
+     +"4.返回值:boolean型数据"
+      );
+  this.setHelpUrl("");
+  }
+};
+
+//设置数据某个位的值
+Blockly.Blocks.math_bitWrite= {
+  init: function() { 
+  this.appendValueInput("data")
+      .setCheck(null);
+  this.appendValueInput("bit")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("位#");
+  this.appendValueInput("set")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("设为");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(Blockly.Blocks.math.HUE);
+  this.setTooltip(
+      "1.功能:\n"
+     +"->设置数据某个位的值\n"
+     +"2.语法:\n"
+     +"->void bitWrite(x, n, b)\n"
+     +"3.参数:\n"
+     +"->x:要写入的数值变量\n"
+     +"->n:要写入的数值变量的位，从0开始是最低(最右边)的位\n"
+     +"->b:写入位的数值(0或1)\n"
+     +"4.返回值:无"
+      );
+  this.setHelpUrl("");
+  }
+};
+
+//对一个数据的某个位置1或置0
+Blockly.Blocks.math_bitSet_bitClear= {
+  init: function() { 
+  this.appendValueInput("data")
+      .setCheck(null);
+  this.appendValueInput("bit")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("位#");
+  this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(new Blockly.FieldDropdown([["置1","bitSet"],["置0","bitClear"]]), "type");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(Blockly.Blocks.math.HUE);
+  this.setTooltip(
+      "1.功能:\n"
+     +"->置1 - 为一个数字变量设置一个位\n"
+     +"->置0 - 清除一个数值型数值的指定位(将此位设置成0)\n"
+     +"2.语法:\n"
+     +"->置1 - void bitSet(x, n)\n"
+     +"->置0 - void bitClear(x, n)\n"
+     +"3.参数:\n"
+     +"->x:想要设置的数字变量\n"
+     +"->n:想要设置的位，0是最重要(最右边)的位\n"
+     +"4.返回值:无"
+      );
+  this.setHelpUrl("");
+  }
+};
+
+//计算指定位的值（0位是1，1位是2，2位4，以此类推）
+Blockly.Blocks.math_bit= {
+  init: function() { 
+  this.appendValueInput("bit")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("获取 位#");
+  this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("的值");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(Blockly.Blocks.math.HUE);
+  this.setTooltip(
+      "1.功能:\n"
+     +"->计算指定位的值(0位是1，1位是2，2位4，以此类推)\n"
+     +"2.语法:\n"
+     +"->bit(n)\n"
+     +"3.参数:\n"
+     +"->n:需要计算的位\n"
+     +"4.返回值:位值"
       );
   this.setHelpUrl("");
   }
@@ -1730,12 +2584,12 @@ Blockly.Blocks.math_matrix_Invert_change_2020_01_15= {
   this.appendDummyInput()
       .setAlign(Blockly.ALIGN_RIGHT)  
       .appendField("]");
-  this.appendDummyInput()
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("返回结果");
+  //this.appendDummyInput()
+  //    .setAlign(Blockly.ALIGN_RIGHT)
+  //    .appendField("返回结果");
   this.setInputsInline(true);
   this.setOutput(true, null);
-  this.setColour(240);
+  this.setColour(Blockly.Blocks.math.HUE);
   this.setTooltip(
     "1.功能:\n"
    +"->求一个矩阵的逆矩阵，返回数据的类型为int\n"
@@ -2305,7 +3159,7 @@ Blockly.Blocks.make_arduino_i2c_end_transmission= {
   init: function() { 
   this.appendDummyInput()  
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/通信/通信_1.png", 20, 20, "*"))
-      .appendField("I2C结束数据发送 返回发送结果");
+      .appendField("I2C结束数据发送");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(140);
@@ -2558,9 +3412,9 @@ Blockly.Blocks.make_arduino_spi_transfer_2= {
       .setCheck(null)  
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/通信/通信_2.png", 20, 20, "*"))
       .appendField("SPI发送");
-  this.appendDummyInput()
-      .setAlign(Blockly.ALIGN_RIGHT)  
-      .appendField(" 返回接收值");
+  //this.appendDummyInput()
+  //    .setAlign(Blockly.ALIGN_RIGHT)  
+  //    .appendField(" 返回接收值");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(140);
@@ -2801,8 +3655,8 @@ Blockly.Blocks.make_arduino_keyboard_press_return= {
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/键盘鼠标/键盘_2.png", 20, 20, "*"))
       .appendField(new Blockly.FieldDropdown([["按下","press"],["释放","release"]]), "type")
       .appendField("键盘上");
-  this.appendDummyInput()  
-      .appendField("返回结果");
+  //this.appendDummyInput()  
+  //    .appendField("返回结果");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(140);
@@ -2875,8 +3729,8 @@ Blockly.Blocks.make_arduino_keyboard_write_return= {
       .setCheck(null)  
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/键盘鼠标/键盘_2.png", 20, 20, "*"))
       .appendField("键盘发送字符");
-  this.appendDummyInput()  
-      .appendField("返回结果");
+  //this.appendDummyInput()  
+  //    .appendField("返回结果");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(140);
@@ -4077,7 +4931,15 @@ Blockly.Blocks.make_arduino_rf24_begin= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(140);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化nRF24L01无线通信模块\n"
+   +"2.语法:\n"
+   +"->RF24(uint16_t _cepin, uint16_t _cspin)\n"
+   +"3.参数:\n"
+   +"->_cepin:nRF24L01无线通信模块的CE管脚\n"
+   +"->_cspin:nRF24L01无线通信模块的CSN管脚"
+    );
   this.setHelpUrl("");
   }
 };
@@ -4093,7 +4955,27 @@ Blockly.Blocks.make_arduino_rf24_get_data= {
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(140);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->nRF24L01无线通信模块 获取一些数据信息\n"
+   +"2.语法:\n"
+   +"->设备加入SPI网络？ - bool isChipConnected()\n"
+   +"->当前连接硬件是nRF24L01+? - bool isPVariant(void)\n"
+   +"->接收到数据？ - bool available(void)\n"
+   +"->设备出现故障？ - bool failureDetected\n"
+   +"->接收缓冲区已满？ - bool rxFifoFull()\n"
+   +"->最近一次写入时收到ACK数据包? - bool isAckPayloadAvailable(void)\n"
+   +"->清空传输缓冲区，返回状态寄存器当前值 - uint8_t flush_tx(void)\n"
+   +"->返回发送结果，设备进入STANDBY-I模式 - bool txStandBy()\n"
+   +"->获取当前配置的射频通道 - uint8_t getChannel()\n"
+   +"->获取当前配置的射频功率 - uint8_t getChannel()\n"
+   +"->获取当前配置的空中波特率 - rf24_datarate_e getDataRate( void )\n"
+   +"->获取当前配置的CRC校验的校验长度 - rf24_crclength_e getCRCLength(void)\n"
+   +"->获取静态数据包长度 - uint8_t getPayloadSize(void)\n"
+   +"->获取动态数据包长度 - uint8_t getDynamicPayloadSize(void)\n"
+   +"3.参数:无\n"
+   +"4.返回值:bool或uint8_t型数据"
+   );
   this.setHelpUrl("");
   }
 };
@@ -4110,7 +4992,25 @@ Blockly.Blocks.make_arduino_rf24_do= {
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
   this.setColour(140);
-  this.setTooltip("");
+  this.setTooltip(
+    "1.功能:\n"
+   +"->nRF24L01无线通信模块 执行某些函数\n"
+   +"2.语法:\n"
+   +"->开始监听 - void startListening(void)\n"
+   +"->停止监听 - void stopListening(void)\n"
+   +"->串口打印设备详细信息 - void printDetails(void)\n"
+   +"->设备进入掉电模式 - void powerDown(void)\n"
+   +"->设备进入工作模式 - void powerUp(void)\n"
+   +"->设备进入STANDBY-I模式 - bool txStandBy()\n"
+   +"->复用上次成功发送出的数据包 - void reUseTX()\n"
+   +"->启用ACK数据包 - void enableAckPayload(void)\n"
+   +"->启用动态数据包 - void enableDynamicPayloads(void)\n"
+   +"->禁用动态数据包 - void disableDynamicPayloads(void)\n"
+   +"->为选定的消息启用动态ACK - void enableDynamicAck(void)\n"
+   +"->禁用CRC校验 - void disableCRC( void )\n"
+   +"3.参数:无\n"
+   +"4.返回值:无"
+   );
   this.setHelpUrl("");
   }
 };
@@ -4537,8 +5437,8 @@ Blockly.Blocks.make_arduino_rf24_write_return= {
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
       .appendField("自动应答");
-  this.appendDummyInput()  
-      .appendField("返回发送结果");
+  //this.appendDummyInput()  
+  //    .appendField("返回发送结果");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(140);
@@ -4594,8 +5494,8 @@ Blockly.Blocks.make_arduino_rf24_writeBlocking_return= {
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
       .appendField("超时时间");
-  this.appendDummyInput()  
-      .appendField("返回发送结果");
+  //this.appendDummyInput()  
+  //    .appendField("返回发送结果");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(140);
@@ -6603,9 +7503,9 @@ Blockly.Blocks.make_rtc_at24c32_GetMemory_list_return= {
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
       .appendField("长度");
-  this.appendDummyInput()
-      .setAlign(Blockly.ALIGN_RIGHT)  
-      .appendField("返回读取结果");
+  //this.appendDummyInput()
+  //    .setAlign(Blockly.ALIGN_RIGHT)  
+  //    .appendField("返回读取结果");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
@@ -6904,9 +7804,9 @@ Blockly.Blocks.make_rtc_ds1302_GetMemory_list_return= {
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
       .appendField("长度");
-  this.appendDummyInput()
-      .setAlign(Blockly.ALIGN_RIGHT)  
-      .appendField("返回读取结果");
+  //this.appendDummyInput()
+  //    .setAlign(Blockly.ALIGN_RIGHT)  
+  //    .appendField("返回读取结果");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
@@ -7173,9 +8073,9 @@ Blockly.Blocks.make_rtc_ds1307_GetMemory_list_return= {
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
       .appendField("长度");
-  this.appendDummyInput()
-      .setAlign(Blockly.ALIGN_RIGHT)  
-      .appendField("返回读取结果");
+  //this.appendDummyInput()
+  //    .setAlign(Blockly.ALIGN_RIGHT)  
+  //    .appendField("返回读取结果");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
@@ -8434,9 +9334,9 @@ Blockly.Blocks.make_rtc_ds3234_GetMemory_list_return= {
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
       .appendField("长度");
-  this.appendDummyInput()
-      .setAlign(Blockly.ALIGN_RIGHT)  
-      .appendField("返回读取结果");
+  //this.appendDummyInput()
+  //    .setAlign(Blockly.ALIGN_RIGHT)  
+  //    .appendField("返回读取结果");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
@@ -9240,7 +10140,7 @@ Blockly.Blocks.make_arduino_paj7620_begin_1= {
   init: function() { 
   this.appendDummyInput()  
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/手势识别.png", 25, 25, "*"))
-      .appendField("初始化PAJ7620(I2C) 返回连接状态");
+      .appendField("初始化PAJ7620(I2C)");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
@@ -9284,7 +10184,7 @@ Blockly.Blocks.make_arduino_paj7620_ReadReg_1= {
   init: function() { 
   this.appendDummyInput()  
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/手势识别.png", 25, 25, "*"))
-      .appendField("PAJ7620 获取识别数据 返回请求结果");
+      .appendField("PAJ7620 获取识别数据");
   this.appendValueInput("address")
       .setCheck(null)  
       .appendField("地址");
@@ -9671,8 +10571,8 @@ Blockly.Blocks.make_arduino_oled_begin_change_2019_10_19= {
   this.appendDummyInput()
       .setAlign(Blockly.ALIGN_CENTRE)  
       .appendField(new Blockly.FieldDropdown([["128x64","128x64"],["128x32","128x32"],["96x16","96x16"]]), "arduino_oled_begin_type")
-      .appendField(new Blockly.FieldTextInput("display"), "oled_begin_name")
-      .appendField(" 返回连接状态");
+      .appendField(new Blockly.FieldTextInput("display"), "oled_begin_name");
+      //.appendField(" 返回连接状态");
   this.appendValueInput("oled_begin_pin_reset")
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
@@ -12688,10 +13588,10 @@ Blockly.Blocks.make_arduino_bmp180_begin_i2c_return_status= {
       .appendField("初始化BMP180(I2C)")
       .appendField(new Blockly.FieldTextInput("BMP"), "bmp180_name")
       .appendField(" 采样频率设为");
-  this.appendDummyInput()
-      .setAlign(Blockly.ALIGN_RIGHT)  
-      .appendField("返回连接状态");
-  this.setInputsInline(false);
+  //this.appendDummyInput()
+  //    .setAlign(Blockly.ALIGN_RIGHT)  
+  //    .appendField("返回连接状态");
+  this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
   this.setTooltip(
@@ -12820,10 +13720,10 @@ Blockly.Blocks.make_arduino_bmp280_begin_i2c_return_status= {
       .appendField("初始化BMP280(I2C)")
       .appendField(new Blockly.FieldTextInput("bmp"), "bmp280_name")
       .appendField(" 地址");
-  this.appendDummyInput()
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("返回连接状态");
-  this.setInputsInline(false);
+  //this.appendDummyInput()
+  //    .setAlign(Blockly.ALIGN_RIGHT)
+  //    .appendField("返回连接状态");
+  this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
   this.setTooltip(
@@ -12881,8 +13781,8 @@ Blockly.Blocks.make_arduino_bmp280_begin_spi_1_return_status= {
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
       .appendField(" CS#");
-  this.appendDummyInput()  
-      .appendField(" 返回连接状态");
+  //this.appendDummyInput()  
+  //    .appendField(" 返回连接状态");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
@@ -12959,8 +13859,8 @@ Blockly.Blocks.make_arduino_bmp280_begin_spi_2_return_status= {
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
       .appendField("SCK#");
-  this.appendDummyInput()  
-      .appendField(" 返回连接状态");
+  //this.appendDummyInput()  
+  //    .appendField(" 返回连接状态");
   this.setInputsInline(false);
   this.setOutput(true, null);
   this.setColour(40);
@@ -13215,8 +14115,8 @@ Blockly.Blocks.make_arduino_tcs34725_begin_2= {
   this.appendDummyInput()
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/颜色_1.png", 25, 25, "*"))
       .appendField("初始化TCS34725")
-      .appendField(new Blockly.FieldTextInput("tcs"), "tcs34725_name")
-      .appendField(" 返回连接状态");
+      .appendField(new Blockly.FieldTextInput("tcs"), "tcs34725_name");
+      //.appendField(" 返回连接状态");
   this.appendValueInput("tcs34725_address")
       .setCheck(null)
       .appendField("设备唤醒时延时")
@@ -13588,8 +14488,8 @@ Blockly.Blocks.make_arduino_aht10_begin_1= {
       .appendField("初始化AHT10(I2C)")
       .appendField(new Blockly.FieldTextInput("AHT10"), "aht10_name")
       .appendField(" 地址");
-  this.appendDummyInput()  
-      .appendField(" 返回连接状态");
+  //this.appendDummyInput()  
+  //    .appendField(" 返回连接状态");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
@@ -13783,8 +14683,8 @@ Blockly.Blocks.make_arduino_mlx90614_begin_1= {
       .appendField("初始化MLX90614(I2C)")
       .appendField(new Blockly.FieldTextInput("mlx"), "mlx90614_name")
       .appendField(" 地址");
-  this.appendDummyInput()  
-      .appendField(" 返回连接状态");
+  //this.appendDummyInput()  
+  //    .appendField(" 返回连接状态");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
@@ -13841,8 +14741,8 @@ Blockly.Blocks.make_arduino_htu21d_begin_1= {
   this.appendDummyInput()  
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/温湿度传感器_5.png", 25, 25, "*"))
       .appendField("初始化HTU21D(I2C)")
-      .appendField(new Blockly.FieldTextInput("HTU"), "htu21d_name")
-      .appendField(" 返回连接状态");
+      .appendField(new Blockly.FieldTextInput("HTU"), "htu21d_name");
+      //.appendField(" 返回连接状态");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
@@ -13946,8 +14846,8 @@ Blockly.Blocks.make_arduino_bh1750_begin_return_status= {
   this.appendDummyInput()  
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/光照_3.png", 25, 25, "*"))
       .appendField("初始化BH1750(I2C)")
-      .appendField(new Blockly.FieldTextInput("lightMeter"), "bh1750_name")
-      .appendField(" 返回连接状态");
+      .appendField(new Blockly.FieldTextInput("lightMeter"), "bh1750_name");
+      //.appendField(" 返回连接状态");
   this.appendValueInput("bh1750_address")
       .setCheck(null)  
       .appendField(new Blockly.FieldDropdown([["以1勒克斯分辨率测量,测量时间约120毫秒","CONTINUOUS_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量,测量时间约120毫秒","CONTINUOUS_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量,测量时间约16毫秒","CONTINUOUS_LOW_RES_MODE"],["以1勒克斯分辨率测量,测量时间约120毫秒(测量后休眠)","ONE_TIME_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量,测量时间约120毫秒(测量后休眠)","ONE_TIME_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量,测量时间约16毫秒(测量后休眠)","ONE_TIME_LOW_RES_MODE"]]), "bh1750_mode")
@@ -13991,8 +14891,8 @@ Blockly.Blocks.make_arduino_bh1750_set_mtreg_return_status= {
       .appendField("BH1750")
       .appendField(new Blockly.FieldTextInput("lightMeter"), "bh1750_name")
       .appendField(" 灵敏度设为");
-  this.appendDummyInput()  
-      .appendField(" 返回结果");
+  //this.appendDummyInput()  
+  //    .appendField(" 返回结果");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(40);
@@ -14027,8 +14927,8 @@ Blockly.Blocks.make_arduino_bh1750_configure_return_status= {
       .appendField(new Blockly.FieldTextInput("lightMeter"), "bh1750_name");
   this.appendDummyInput()  
       .appendField("工作模式设为")
-      .appendField(new Blockly.FieldDropdown([["以1勒克斯分辨率测量,测量时间约120毫秒","CONTINUOUS_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量,测量时间约120毫秒","CONTINUOUS_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量,测量时间约16毫秒","CONTINUOUS_LOW_RES_MODE"],["以1勒克斯分辨率测量,测量时间约120毫秒(测量后休眠)","ONE_TIME_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量,测量时间约120毫秒(测量后休眠)","ONE_TIME_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量,测量时间约16毫秒(测量后休眠)","ONE_TIME_LOW_RES_MODE"]]), "bh1750_mode")
-      .appendField(" 返回结果");
+      .appendField(new Blockly.FieldDropdown([["以1勒克斯分辨率测量,测量时间约120毫秒","CONTINUOUS_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量,测量时间约120毫秒","CONTINUOUS_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量,测量时间约16毫秒","CONTINUOUS_LOW_RES_MODE"],["以1勒克斯分辨率测量,测量时间约120毫秒(测量后休眠)","ONE_TIME_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量,测量时间约120毫秒(测量后休眠)","ONE_TIME_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量,测量时间约16毫秒(测量后休眠)","ONE_TIME_LOW_RES_MODE"]]), "bh1750_mode");
+      //.appendField(" 返回结果");
   this.setInputsInline(false);
   this.setOutput(true, null);
   this.setColour(40);
@@ -14075,8 +14975,8 @@ Blockly.Blocks.make_arduino_max44009_begin_1= {
   this.appendDummyInput()  
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/光照_4.png", 25, 25, "*"))
       .appendField("初始化MAX44009(I2C)")
-      .appendField(new Blockly.FieldTextInput("light"), "max44009_name")
-      .appendField(" 返回连接状态");
+      .appendField(new Blockly.FieldTextInput("light"), "max44009_name");
+      //.appendField(" 返回连接状态");
   this.setInputsInline(false);
   this.setOutput(true, null);
   this.setColour(40);
@@ -15244,7 +16144,7 @@ Blockly.Blocks.make_arduino_pid_Compute_1= {
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/PID/PID_1.png", 25, 25, "*"))
       .appendField("PID")
       .appendField(new Blockly.FieldTextInput("myPID"), "pid_name")
-      .appendField(" 计算 返回结果");
+      .appendField(" 计算");
   this.setInputsInline(true);
   this.setOutput(true, null);
   this.setColour(210);
@@ -15455,6 +16355,19 @@ Blockly.Blocks.make_arduino_pid_get= {
       this.setTooltip("PID算法 获取Kp、Ki、Kd、控制方向、工作模式，返回数据的类型为int");
     else
       this.setTooltip("PID算法 获取Kp、Ki、Kd、控制方向、工作模式，返回数据的类型为double");
+  }
+};
+
+Blockly.Blocks.make_tool_normal= {
+  init: function() { 
+  this.appendValueInput("data")
+      .setCheck(null);
+  this.setInputsInline(false);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour("#ff6666");
+  this.setTooltip("");
+  this.setHelpUrl("");
   }
 };
 
@@ -16319,10 +17232,10 @@ Blockly.Blocks.make_arduino_comment_text_2 = {
     this.appendDummyInput("EMPTY0")
         .appendField("/*");
     this.appendDummyInput("EMPTY1")  
-        .appendField("    *")
+        .appendField("        *")
         .appendField(new Blockly.FieldTextInput("               "), "data1");
     this.appendDummyInput("EMPTY2")  
-        .appendField("    */");
+        .appendField("        */");
     this.itemCount_ = 3;
     this.updateShape_();
     this.setInputsInline(false);
@@ -16449,18 +17362,18 @@ Blockly.Blocks.make_arduino_comment_text_2 = {
         if(i <= j-2)
         {
           this.appendDummyInput("EMPTY"+i)  
-              .appendField("    *")
+              .appendField("        *")
               .appendField(new Blockly.FieldTextInput(code[i-1]), "data"+i);
         }
         else
         {
           this.appendDummyInput("EMPTY"+i)  
-              .appendField("    *")
+              .appendField("        *")
               .appendField(new Blockly.FieldTextInput("               "), "data"+i);
         }
       }
       this.appendDummyInput("EMPTY"+i)  
-          .appendField("    */");
+          .appendField("        */");
     }
   }
 };

@@ -1,4 +1,4 @@
-﻿<!--
+<!--
 type="company" 
 block="block/Arduino.js"
 generator="generator/Arduino.js" 
@@ -18,11 +18,8 @@ E-mail:3294713004@qq.com
 <category id="Arduino" name="Maker" colour="40">
  
   <category id="mixly_define_variate" name="变量/常量" colour="330">
-
+    <!--
     <block type="arduino_const_variate">
-    </block>
-
-    <block type="make_get_address">
     </block>
 
     <block type="arduino_const_variate_1">
@@ -36,15 +33,12 @@ E-mail:3294713004@qq.com
     <block type="arduino_define_global_variate_0">
     </block>
 
-    <block type="make_get_address">
+    <block type="variables_get">
+      <field name="VAR">item</field>
     </block>
 
-    <block type="make_arduino_define_global_variate_1">
-      <field name="global_variate_name">item</field>
-    </block>
-
-    <block type="make_arduino_define_global_variate_2">
-      <field name="global_variate_name">item</field>
+    <block type="variables_set">
+      <field name="VAR">item</field>
     </block>
 
     <sep gap="50"></sep>
@@ -55,21 +49,15 @@ E-mail:3294713004@qq.com
     <block type="make_arduino_define_local_variate_0">
     </block>
 
-    <block type="make_get_address">
-    </block>
-
     <block type="make_arduino_define_local_variate_1">
     </block>
 
     <block type="make_arduino_define_local_variate_2">
     </block>
-
+    
     <sep gap="50"></sep>
 
     <block type="arduino_define_static_global_variate">
-    </block>
-
-    <block type="make_get_address">
     </block>
 
     <block type="make_arduino_define_static_global_variate_1">
@@ -83,14 +71,17 @@ E-mail:3294713004@qq.com
     <block type="arduino_define_static_local_variate">
     </block>
 
-    <block type="make_get_address">
-    </block>
-
     <block type="make_arduino_define_static_local_variate_1">
     </block>
 
     <block type="make_arduino_define_static_local_variate_2">
     </block>
+    -->
+    <category name="常量" custom="CONST_VARIATE" colour="#cc66cc"></category>
+    <category name="全局变量" custom="GLOBAL_VARIATE" colour="330"></category>
+    <category name="局部变量" custom="LOCAL_VARIATE" colour="#ff6666"></category>
+    <category name="静态全局变量" custom="GLOBAL_STATIC_VARIATE" colour="#9999ff"></category>
+    <category name="静态局部变量" custom="LOCAL_STATIC_VARIATE" colour="#ff9966"></category>
   </category>
 
   <category id="mixly_make_control" name="控制" colour="120">
