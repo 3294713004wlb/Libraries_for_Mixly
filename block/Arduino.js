@@ -2086,7 +2086,7 @@ Blockly.Blocks.math_operation= {
       .setCheck(null);
   this.appendValueInput("math_operation_input")
       .setCheck(null)  
-      .appendField(new Blockly.FieldDropdown([["+=","+="],["-=","-="],["*=","*="],["/=","/="],["%=","%="],["&=","&="],["|=","|="]]), "math_operation_type");
+      .appendField(new Blockly.FieldDropdown([["+=","+="],["-=","-="],["*=","*="],["/=","/="],["%=","%="],["&=","&="],["|=","|="],["^=","^="]]), "math_operation_type");
   this.setInputsInline(true);
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
@@ -2180,6 +2180,38 @@ Blockly.Blocks.math_map_float= {
      +"->out_min:输出区间上的最小值\n"
      +"->out_max:输出区间上的最大值\n"
      +"4.返回值:float型数据(映射之后的值)"
+      );
+  this.setHelpUrl("");
+  }
+};
+
+//atan2(a, b)
+Blockly.Blocks.math_atan2= {
+  init: function() { 
+  this.appendValueInput("a")
+      .setCheck(null)  
+      .appendField("atan2 (");
+  this.appendValueInput("b")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(",");
+  this.appendDummyInput()  
+      .appendField(")");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(Blockly.Blocks.math.HUE);
+  this.setTooltip(
+      "1.功能:\n"
+     +"->atan2(y,x):返回(0,0)与(x,y)构成的线段在坐标平面上与x轴正方向之间夹角，返回的弧度值介于-π到π之间(不包括-π)\n"
+     +"2.语法:\n"
+     +"->atan2(y,x)\n"
+     +"3.参数:\n"
+     +"->y:输入的y坐标值\n"
+     +"->x:输入的x坐标值\n"
+     +"4.返回值:(-π,π]范围内的弧度数据\n"
+     +"5.说明:\n"
+     +"->角度 ≈ 弧度*180/3.14\n"
+     +"->角度 = 弧度*180/π"
       );
   this.setHelpUrl("");
   }
@@ -2301,7 +2333,7 @@ Blockly.Blocks.math_bitSet_bitClear= {
 };
 
 //计算指定位的值（0位是1，1位是2，2位4，以此类推）
-Blockly.Blocks.math_bit= {
+Blockly.Blocks.math_Bit= {
   init: function() { 
   this.appendValueInput("bit")
       .setCheck(null)
@@ -5543,7 +5575,7 @@ Blockly.Blocks.make_arduino_rf24_read= {
   this.appendValueInput("buf")
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
-      .appendField(" 读取 保存数据到变量");
+      .appendField(" 读取 保存数据到");
   this.appendValueInput("len")
       .setCheck(null)
       .setAlign(Blockly.ALIGN_RIGHT)  
@@ -9373,6 +9405,37 @@ Blockly.Blocks.make_arduino_pcf8574_begin= {
   }
 };
 
+//初始化PCF8574 使用软件模拟I2C
+Blockly.Blocks.make_arduino_pcf8574_begin_soft= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/输入输出/输入输出_1.png", 25, 25, "*"))
+      .appendField("初始化PCF8574(I2C)")
+      .appendField(new Blockly.FieldTextInput("expander"), "pcf8574_name");
+  this.appendValueInput("sda")
+      .setCheck(null)  
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)  
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("SCL#");
+  this.appendValueInput("address")
+      .setCheck(null)  
+      .setAlign(Blockly.ALIGN_RIGHT)
+      .appendField("地址");
+  this.appendStatementInput("pin")
+      .setCheck(null)  
+      .appendField("定义管脚");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
 //PCF8574 IO扩展模块 管脚类型
 Blockly.Blocks.make_arduino_pcf8574_pin_type= {
   init: function() { 
@@ -9392,6 +9455,8 @@ Blockly.Blocks.make_arduino_pcf8574_pin_type= {
   onchange: function(e) {
     var surround_parent = this.getSurroundParent();
     if (surround_parent && surround_parent.type == 'make_arduino_pcf8574_begin') {
+      this.setWarningText(null);
+    }else if(surround_parent && surround_parent.type == 'make_arduino_pcf8574_begin_soft'){
       this.setWarningText(null);
     } else {
       this.setWarningText("此块需放到PCF8574初始化块下面");
@@ -9630,6 +9695,37 @@ Blockly.Blocks.make_arduino_mcp23017_begin= {
   }
 };
 
+//初始化MCP23017 使用软件模拟I2C
+Blockly.Blocks.make_arduino_mcp23017_begin_soft= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/输入输出/输入输出_2.png", 25, 25, "*"))
+      .appendField("初始化MCP23017(I2C)")
+      .appendField(new Blockly.FieldTextInput("mcp"), "mcp23017_name");
+  this.appendValueInput("sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL#");
+  this.appendValueInput("mcp23017_address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("地址");
+  this.appendStatementInput("mcp23017_pin_type")
+      .setCheck(null)  
+      .appendField("定义管脚");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
 //MCP23017 IO扩展模块 设置管脚模式
 Blockly.Blocks.make_arduino_mcp23017_pin_type= {
   init: function() { 
@@ -9648,7 +9744,7 @@ Blockly.Blocks.make_arduino_mcp23017_pin_type= {
   },
   onchange: function(e) {
     var surround_parent = this.getSurroundParent();
-    if (surround_parent && surround_parent.type == 'make_arduino_mcp23017_begin') {
+    if (surround_parent && (surround_parent.type == 'make_arduino_mcp23017_begin' || surround_parent.type == 'make_arduino_mcp23017_begin_soft')) {
       this.setWarningText(null);
     } else {
       this.setWarningText("此块需放到MCP23017初始化块下面");
@@ -10234,6 +10330,34 @@ Blockly.Blocks.make_arduino_tca9548a_begin= {
   }
 };
 
+//初始化TCA9548A I2C扩展模块 使用软件模拟I2C
+Blockly.Blocks.make_arduino_tca9548a_begin_soft= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/通信/通信_8.png", 25, 25, "*"))
+      .appendField("初始化TCA9548A")
+      .appendField(new Blockly.FieldTextInput("mux"), "tca9548a_name");
+  this.appendValueInput("sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL");
+  this.appendValueInput("address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("地址");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
 //TCA9548A I2C扩展模块 关闭所有端口
 Blockly.Blocks.make_arduino_tca9548a_disable= {
   init: function() { 
@@ -10567,9 +10691,7 @@ Blockly.Blocks.make_arduino_oled_begin_change_2019_10_19= {
   init: function() { 
   this.appendDummyInput()  
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/oled_4.png", 25, 25, "*"))
-      .appendField("初始化OLED(I2C)");
-  this.appendDummyInput()
-      .setAlign(Blockly.ALIGN_CENTRE)  
+      .appendField("初始化OLED(I2C)") 
       .appendField(new Blockly.FieldDropdown([["128x64","128x64"],["128x32","128x32"],["96x16","96x16"]]), "arduino_oled_begin_type")
       .appendField(new Blockly.FieldTextInput("display"), "oled_begin_name");
       //.appendField(" 返回连接状态");
@@ -10590,6 +10712,41 @@ Blockly.Blocks.make_arduino_oled_begin_change_2019_10_19= {
    +"①Arduino Uno/Ethernet:SDA - A4，SCL - A5\n"
    +"②Arduino Mega2560/Due:SDA - 20，SCL - 21\n"
    +"③Arduino Leonardo:SDA - 2，SCL - 3"
+   );
+  this.setHelpUrl("");
+  }
+};
+
+//初始化OLED(I2C)
+Blockly.Blocks.make_arduino_oled_begin_soft= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/oled_4.png", 25, 25, "*"))
+      .appendField("初始化OLED(I2C)")
+      .appendField(new Blockly.FieldDropdown([["128x64","128x64"],["128x32","128x32"],["96x16","96x16"]]), "arduino_oled_begin_type")
+      .appendField(new Blockly.FieldTextInput("display"), "oled_begin_name");
+      //.appendField(" 返回连接状态");
+  this.appendValueInput("oled_begin_pin_sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SDA#");
+  this.appendValueInput("oled_begin_pin_scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL#");
+  this.appendValueInput("oled_begin_pin_reset")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("RESET#");
+  this.appendValueInput("oled_begin_address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("设备地址");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(180);
+  this.setTooltip(
+    "初始化OLED(I2C)"
    );
   this.setHelpUrl("");
   }
@@ -13286,6 +13443,58 @@ Blockly.Blocks.make_arduino_at24cx_begin_1= {
   }
 };
 
+//初始化AT24CXX存储器-1 使用软件模拟I2C
+Blockly.Blocks.make_arduino_at24cx_begin_1_Soft= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/芯片_4.png", 25, 25, "*"))
+      .appendField("初始化AT24Cxx")
+      .appendField(new Blockly.FieldTextInput("ic_eeprom"), "at24cxx_name");
+  this.appendValueInput("sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL#");
+  this.appendValueInput("address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("地址");
+  this.appendValueInput("pagesize")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("每页字节数");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(0);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化AT24CXX存储器\n"
+   +"2.语法:\n"
+   +"->AT24CX_Soft(byte index, byte pageSize, SoftwareWire *theWire);\n"
+   +"例如:\n"
+   +"->初始化AT24C01 - AT24CX_Soft(byte index, 8)，储存空间:128byte\n"
+   +"->初始化AT24C02 - AT24CX_Soft(byte index, 8)，储存空间:256byte\n"
+   +"->初始化AT24C04 - AT24CX_Soft(byte index, 16)，储存空间:512byte\n"
+   +"->初始化AT24C08 - AT24CX_Soft(byte index, 16)，储存空间:1024byte\n"
+   +"->初始化AT24C16 - AT24CX_Soft(byte index, 16)，储存空间:2048byte\n"
+   +"->初始化AT24C32 - AT24CX_Soft(byte index, 32)，储存空间:4096byte\n"
+   +"->初始化AT24C64 - AT24CX_Soft(byte index, 32)，储存空间:8192byte\n"
+   +"->初始化AT24C128 - AT24CX_Soft(byte index, 64)，储存空间:16384byte\n"
+   +"->初始化AT24C256 - AT24CX_Soft(byte index, 64)，储存空间:32768byte\n"
+   +"->初始化AT24C512 - AT24CX_Soft(byte index, 128)，储存空间:65536byte\n"
+   +"3.参数:\n"
+   +"->index:器件的地址[0(0x50) - 7(0x57)]\n"
+   +"->pageSize:储存器每页的字节数\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
 //初始化AT24CXX存储器
 Blockly.Blocks.make_arduino_at24cx_begin= {
   init: function() { 
@@ -13321,6 +13530,55 @@ Blockly.Blocks.make_arduino_at24cx_begin= {
    +"①Arduino Uno/Ethernet:SDA - A4，SCL - A5\n"
    +"②Arduino Mega2560/Due:SDA - 20，SCL - 21\n"
    +"③Arduino Leonardo:SDA - 2，SCL - 3"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//初始化AT24CXX存储器 使用软件模拟I2C
+Blockly.Blocks.make_arduino_at24cx_begin_soft= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/芯片_4.png", 25, 25, "*"))
+      .appendField("初始化")
+      .appendField(new Blockly.FieldDropdown([["AT24C01","1"],["AT24C02","2"],["AT24C04","4"],["AT24C08","8"],["AT24C16","16"],["AT24C32","32"],["AT24C64","64"],["AT24C128","128"],["AT24C256","256"],["AT24C512","512"]]), "at24cxx_begin_type")
+      .appendField(new Blockly.FieldTextInput("ic_eeprom"), "at24cxx_name");
+  this.appendValueInput("sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL#");
+  this.appendValueInput("address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("地址");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(0);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化AT24CXX存储器\n"
+   +"2.语法:\n"
+   +"->AT24CX_Soft(byte index, byte pageSize, SoftwareWire *theWire);\n"
+   +"例如:\n"
+   +"->初始化AT24C01 - AT24CX_Soft(byte index, 8)，储存空间:128byte\n"
+   +"->初始化AT24C02 - AT24CX_Soft(byte index, 8)，储存空间:256byte\n"
+   +"->初始化AT24C04 - AT24CX_Soft(byte index, 16)，储存空间:512byte\n"
+   +"->初始化AT24C08 - AT24CX_Soft(byte index, 16)，储存空间:1024byte\n"
+   +"->初始化AT24C16 - AT24CX_Soft(byte index, 16)，储存空间:2048byte\n"
+   +"->初始化AT24C32 - AT24CX_Soft(byte index, 32)，储存空间:4096byte\n"
+   +"->初始化AT24C64 - AT24CX_Soft(byte index, 32)，储存空间:8192byte\n"
+   +"->初始化AT24C128 - AT24CX_Soft(byte index, 64)，储存空间:16384byte\n"
+   +"->初始化AT24C256 - AT24CX_Soft(byte index, 64)，储存空间:32768byte\n"
+   +"->初始化AT24C512 - AT24CX_Soft(byte index, 128)，储存空间:65536byte\n"
+   +"3.参数:\n"
+   +"->index:器件的地址[0(0x50) - 7(0x57)]\n"
+   +"->pageSize:储存器每页的字节数\n"
+   +"4.返回值:无"
     );
   this.setHelpUrl("");
   }
@@ -13606,6 +13864,33 @@ Blockly.Blocks.make_arduino_bmp180_begin_i2c_return_status= {
   }
 };
 
+//初始化BMP180大气压强传感器 使用软件模拟I2C
+Blockly.Blocks.make_arduino_bmp180_begin_i2c_soft= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/大气压力_1.png", 25, 25, "*"))
+      .appendField("初始化BMP180(I2C)")
+      .appendField(new Blockly.FieldTextInput("BMP"), "bmp180_name");
+  this.appendValueInput("sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL#");
+  this.appendValueInput("oversampling")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("采样频率设为");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
 //BMP180大气压强传感器(I2C) 采样频率类型
 Blockly.Blocks.make_arduino_bmp180_oversampling= {
   init: function() { 
@@ -13733,6 +14018,33 @@ Blockly.Blocks.make_arduino_bmp280_begin_i2c_return_status= {
    +"②Arduino Mega2560/Due:SDA - 20，SCL - 21\n"
    +"③Arduino Leonardo:SDA - 2，SCL - 3"
     );
+  this.setHelpUrl("");
+  }
+};
+
+//初始化BMP280大气压强传感器 使用软件模拟I2C
+Blockly.Blocks.make_arduino_bmp280_begin_i2c_soft= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/大气压力.png", 25, 25, "*"))
+      .appendField("初始化BMP280(I2C)")
+      .appendField(new Blockly.FieldTextInput("bmp"), "bmp280_name");
+  this.appendValueInput("sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL#");
+  this.appendValueInput("address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("地址");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
   this.setHelpUrl("");
   }
 };
@@ -14017,11 +14329,13 @@ Blockly.Blocks.make_arduino_tcs34725_begin= {
 
 Blockly.Blocks.make_arduino_tcs34725_begin= {
   init: function() { 
-  this.appendValueInput("tcs34725_address")
-      .setCheck(null)
+  this.appendDummyInput()
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/颜色_1.png", 25, 25, "*"))
       .appendField("初始化TCS34725(I2C)")
-      .appendField(new Blockly.FieldTextInput("tcs"), "tcs34725_name")
+      .appendField(new Blockly.FieldTextInput("tcs"), "tcs34725_name");
+  this.appendValueInput("tcs34725_address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)
       .appendField(" 地址");
   this.setInputsInline(true);
   this.setPreviousStatement(true, null);
@@ -14066,13 +14380,15 @@ Blockly.Blocks.make_arduino_tcs34725_begin_1= {
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/颜色_1.png", 25, 25, "*"))
       .appendField("初始化TCS34725(I2C)")
       .appendField(new Blockly.FieldTextInput("tcs"), "tcs34725_name");
-  this.appendValueInput("tcs34725_address")
-      .setCheck(null)
+  this.appendDummyInput()
       .appendField("设备唤醒时延时")
       .appendField(new Blockly.FieldDropdown([["2.4ms","TCS34725_INTEGRATIONTIME_2_4MS"],["24ms","TCS34725_INTEGRATIONTIME_24MS"],["50ms","TCS34725_INTEGRATIONTIME_50MS"],["101ms","TCS34725_INTEGRATIONTIME_101MS"],["154ms","TCS34725_INTEGRATIONTIME_154MS"],["700ms","TCS34725_INTEGRATIONTIME_700MS"]]), "tcs34725_enable_delay")
       .appendField("读取数据")
       .appendField(" 光敏感度设为")
-      .appendField(new Blockly.FieldDropdown([["1倍增益","TCS34725_GAIN_1X"],["4倍增益","TCS34725_GAIN_4X"],["16倍增益","TCS34725_GAIN_16X"],["60倍增益","TCS34725_GAIN_60X"]]), "tcs34725_gain")
+      .appendField(new Blockly.FieldDropdown([["1倍增益","TCS34725_GAIN_1X"],["4倍增益","TCS34725_GAIN_4X"],["16倍增益","TCS34725_GAIN_16X"],["60倍增益","TCS34725_GAIN_60X"]]), "tcs34725_gain");
+  this.appendValueInput("tcs34725_address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)
       .appendField(" 地址");
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
@@ -14117,13 +14433,15 @@ Blockly.Blocks.make_arduino_tcs34725_begin_2= {
       .appendField("初始化TCS34725")
       .appendField(new Blockly.FieldTextInput("tcs"), "tcs34725_name");
       //.appendField(" 返回连接状态");
-  this.appendValueInput("tcs34725_address")
-      .setCheck(null)
+  this.appendDummyInput()
       .appendField("设备唤醒时延时")
       .appendField(new Blockly.FieldDropdown([["2.4ms","TCS34725_INTEGRATIONTIME_2_4MS"],["24ms","TCS34725_INTEGRATIONTIME_24MS"],["50ms","TCS34725_INTEGRATIONTIME_50MS"],["101ms","TCS34725_INTEGRATIONTIME_101MS"],["154ms","TCS34725_INTEGRATIONTIME_154MS"],["700ms","TCS34725_INTEGRATIONTIME_700MS"]]), "tcs34725_enable_delay")
       .appendField("读取数据")
       .appendField(" 光敏感度设为")
-      .appendField(new Blockly.FieldDropdown([["1倍增益","TCS34725_GAIN_1X"],["4倍增益","TCS34725_GAIN_4X"],["16倍增益","TCS34725_GAIN_16X"],["60倍增益","TCS34725_GAIN_60X"]]), "tcs34725_gain")
+      .appendField(new Blockly.FieldDropdown([["1倍增益","TCS34725_GAIN_1X"],["4倍增益","TCS34725_GAIN_4X"],["16倍增益","TCS34725_GAIN_16X"],["60倍增益","TCS34725_GAIN_60X"]]), "tcs34725_gain");
+  this.appendValueInput("tcs34725_address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)
       .appendField(" 地址");
   this.setOutput(true, null);
   this.setColour(40);
@@ -14134,6 +14452,39 @@ Blockly.Blocks.make_arduino_tcs34725_begin_2= {
    +"②Arduino Mega2560/Due:SDA - 20，SCL - 21\n"
    +"③Arduino Leonardo:SDA - 2，SCL - 3"
     );
+  this.setHelpUrl("");
+  }
+};
+
+//初始化TCS34725颜色传感器 使用软件模拟I2C
+Blockly.Blocks.make_arduino_tcs34725_begin_Soft= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/颜色_1.png", 25, 25, "*"))
+      .appendField("初始化TCS34725")
+      .appendField(new Blockly.FieldTextInput("tcs"), "tcs34725_name");
+  this.appendDummyInput()  
+      .appendField("设备唤醒时延时")
+      .appendField(new Blockly.FieldDropdown([["2.4ms","TCS34725_INTEGRATIONTIME_2_4MS"],["24ms","TCS34725_INTEGRATIONTIME_24MS"],["50ms","TCS34725_INTEGRATIONTIME_50MS"],["101ms","TCS34725_INTEGRATIONTIME_101MS"],["154ms","TCS34725_INTEGRATIONTIME_154MS"],["700ms","TCS34725_INTEGRATIONTIME_700MS"]]), "tcs34725_enable_delay")
+      .appendField("读取数据")
+      .appendField("光敏感度设为")
+      .appendField(new Blockly.FieldDropdown([["1倍增益","TCS34725_GAIN_1X"],["4倍增益","TCS34725_GAIN_4X"],["16倍增益","TCS34725_GAIN_16X"],["60倍增益","TCS34725_GAIN_60X"]]), "tcs34725_gain");
+  this.appendValueInput("sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL#");
+  this.appendValueInput("address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("地址");
+  this.setInputsInline(false);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
   this.setHelpUrl("");
   }
 };
@@ -14504,6 +14855,33 @@ Blockly.Blocks.make_arduino_aht10_begin_1= {
   }
 };
 
+//初始化AHT10温湿度传感器 使用软件模拟I2C
+Blockly.Blocks.make_arduino_aht10_begin_Soft= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/温湿度传感器_3.png", 25, 25, "*"))
+      .appendField("初始化AHT10(I2C)")
+      .appendField(new Blockly.FieldTextInput("AHT10"), "aht10_name");
+  this.appendValueInput("sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL#");
+  this.appendValueInput("address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("地址");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
 Blockly.Blocks.make_arduino_aht10_get= {
   init: function() { 
   this.appendDummyInput()  
@@ -14570,7 +14948,7 @@ Blockly.Blocks.make_arduino_lm75_begin_1= {
       .setCheck(null)  
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/温度_4.png", 25, 25, "*"))
       .appendField("初始化LM75(I2C)")
-      .appendField(new Blockly.FieldTextInput("lm75_sensor"), "lm75_name")
+      .appendField(new Blockly.FieldTextInput("lm75a"), "lm75_name")
       .appendField(" 地址");
   this.setInputsInline(true);
   this.setPreviousStatement(true, null);
@@ -14583,6 +14961,34 @@ Blockly.Blocks.make_arduino_lm75_begin_1= {
    +"②Arduino Mega2560/Due:SDA - 20，SCL - 21\n"
    +"③Arduino Leonardo:SDA - 2，SCL - 3"
     );
+  this.setHelpUrl("");
+  }
+};
+
+//初始化LM75温度传感器 使用软件模拟I2C
+Blockly.Blocks.make_arduino_lm75_begin_soft= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/温度_4.png", 25, 25, "*"))
+      .appendField("初始化LM75(I2C)")
+      .appendField(new Blockly.FieldTextInput("lm75a"), "lm75_name");
+  this.appendValueInput("sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL#");
+  this.appendValueInput("address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("地址");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip("");
   this.setHelpUrl("");
   }
 };
@@ -14612,6 +15018,169 @@ Blockly.Blocks.make_arduino_lm75_get_temp_1= {
   this.setOutput(true, null);
   this.setColour(40);
   this.setTooltip("LM75温度传感器转换温度\n输入数据的类型为float\n返回数据的类型为float");
+  this.setHelpUrl("");
+  }
+};
+
+//初始化MCP9808温度传感器
+Blockly.Blocks.make_arduino_mcp9808_begin= {
+  init: function() { 
+  this.appendValueInput("address")
+      .setCheck(null)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/温度_6.png", 25, 25, "*"))
+      .appendField("初始化MCP9808(I2C)")
+      .appendField(new Blockly.FieldTextInput("temp"), "name")
+      .appendField(" 地址");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化MCP9808温度传感器，返回数据的类型为boolean\n"
+   +"2.语法:\n"
+   +"->Adafruit_MCP9808()\n"
+   +"->bool begin(uint8_t addr)\n"
+   +"3.参数:\n"
+   +"->addr:7位的器件地址(可选)\n"
+   +"4.返回值:boolean型数据\n"
+   +"->1 - 设备连接成功\n"
+   +"->0 - 设备连接失败"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//初始化MCP9808温度传感器(使用软件模拟I2C)
+Blockly.Blocks.make_arduino_mcp9808_begin_1= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/温度_6.png", 25, 25, "*"))
+      .appendField("初始化MCP9808(I2C)")
+      .appendField(new Blockly.FieldTextInput("temp"), "name");
+  this.appendValueInput("sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL#");
+  this.appendValueInput("address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("地址");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化MCP9808温度传感器(使用软件模拟I2C)，返回数据的类型为boolean\n"
+   +"2.语法:\n"
+   +"->Adafruit_MCP9808()\n"
+   +"->bool begin(uint8_t addr, TwoWire *theWire)\n"
+   +"3.参数:\n"
+   +"->addr:7位的器件地址(可选)\n"
+   +"->theWire:I2C\n"
+   +"4.返回值:boolean型数据\n"
+   +"->1 - 设备连接成功\n"
+   +"->0 - 设备连接失败"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//MCP9808温度传感器 设置测量分辨率
+Blockly.Blocks.make_arduino_mcp9808_setResolution= {
+  init: function() { 
+  this.appendValueInput("data")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/温度_6.png", 25, 25, "*"))
+      .appendField("MCP9808")
+      .appendField(new Blockly.FieldTextInput("temp"), "name")
+      .appendField(" 测量分辨率设为");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->MCP9808温度传感器 设置测量分辨率\n"
+   +"2.语法:\n"
+   +"->void setResolution(uint8_t value)\n"
+   +"3.参数:\n"
+   +"->value:设置的分辨率值\n"
+   +"-->0 - 0.5°C - 取样时间30ms\n"
+   +"-->1 - 0.25°C - 取样时间65ms\n"
+   +"-->2 - 0.125°C - 取样时间130ms\n"
+   +"-->3 - 0.0625°C - 取样时间250ms\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//MCP9808温度传感器 分辨率定义
+Blockly.Blocks.make_arduino_mcp9808_setResolution_data= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldDropdown([["0.5°C","0"],["0.25°C","1"],["0.125°C","2"],["0.0625°C","3"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//MCP9808温度传感器 唤醒或休眠设备
+Blockly.Blocks.make_arduino_mcp9808_wake_shutdown= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/温度_6.png", 25, 25, "*"))
+      .appendField("MCP9808")
+      .appendField(new Blockly.FieldTextInput("temp"), "name")
+      .appendField(new Blockly.FieldDropdown([["唤醒","wake"],["休眠","shutdown"]]), "type")
+      .appendField("设备");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->MCP9808温度传感器 唤醒或休眠设备\n"
+   +"2.语法:\n"
+   +"->唤醒设备 - void wake()\n"
+   +"->休眠设备 - void shutdown()\n"
+   +"3.参数:无\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//MCP9808温度传感器 获取温度(℃或℉)和测量分辨率
+Blockly.Blocks.make_arduino_mcp9808_get_data= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/温度_6.png", 25, 25, "*"))
+      .appendField("MCP9808")
+      .appendField(new Blockly.FieldTextInput("temp"), "name")
+      .appendField(" 获取")
+      .appendField(new Blockly.FieldDropdown([["温度(℃)","readTempC"],["温度(℉)","readTempF"],["测量分辨率","getResolution"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->MCP9808温度传感器 获取温度(℃或℉)和测量分辨率，返回数据的类型为float或uint8_t\n"
+   +"2.语法:\n"
+   +"->获取温度(℃) - float readTempC()\n"
+   +"->获取温度(℉) - float readTempF()\n"
+   +"->获取测量分辨率 - uint8_t getResolution(void)\n"
+   +"3.参数:无\n"
+   +"4.返回值:float或uint8_t型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -14699,6 +15268,33 @@ Blockly.Blocks.make_arduino_mlx90614_begin_1= {
   }
 };
 
+//初始化MLX90614红外测温传感器 使用软件模拟I2C
+Blockly.Blocks.make_arduino_mlx90614_begin_soft= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/红外测温传感器_4.png", 25, 25, "*"))
+      .appendField("初始化MLX90614")
+      .appendField(new Blockly.FieldTextInput("mlx"), "mlx90614_name");
+  this.appendValueInput("sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL#");
+  this.appendValueInput("address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("地址");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
 Blockly.Blocks.make_arduino_mlx90614_get_data= {
   init: function() { 
   this.appendDummyInput()  
@@ -14753,6 +15349,29 @@ Blockly.Blocks.make_arduino_htu21d_begin_1= {
    +"②Arduino Mega2560/Due:SDA - 20，SCL - 21\n"
    +"③Arduino Leonardo:SDA - 2，SCL - 3"
     );
+  this.setHelpUrl("");
+  }
+};
+
+//初始化HTU21D温湿度传感器 使用软件模拟I2C
+Blockly.Blocks.make_arduino_htu21d_begin_soft= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/温湿度传感器_5.png", 25, 25, "*"))
+      .appendField("初始化HTU21D(I2C)")
+      .appendField(new Blockly.FieldTextInput("HTU"), "htu21d_name");
+  this.appendValueInput("sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL#");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
   this.setHelpUrl("");
   }
 };
@@ -14824,7 +15443,7 @@ Blockly.Blocks.make_arduino_bh1750_begin= {
       .appendField(new Blockly.FieldTextInput("lightMeter"), "bh1750_name");
   this.appendValueInput("bh1750_address")
       .setCheck(null)  
-      .appendField(new Blockly.FieldDropdown([["以1勒克斯分辨率测量,测量时间约120毫秒","CONTINUOUS_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量,测量时间约120毫秒","CONTINUOUS_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量,测量时间约16毫秒","CONTINUOUS_LOW_RES_MODE"],["以1勒克斯分辨率测量,测量时间约120毫秒(测量后休眠)","ONE_TIME_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量,测量时间约120毫秒(测量后休眠)","ONE_TIME_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量,测量时间约16毫秒(测量后休眠)","ONE_TIME_LOW_RES_MODE"]]), "bh1750_mode")
+      .appendField(new Blockly.FieldDropdown([["以1勒克斯分辨率测量","CONTINUOUS_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量","CONTINUOUS_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量","CONTINUOUS_LOW_RES_MODE"],["以1勒克斯分辨率测量(测量后休眠)","ONE_TIME_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量(测量后休眠)","ONE_TIME_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量(测量后休眠)","ONE_TIME_LOW_RES_MODE"]]), "bh1750_mode")
       .appendField(" 地址");
   this.setInputsInline(false);
   this.setPreviousStatement(true, null);
@@ -14846,11 +15465,11 @@ Blockly.Blocks.make_arduino_bh1750_begin_return_status= {
   this.appendDummyInput()  
       .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/光照_3.png", 25, 25, "*"))
       .appendField("初始化BH1750(I2C)")
-      .appendField(new Blockly.FieldTextInput("lightMeter"), "bh1750_name");
-      //.appendField(" 返回连接状态");
+      .appendField(new Blockly.FieldTextInput("lightMeter"), "bh1750_name")
+      .appendField(new Blockly.FieldDropdown([["以1勒克斯分辨率测量","CONTINUOUS_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量","CONTINUOUS_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量","CONTINUOUS_LOW_RES_MODE"],["以1勒克斯分辨率测量(测量后休眠)","ONE_TIME_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量(测量后休眠)","ONE_TIME_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量(测量后休眠)","ONE_TIME_LOW_RES_MODE"]]), "bh1750_mode");
   this.appendValueInput("bh1750_address")
       .setCheck(null)  
-      .appendField(new Blockly.FieldDropdown([["以1勒克斯分辨率测量,测量时间约120毫秒","CONTINUOUS_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量,测量时间约120毫秒","CONTINUOUS_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量,测量时间约16毫秒","CONTINUOUS_LOW_RES_MODE"],["以1勒克斯分辨率测量,测量时间约120毫秒(测量后休眠)","ONE_TIME_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量,测量时间约120毫秒(测量后休眠)","ONE_TIME_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量,测量时间约16毫秒(测量后休眠)","ONE_TIME_LOW_RES_MODE"]]), "bh1750_mode")
+      .setAlign(Blockly.ALIGN_RIGHT)
       .appendField(" 地址");
   this.setInputsInline(false);
   this.setOutput(true, null);
@@ -14862,6 +15481,34 @@ Blockly.Blocks.make_arduino_bh1750_begin_return_status= {
    +"②Arduino Mega2560/Due:SDA - 20，SCL - 21\n"
    +"③Arduino Leonardo:SDA - 2，SCL - 3"
     );
+  this.setHelpUrl("");
+  }
+};
+
+//初始化BH1750光照度传感器 使用软件模拟I2C
+Blockly.Blocks.make_arduino_bh1750_begin_soft= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/光照_3.png", 25, 25, "*"))
+      .appendField("初始化BH1750(I2C)")
+      .appendField(new Blockly.FieldTextInput("lightMeter"), "name")
+      .appendField(new Blockly.FieldDropdown([["以1勒克斯分辨率测量","CONTINUOUS_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量","CONTINUOUS_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量","CONTINUOUS_LOW_RES_MODE"],["以1勒克斯分辨率测量(测量后休眠)","ONE_TIME_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量(测量后休眠)","ONE_TIME_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量(测量后休眠)","ONE_TIME_LOW_RES_MODE"]]), "bh1750_mode");
+  this.appendValueInput("sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL#");
+  this.appendValueInput("address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("地址");
+  this.setInputsInline(false);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
   this.setHelpUrl("");
   }
 };
@@ -14909,7 +15556,7 @@ Blockly.Blocks.make_arduino_bh1750_configure= {
       .appendField(new Blockly.FieldTextInput("lightMeter"), "bh1750_name");
   this.appendDummyInput()  
       .appendField("工作模式设为")
-      .appendField(new Blockly.FieldDropdown([["以1勒克斯分辨率测量,测量时间约120毫秒","CONTINUOUS_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量,测量时间约120毫秒","CONTINUOUS_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量,测量时间约16毫秒","CONTINUOUS_LOW_RES_MODE"],["以1勒克斯分辨率测量,测量时间约120毫秒(测量后休眠)","ONE_TIME_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量,测量时间约120毫秒(测量后休眠)","ONE_TIME_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量,测量时间约16毫秒(测量后休眠)","ONE_TIME_LOW_RES_MODE"]]), "bh1750_mode");
+      .appendField(new Blockly.FieldDropdown([["以1勒克斯分辨率测量","CONTINUOUS_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量","CONTINUOUS_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量","CONTINUOUS_LOW_RES_MODE"],["以1勒克斯分辨率测量(测量后休眠)","ONE_TIME_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量(测量后休眠)","ONE_TIME_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量(测量后休眠)","ONE_TIME_LOW_RES_MODE"]]), "bh1750_mode");
   this.setInputsInline(false);
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
@@ -14927,7 +15574,7 @@ Blockly.Blocks.make_arduino_bh1750_configure_return_status= {
       .appendField(new Blockly.FieldTextInput("lightMeter"), "bh1750_name");
   this.appendDummyInput()  
       .appendField("工作模式设为")
-      .appendField(new Blockly.FieldDropdown([["以1勒克斯分辨率测量,测量时间约120毫秒","CONTINUOUS_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量,测量时间约120毫秒","CONTINUOUS_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量,测量时间约16毫秒","CONTINUOUS_LOW_RES_MODE"],["以1勒克斯分辨率测量,测量时间约120毫秒(测量后休眠)","ONE_TIME_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量,测量时间约120毫秒(测量后休眠)","ONE_TIME_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量,测量时间约16毫秒(测量后休眠)","ONE_TIME_LOW_RES_MODE"]]), "bh1750_mode");
+      .appendField(new Blockly.FieldDropdown([["以1勒克斯分辨率测量","CONTINUOUS_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量","CONTINUOUS_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量","CONTINUOUS_LOW_RES_MODE"],["以1勒克斯分辨率测量(测量后休眠)","ONE_TIME_HIGH_RES_MODE"],["以0.5勒克斯分辨率测量(测量后休眠)","ONE_TIME_HIGH_RES_MODE_2"],["以4勒克斯分辨率测量(测量后休眠)","ONE_TIME_LOW_RES_MODE"]]), "bh1750_mode");
       //.appendField(" 返回结果");
   this.setInputsInline(false);
   this.setOutput(true, null);
@@ -14993,6 +15640,29 @@ Blockly.Blocks.make_arduino_max44009_begin_1= {
   }
 };
 
+//初始化MAX44009光照度传感器 使用软件模拟I2C
+Blockly.Blocks.make_arduino_max44009_begin_soft= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/光照_4.png", 25, 25, "*"))
+      .appendField("初始化MAX44009(I2C)")
+      .appendField(new Blockly.FieldTextInput("light"), "max44009_name");
+  this.appendValueInput("sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL#");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
 //MAX44009光照度传感器 获取光照度
 Blockly.Blocks.make_arduino_max44009_get_lux= {
   init: function() { 
@@ -15005,6 +15675,66 @@ Blockly.Blocks.make_arduino_max44009_get_lux= {
   this.setOutput(true, null);
   this.setColour(40);
   this.setTooltip("MAX44009光照度传感器 获取光照度，返回数据的类型为float");
+  this.setHelpUrl("");
+  }
+};
+
+//初始化ML8511紫外线传感器
+Blockly.Blocks.make_arduino_ml8511_begin= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/紫外线.png", 25, 25, "*"))
+      .appendField("初始化ML8511")
+      .appendField(new Blockly.FieldTextInput("uv"), "name");
+  this.appendValueInput("out")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" OUT#");
+  this.appendValueInput("en")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("EN#");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化ML8511紫外线传感器，返回数据的类型为boolean\n"
+   +"2.语法:\n"
+   +"->ML8511(uint8_t UVOUT, uint8_t REF_3V3)\n"
+   +"->bool begin(void)\n"
+   +"3.参数:\n"
+   +"->UVOUT:传感器的OUT管脚\n"
+   +"->REF_3V3:传感器的EN管脚\n"
+   +"4.返回值:boolean型数据\n"
+   +"->1 - 传感器已准备好\n"
+   +"->0 - 未搜索到传感器"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//ML8511紫外线传感器 获取紫外线强度和输出电压
+Blockly.Blocks.make_arduino_ml8511_getuvIntensity_getoutputVoltage= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/紫外线.png", 25, 25, "*"))
+      .appendField("初始化ML8511")
+      .appendField(new Blockly.FieldTextInput("uv"), "name")
+      .appendField(" 获取")
+      .appendField(new Blockly.FieldDropdown([["紫外线强度","getuvIntensity"],["输出电压","getoutputVoltage"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->ML8511紫外线传感器，获取紫外线强度和输出电压,返回数据的类型为double\n"
+   +"2.语法:\n"
+   +"->获取紫外线强度 - double getuvIntensity(void)\n"
+   +"->获取输出电压 - double getoutputVoltage(void)\n"
+   +"3.参数:无\n"
+   +"4.返回值:double型数据"
+    );
   this.setHelpUrl("");
   }
 };
@@ -15150,6 +15880,302 @@ Blockly.Blocks.make_arduino_pulsesensor_isinsidebeat= {
   this.setOutput(true, null);
   this.setColour(40);
   this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//初始化INA219双向电流/电源监控传感器
+Blockly.Blocks.make_arduino_ina219_begin= {
+  init: function() { 
+  this.appendValueInput("address")
+      .setCheck(null)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/万用表/万用表_1.png", 25, 25, "*"))
+      .appendField("初始化INA219(I2C)")
+      .appendField(new Blockly.FieldTextInput("ina219"), "name")
+      .appendField(" 地址");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化INA219双向电流/电源监控传感器(使用硬件I2C)\n"
+   +"2.语法:\n"
+   +"->Adafruit_INA219(uint8_t addr = INA219_ADDRESS)\n"
+   +"->void begin(TwoWire *theWire = &Wire)\n"
+   +"3.参数:\n"
+   +"addr:7位的器件地址(可选)\n"
+   +"TwoWire:选择使用硬件I2C或软件模拟I2C\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//初始化INA219双向电流/电源监控传感器 - 使用软件模拟的I2C
+Blockly.Blocks.make_arduino_ina219_begin_1= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/万用表/万用表_1.png", 25, 25, "*"))
+      .appendField("初始化INA219(I2C)")
+      .appendField(new Blockly.FieldTextInput("ina219"), "name");
+  this.appendValueInput("sda")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" SDA#");
+  this.appendValueInput("scl")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("SCL#");
+  this.appendValueInput("address")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("地址");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化INA219双向电流/电源监控传感器(使用软件模拟I2C)\n"
+   +"2.语法:\n"
+   +"->Adafruit_INA219(uint8_t addr = INA219_ADDRESS)\n"
+   +"->void begin(TwoWire *theWire = &Wire)\n"
+   +"3.参数:\n"
+   +"addr:7位的器件地址(可选)\n"
+   +"TwoWire:选择使用硬件I2C或软件模拟I2C\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//INA219双向电流/电源监控传感器 设置测量上限
+Blockly.Blocks.make_arduino_ina219_setCalibration= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/万用表/万用表_1.png", 25, 25, "*"))
+      .appendField("INA219")
+      .appendField(new Blockly.FieldTextInput("ina219"), "name")
+      .appendField(" 测量上限设为")
+      .appendField(new Blockly.FieldDropdown([["32V - 2A","setCalibration_32V_2A"],["32V - 1A","setCalibration_32V_1A"],["16V - 400mA","setCalibration_16V_400mA"]]), "type");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->INA219双向电流/电源监控传感器 设置测量的上限\n"
+   +"2.语法:\n"
+   +"->(32V - 2A) - void setCalibration_32V_2A()\n"
+   +"->(32V - 1A) - void setCalibration_32V_1A()\n"
+   +"->(16V - 400mA) - void setCalibration_16V_400mA()\n"
+   +"3.参数:无\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//INA219双向电流/电源监控传感器 获取一些数据
+Blockly.Blocks.make_arduino_ina219_get_data= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/万用表/万用表_1.png", 25, 25, "*"))
+      .appendField("INA219")
+      .appendField(new Blockly.FieldTextInput("ina219"), "name")
+      .appendField(" 获取")
+      .appendField(new Blockly.FieldDropdown([["分流电阻电压","getShuntVoltage_mV"],["总线电压","getBusVoltage_V"],["电流","getCurrent_mA"],["功率","getPower_mW"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->INA219双向电流/电源监控传感器 获取分流电阻电压、总线电压、电流和功率，返回数据的类型为float\n"
+   +"2.语法:\n"
+   +"->获取分流电阻电压(mV) - float getShuntVoltage_mV()\n"
+   +"->获取总线电压(V) - float getBusVoltage_V()\n"
+   +"->获取电流(mA) - float getCurrent_mA()\n"
+   +"->获取功率(mW) - float getPower_mW()\n"
+   +"3.参数:无\n"
+   +"4.返回值:float型数据\n"
+   +"5.说明:\n"
+   +"->总线电压 - Vin-与GND间的电压值\n"
+   +"->分流电阻电压 - Vin+与Vin-间的电压值"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//INA219双向电流/电源监控传感器 开启或关闭节电模式
+Blockly.Blocks.make_arduino_ina219_powerSave= {
+  init: function() { 
+  this.appendValueInput("data")
+      .setCheck(null)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/万用表/万用表_1.png", 25, 25, "*"))
+      .appendField("INA219")
+      .appendField(new Blockly.FieldTextInput("ina219"), "name")
+      .appendField(" 节电模式");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->INA219双向电流/电源监控传感器 开启或关闭节电模式\n"
+   +"2.语法:\n"
+   +"->void powerSave(bool on)\n"
+   +"3.参数:\n"
+   +"->on:true - 开启，false - 关闭\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//初始化GP2Y1010AU0F粉尘传感器
+Blockly.Blocks.make_arduino_gp2y1010au0f_begin= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/粉尘.png", 25, 25, "*"))
+      .appendField("初始化GP2Y1010AU0F")
+      .appendField(new Blockly.FieldTextInput("GP2Y"), "name");
+  this.appendValueInput("led")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" LED#");
+  this.appendValueInput("vo")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("Vo#");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化GP2Y1010AU0F粉尘传感器\n"
+   +"2.语法:\n"
+   +"->GP2Y1010AU0F(int ledPin, int outputPin)\n"
+   +"3.参数:\n"
+   +"->ledPin:传感器上的LED供电引脚\n"
+   +"->outputPin:传感器上的模拟量输出引脚\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+ 
+//GP2Y1010AU0F粉尘传感器 获取输出电压
+Blockly.Blocks.make_arduino_gp2y1010au0f_getOutputV= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/粉尘.png", 25, 25, "*"))
+      .appendField("GP2Y1010AU0F")
+      .appendField(new Blockly.FieldTextInput("GP2Y"), "name")
+      .appendField(" 获取输出电压(V)");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->GP2Y1010AU0F粉尘传感器 对空气采样并获取输出电压(V)，返回数据的类型为double\n"
+   +"2.语法:\n"
+   +"->double getOutputV()\n"
+   +"3.参数:无\n"
+   +"4.返回值:double型数据"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//GP2Y1010AU0F粉尘传感器 根据输入电压计算灰尘浓度(ug/m3)
+Blockly.Blocks.make_arduino_gp2y1010au0f_getDustDensity= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/粉尘.png", 25, 25, "*"))
+      .appendField("GP2Y1010AU0F")
+      .appendField(new Blockly.FieldTextInput("GP2Y"), "name")
+      .appendField(" 计算灰尘浓度(ug/m3)");
+  this.appendValueInput("input")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("电压#");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->GP2Y1010AU0F粉尘传感器 根据输入电压计算灰尘浓度(ug/m³)，返回数据的类型为double\n"
+   +"2.语法:\n"
+   +"->double getDustDensity(double outputV)\n"
+   +"3.参数:\n"
+   +"->outputV:获取的传感器输出电压值\n"
+   +"4.返回值:double型数据"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//GP2Y1010AU0F粉尘传感器 根据灰尘浓度计算空气质量指数aqi(是将所有粒度的灰尘都按照PM2.5的指标计算的, 并不准确)
+Blockly.Blocks.make_arduino_gp2y1010au0f_getAQI= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/粉尘.png", 25, 25, "*"))
+      .appendField("GP2Y1010AU0F")
+      .appendField(new Blockly.FieldTextInput("GP2Y"), "name")
+      .appendField(" 计算空气质量指数(AQI)");
+  this.appendValueInput("input")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("灰尘浓度#");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->GP2Y1010AU0F粉尘传感器 根据灰尘浓度计算空气质量指数(AQI)(是将所有粒度的灰尘都按照PM2.5的指标计算的, 并不准确)，返回数据的类型为double\n"
+   +"2.语法:\n"
+   +"->double getAQI(double ugm3)\n"
+   +"3.参数:\n"
+   +"->ugm3:计算出的灰尘浓度\n"
+   +"4.返回值:double型数据"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//GP2Y1010AU0F粉尘传感器 根据空气质量指数计算空气质量级别
+Blockly.Blocks.make_arduino_gp2y1010au0f_getGradeInfo= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/粉尘.png", 25, 25, "*"))
+      .appendField("GP2Y1010AU0F")
+      .appendField(new Blockly.FieldTextInput("GP2Y"), "name")
+      .appendField(" 计算空气质量级别");
+  this.appendValueInput("input")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("AQI#");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(40);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->GP2Y1010AU0F粉尘传感器 根据空气质量指数计算空气质量级别，返回数据的类型为int\n"
+   +"2.语法:\n"
+   +"->int getGradeInfo(double aqi)\n"
+   +"3.参数:\n"
+   +"->aqi:计算出的空气质量指数\n"
+   +"4.返回值:int型数据\n"
+   +"返回数据解析:\n"
+   +"->0 - GRADE_PERFECT - 优\n"
+   +"->1 - GRADE_GOOD - 良\n"
+   +"->2 - GRADE_POLLUTED_MILD - 轻度污染\n"
+   +"->3 - GRADE_POLLUTED_MEDIUM - 中度污染\n"
+   +"->4 - GRADE_POLLUTED_HEAVY - 重度污染\n"
+   +"->5 - GRADE_POLLUTED_SEVERE - 严重污染"
+    );
   this.setHelpUrl("");
   }
 };
@@ -15692,6 +16718,163 @@ Blockly.Blocks.make_arduino_dfplayer_available= {
       +"\n6 - FileMismatch"
       +"\n7 - Advertise"
         );
+  }
+};
+
+//初始化数字电位器
+Blockly.Blocks.make_arduino_x9cxxx_begin= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/电位器.png", 25, 25, "*"))
+      .appendField("初始化")
+      .appendField(new Blockly.FieldDropdown([["X9C102","FastX9C102"],["X9C103","FastX9C103"],["X9C104 ","FastX9C104"],["X9C504","FastX9C504"]]), "type")
+      .appendField(new Blockly.FieldTextInput("Potentiometer"), "x9cxxx_name");
+  this.appendValueInput("cs")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" CS#");
+  this.appendValueInput("ud")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("UD#");
+  this.appendValueInput("inc")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("INC#");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化数字电位器\n"
+   +"2.语法:\n"
+   +"->void Setup(const uint8_t csPin, const uint8_t udPin, const uint8_t incPin)\n"
+   +"3.参数:\n"
+   +"->csPin:数字电位器的CS管脚\n"
+   +"->udPin:数字电位器的UD管脚\n"
+   +"->incPin:数字电位器的INC管脚\n"
+   +"4.返回值:无\n"
+   +"5.说明\n"
+   +"->X9C102 - 阻值取值[40Ω，1kΩ] - 阶数取值[0，99] - 1阶约为10.10Ω\n"
+   +"->X9C103 - 阻值取值[40Ω，10kΩ] - 阶数取值[0，99] - 1阶约为101.01Ω\n"
+   +"->X9C504 - 阻值取值[40Ω，50kΩ] - 阶数取值[0，99] - 1阶约为505.05Ω\n"
+   +"->X9C104 - 阻值取值[40Ω，100kΩ] - 阶数取值[0，99] - 1阶约为1.01kΩ"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//数字电位器 设置阶数
+Blockly.Blocks.make_arduino_x9cxxx_JumpToStep= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/电位器.png", 25, 25, "*"))
+      .appendField("X9Cxxx")
+      .appendField(new Blockly.FieldTextInput("Potentiometer"), "x9cxxx_name");
+  this.appendValueInput("step")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 阶数设为");
+  this.appendValueInput("store")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("储存当前阶数?");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->数字电位器 设置阶数\n"
+   +"2.语法:\n"
+   +"->void JumpToStep(const uint8_t step, const bool store = false)\n"
+   +"3.参数:\n"
+   +"->step:输入的阶数值\n"
+   +"->store:是否储存设置后的阶数到模块的非易失性存储器中(不设置则默认为flase)\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//数字电位器 阶数自增或自减
+Blockly.Blocks.make_arduino_x9cxxx_Down_Up= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/电位器.png", 25, 25, "*"))
+      .appendField("X9Cxxx")
+      .appendField(new Blockly.FieldTextInput("Potentiometer"), "x9cxxx_name")
+      .appendField(" 阶数")
+      .appendField(new Blockly.FieldDropdown([["自增","Up"],["自减","Down"]]), "type");
+  this.appendValueInput("store")
+      .setCheck(null)  
+      .appendField(" 储存当前阶数?");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->数字电位器 阶数自增或自减\n"
+   +"2.语法:\n"
+   +"->自增 - void Up(const bool store = false)\n"
+   +"->自减 - void Down(const bool store = false)\n"
+   +"3.参数:\n"
+   +"->store:是否储存设置后的阶数到模块的非易失性存储器中(不设置则默认为flase)\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//数字电位器 获取当前电阻估计值和当前阶数
+Blockly.Blocks.make_arduino_x9cxxx_GetEstimatedResistance_GetStep= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/电位器.png", 25, 25, "*"))
+      .appendField("X9Cxxx")
+      .appendField(new Blockly.FieldTextInput("Potentiometer"), "x9cxxx_name")
+      .appendField(" 获取")
+      .appendField(new Blockly.FieldDropdown([["当前电阻估计值","GetEstimatedResistance"],["当前阶数","GetStep"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->数字电位器 获取当前电阻估计值或当前阶数\n"
+   +"2.语法:\n"
+   +"->获取当前电阻估计值 - uint32_t GetEstimatedResistance()\n"
+   +"->获取当前阶数 - uint8_t GetStep()\n"
+   +"3.参数:无\n"
+   +"4.返回值:uint32_t或uint8_t型数据"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//数字电位器 储存当前阶数和复位
+Blockly.Blocks.make_arduino_x9cxxx_Reset_Store= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/电位器.png", 25, 25, "*"))
+      .appendField("X9Cxxx")
+      .appendField(new Blockly.FieldTextInput("Potentiometer"), "x9cxxx_name")
+      .appendField(new Blockly.FieldDropdown([["储存当前阶数","Store"],["复位","Reset"]]), "type");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->数字电位器 储存当前阶数或复位\n"
+   +"2.语法:\n"
+   +"->复位 - void Reset()\n"
+   +"->储存当前阶数 - void Store()\n"
+   +"3.参数:无\n"
+   +"4.返回值:uint32_t或uint8_t型数据"
+    );
+  this.setHelpUrl("");
   }
 };
 

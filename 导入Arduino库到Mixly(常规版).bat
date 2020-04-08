@@ -1,9 +1,9 @@
 @echo off
 title 导库助手
 echo %~dp0
-if not exist C:\address.txt goto nofile
+if not exist %~dp0\address.txt goto nofile
 
-for /f "delims=" %%i in (C:\address.txt) do (
+for /f "delims=" %%i in (%~dp0\address.txt) do (
 set a=%%i
 )
 if "%a%"=="D:\mixly\mixly_2019_09_15\Mixly" goto nofile1
@@ -49,9 +49,9 @@ echo.
 echo 导入库成功
 echo.
 
-if not exist C:\address_arduino.txt goto nofile_arduino
+if not exist %~dp0\address_arduino.txt goto nofile_arduino
 
-for /f "delims=" %%m in (C:\address_arduino.txt) do (
+for /f "delims=" %%m in (%~dp0\address_arduino.txt) do (
 set n=%%m
 )
 if "%n%"=="D:\mixly\mixly_2019_09_15\Mixly\arduino" goto nofile_arduino1
@@ -104,31 +104,31 @@ pause
 exit
 
 :nofile
-echo C:\下无address.txt，请新建一个address.txt后再尝试执行此文件
+echo %~dp0\下无address.txt，请新建一个address.txt后再尝试执行此文件
 pause
 exit
 
 :nofile1
-echo C:\下address.txt为示例文本，请将文本中的路径改为此计算机中Mixly的路径
+echo %~dp0\下address.txt为示例文本，请将文本中的路径改为此计算机中Mixly的路径
 pause
 exit
 
 :nofile2
-echo C:\下address.txt无有效路径，请添加此计算机中Mixly的路径到此文本
+echo %~dp0\下address.txt无有效路径，请添加此计算机中Mixly的路径到此文本
 pause
 exit
 
 :nofile_arduino
-echo C:\下无address_arduino.txt，请新建一个address.txt后再尝试执行此文件
+echo %~dp0\下无address_arduino.txt，请新建一个address.txt后再尝试执行此文件
 pause
 exit
 
 :nofile_arduino1
-echo C:\下address_arduino.txt为示例文本，请将文本中的路径改为此计算机中arduino的路径
+echo %~dp0\下address_arduino.txt为示例文本，请将文本中的路径改为此计算机中arduino的路径
 pause
 exit
 
 :nofile_arduino2
-echo C:\下address_arduino.txt无有效路径，请添加此计算机中arduino的路径到此文本
+echo %~dp0\下address_arduino.txt无有效路径，请添加此计算机中arduino的路径到此文本
 pause
 exit

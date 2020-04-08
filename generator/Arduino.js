@@ -1084,6 +1084,15 @@ Blockly.Arduino.math_map_float = function() {
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
+//atan2(a, b)
+Blockly.Arduino.math_atan2 = function() {
+  this.setTooltip("atan2(y,x):返回(0,0)与(x,y)构成的线段在坐标平面上与x轴正方向之间夹角，返回的弧度值介于-π到π之间(不包括-π)");
+    var value_a = Blockly.Arduino.valueToCode(this, 'a', Blockly.Arduino.ORDER_ATOMIC);
+    var value_b = Blockly.Arduino.valueToCode(this, 'b', Blockly.Arduino.ORDER_ATOMIC);
+  var code = 'atan2 ('+value_a+', '+value_b+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
 //获取一个数据的最低位或第二低位的字节数据
 Blockly.Arduino.math_lowByte_highByte = function() {
   this.setTooltip("获取变量的最低位或第二低位的字节数据");
@@ -1123,7 +1132,7 @@ Blockly.Arduino.math_bitSet_bitClear = function() {
 };
 
 //计算指定位的值（0位是1，1位是2，2位4，以此类推）
-Blockly.Arduino.math_bit = function() {
+Blockly.Arduino.math_Bit = function() {
   this.setTooltip("计算指定位的值(0位是1，1位是2，2位4，以此类推)");
     var value_bit = Blockly.Arduino.valueToCode(this, 'bit', Blockly.Arduino.ORDER_ATOMIC);
   var code = 'bit('+value_bit+')';
@@ -3555,7 +3564,7 @@ Blockly.Arduino.make_rtc_at24c32_begin_1 = function() {
   Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
   Blockly.Arduino.definitions_['include_EepromAT24C32'] = '#include <EepromAT24C32.h>';
   Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
-  Blockly.Arduino.definitions_['var_declare_at24c32_'+text_eeprom_name] = 'EepromAt24c32<SoftwareWire> '+text_eeprom_name+'(Wire_'+value_sda+'_'+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_at24c32_'+text_eeprom_name] = 'EepromAt24c32<SoftwareWire> '+text_eeprom_name+'(Wire_'+value_sda+'_'+value_scl+', '+value_address+');';
 
   Blockly.Arduino.setups_['setup_at24c32_'+text_eeprom_name] = text_eeprom_name+'.Begin();';
   var code = '';
@@ -4335,12 +4344,48 @@ Blockly.Arduino.make_arduino_pcf8574_begin = function() {
 
   Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';
   Blockly.Arduino.definitions_['include_PCF8574'] = '#include "PCF8574.h"';
-  Blockly.Arduino.definitions_['var_declare_pcf8574_'+text_pcf8574_name] = 'PCF8574 '+text_pcf8574_name+';';
+  Blockly.Arduino.definitions_['var_declare_'+text_pcf8574_name] = 'PCF8574 '+text_pcf8574_name+';';
   if(statements_pcf8574_pin_type != '')
     Blockly.Arduino.setups_['setup_pcf8574_'+text_pcf8574_name] = ''+text_pcf8574_name+'.begin('+value_pcf8574_address+');'
                                                                   +'\n' + statements_pcf8574_pin_type_1;
   else
     Blockly.Arduino.setups_['setup_pcf8574_'+text_pcf8574_name] = ''+text_pcf8574_name+'.begin('+value_pcf8574_address+');';
+  var code = '';
+  return code;
+};
+
+//初始化PCF8574 使用软件模拟I2C
+Blockly.Arduino.make_arduino_pcf8574_begin_soft = function() {
+    var text_pcf8574_name = this.getFieldValue('pcf8574_name');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+    var statements_pcf8574_pin_type = Blockly.Arduino.statementToCode(this, 'pin');  
+
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_PCF8574_Soft'] = '#include "PCF8574_Soft.h"';
+
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_'+text_pcf8574_name] = 'PCF8574_Soft '+text_pcf8574_name+';';
+
+  var statements_pcf8574_pin_type_1 = '';
+  if(statements_pcf8574_pin_type != '')
+  {
+    for(var i of statements_pcf8574_pin_type)
+    {
+      if(i == '.')
+        statements_pcf8574_pin_type_1 = statements_pcf8574_pin_type_1 + text_pcf8574_name + '.';
+      else
+        statements_pcf8574_pin_type_1+=i;
+    }
+    statements_pcf8574_pin_type_1 = statements_pcf8574_pin_type_1.substring(0,statements_pcf8574_pin_type_1.length - 1);
+  }
+
+  if(statements_pcf8574_pin_type != '')
+    Blockly.Arduino.setups_['setup_pcf8574_'+text_pcf8574_name] = ''+text_pcf8574_name+'.begin('+value_address+', &Wire_'+value_sda+'_'+value_scl+');'
+                                                                  +'\n' + statements_pcf8574_pin_type_1;
+  else
+    Blockly.Arduino.setups_['setup_pcf8574_'+text_pcf8574_name] = ''+text_pcf8574_name+'.begin('+value_address+', &Wire_'+value_sda+'_'+value_scl+');';
   var code = '';
   return code;
 };
@@ -4352,6 +4397,8 @@ Blockly.Arduino.make_arduino_pcf8574_pin_type = function() {
   var code = '';
   var surround_parent = this.getSurroundParent();
   if(surround_parent && surround_parent.type == 'make_arduino_pcf8574_begin')
+    code = '.pinMode('+value_pcf8574_pin+', '+dropdown_pcf8574_pin_type+');\n';
+  if(surround_parent && surround_parent.type == 'make_arduino_pcf8574_begin_soft')
     code = '.pinMode('+value_pcf8574_pin+', '+dropdown_pcf8574_pin_type+');\n';
   return code;
 };
@@ -4472,7 +4519,7 @@ Blockly.Arduino.make_arduino_mcp23017_begin = function() {
 
   Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';
   Blockly.Arduino.definitions_['include_Adafruit_MCP23017'] = '#include "Adafruit_MCP23017.h"';
-  Blockly.Arduino.definitions_['var_declare_mcp23017_'+text_mcp23017_name] = 'Adafruit_MCP23017 '+text_mcp23017_name+';';
+  Blockly.Arduino.definitions_['var_declare_'+text_mcp23017_name] = 'Adafruit_MCP23017 '+text_mcp23017_name+';';
   if(statements_mcp23017_pin_type != '')
     Blockly.Arduino.setups_['setup_mcp23017_'+text_mcp23017_name] = ''+text_mcp23017_name+'.begin('+value_mcp23017_address+');'
                                                                   +'\n' + statements_mcp23017_pin_type_1;
@@ -4482,15 +4529,50 @@ Blockly.Arduino.make_arduino_mcp23017_begin = function() {
   return code;
 };
 
+//初始化MCP23017 使用软件模拟I2C
+Blockly.Arduino.make_arduino_mcp23017_begin_soft = function() {
+    var text_mcp23017_name = this.getFieldValue('mcp23017_name');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_mcp23017_address = Blockly.Arduino.valueToCode(this, 'mcp23017_address', Blockly.Arduino.ORDER_ATOMIC);
+    var statements_mcp23017_pin_type = Blockly.Arduino.statementToCode(this, 'mcp23017_pin_type');  
+  var statements_mcp23017_pin_type_1 = '';
+  if(statements_mcp23017_pin_type != '')
+  {
+    for(var i of statements_mcp23017_pin_type)
+    {
+      if(i == '.')
+        statements_mcp23017_pin_type_1 = statements_mcp23017_pin_type_1 + text_mcp23017_name + '.';
+      else
+        statements_mcp23017_pin_type_1+=i;
+    }
+    statements_mcp23017_pin_type_1 = statements_mcp23017_pin_type_1.substring(0,statements_mcp23017_pin_type_1.length - 1);
+  }
+
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_Adafruit_MCP23017_Soft'] = '#include "Adafruit_MCP23017_Soft.h"';
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_'+text_mcp23017_name] = 'Adafruit_MCP23017_Soft '+text_mcp23017_name+';';
+  if(statements_mcp23017_pin_type != '')
+    Blockly.Arduino.setups_['setup_mcp23017_'+text_mcp23017_name] = ''+text_mcp23017_name+'.begin('+value_mcp23017_address+', &Wire_'+value_sda+'_'+value_scl+');'
+                                                                  +'\n' + statements_mcp23017_pin_type_1;
+  else
+    Blockly.Arduino.setups_['setup_mcp23017_'+text_mcp23017_name] = ''+text_mcp23017_name+'.begin('+value_mcp23017_address+', &Wire_'+value_sda+'_'+value_scl+');';
+  var code = '';
+  return code;
+};
+
 //MCP23017 IO扩展模块 设置管脚模式
 Blockly.Arduino.make_arduino_mcp23017_pin_type = function() {
     var value_mcp23017_pin = Blockly.Arduino.valueToCode(this, 'mcp23017_pin', Blockly.Arduino.ORDER_ATOMIC);
     var dropdown_mcp23017_pin_type = this.getFieldValue('mcp23017_pin_type');
   var code = '';
-  if(dropdown_mcp23017_pin_type == 'INPUT_PULLUP')
-    code = '.pinMode('+value_mcp23017_pin+', INPUT);\n.pullUp('+value_mcp23017_pin+', HIGH);\n';
-  else
-    code = '.pinMode('+value_mcp23017_pin+', '+dropdown_mcp23017_pin_type+');\n';
+  var surround_parent = this.getSurroundParent();
+  if(surround_parent && (surround_parent.type == 'make_arduino_mcp23017_begin' || surround_parent.type == 'make_arduino_mcp23017_begin_soft'))
+    if(dropdown_mcp23017_pin_type == 'INPUT_PULLUP')
+      code = '.pinMode('+value_mcp23017_pin+', INPUT);\n.pullUp('+value_mcp23017_pin+', HIGH);\n';
+    else
+      code = '.pinMode('+value_mcp23017_pin+', '+dropdown_mcp23017_pin_type+');\n';
   return code;
 };
 
@@ -4728,8 +4810,24 @@ Blockly.Arduino.make_arduino_tca9548a_begin = function() {
 
   Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';
   Blockly.Arduino.definitions_['include_TCA9548A'] = '#include "TCA9548A.h"';
-  Blockly.Arduino.definitions_['var_declare_TCA9548A_'+text_tca9548a_name] = 'TCA9548A '+text_tca9548a_name+'('+value_tca9548a_address+');';
-  Blockly.Arduino.setups_['setup_paj7620_'+text_tca9548a_name] = ''+text_tca9548a_name+'.init();';
+  Blockly.Arduino.definitions_['var_declare_'+text_tca9548a_name] = 'TCA9548A '+text_tca9548a_name+'('+value_tca9548a_address+');';
+  Blockly.Arduino.setups_['setup_tca9548a_'+text_tca9548a_name] = ''+text_tca9548a_name+'.init();';
+  var code = '';
+  return code;
+};
+
+//初始化TCA9548A I2C扩展模块 使用软件模拟I2C
+Blockly.Arduino.make_arduino_tca9548a_begin_soft = function() {
+    var text_tca9548a_name = this.getFieldValue('tca9548a_name');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_TCA9548A_Soft'] = '#include "TCA9548A_Soft.h"';
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_'+text_tca9548a_name] = 'TCA9548A_Soft '+text_tca9548a_name+';';
+  Blockly.Arduino.setups_['setup_tca9548a_'+text_tca9548a_name] = text_tca9548a_name+'.init('+value_address+', &Wire_'+value_sda+'_'+value_scl+');';
   var code = '';
   return code;
 };
@@ -4953,6 +5051,54 @@ Blockly.Arduino.make_arduino_oled_begin_change_2019_10_19 = function() {
                                                                               +'\n#define '+text_oled_begin_name+'_SCREEN_HEIGHT 16'
                                                                               +'\n#define '+text_oled_begin_name+'_OLED_RESET     '+value_oled_begin_pin_reset
                                                                               +'\nAdafruit_SSD1306 '+text_oled_begin_name+'('+text_oled_begin_name+'_SCREEN_WIDTH, '+text_oled_begin_name+'_SCREEN_HEIGHT, &Wire, '+text_oled_begin_name+'_OLED_RESET);';
+      
+    }
+
+  var code = text_oled_begin_name+'.begin(SSD1306_SWITCHCAPVCC,'+value_oled_begin_address+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//初始化OLED（I2C）
+Blockly.Arduino.make_arduino_oled_begin_soft = function() {
+    var value_oled_begin_pin_sda = Blockly.Arduino.valueToCode(this, 'oled_begin_pin_sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_oled_begin_pin_scl = Blockly.Arduino.valueToCode(this, 'oled_begin_pin_scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_oled_begin_pin_reset = Blockly.Arduino.valueToCode(this, 'oled_begin_pin_reset', Blockly.Arduino.ORDER_ATOMIC);
+    var dropdown_arduino_oled_begin_type = this.getFieldValue('arduino_oled_begin_type');
+    var text_oled_begin_name = this.getFieldValue('oled_begin_name');
+    var value_oled_begin_address = Blockly.Arduino.valueToCode(this, 'oled_begin_address', Blockly.Arduino.ORDER_ATOMIC);
+
+    //Blockly.Arduino.definitions_['include_SPI'] = '#include <SPI.h>';
+    Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+    Blockly.Arduino.definitions_['include_Adafruit_GFX'] = '#include <Adafruit_GFX.h>';
+    Blockly.Arduino.definitions_['include_Adafruit_SSD1306'] = '#include <Adafruit_SSD1306_Soft.h>';
+
+    Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_oled_begin_pin_sda+'_'+value_oled_begin_pin_scl] = 'SoftwareWire Wire_'+value_oled_begin_pin_sda+'_'+value_oled_begin_pin_scl+'('+value_oled_begin_pin_sda+', '+value_oled_begin_pin_scl+');';
+
+    if(dropdown_arduino_oled_begin_type == '128x64')
+    {
+      
+      Blockly.Arduino.definitions_['var_declare_oled_begin_'+text_oled_begin_name] = '#define '+text_oled_begin_name+'_SCREEN_WIDTH 128 '
+                                                                              +'\n#define '+text_oled_begin_name+'_SCREEN_HEIGHT 64'
+                                                                              +'\n#define '+text_oled_begin_name+'_OLED_RESET     '+value_oled_begin_pin_reset
+                                                                              +'\nAdafruit_SSD1306_Soft '+text_oled_begin_name+'('+text_oled_begin_name+'_SCREEN_WIDTH, '+text_oled_begin_name+'_SCREEN_HEIGHT, &Wire_'+value_oled_begin_pin_sda+'_'+value_oled_begin_pin_scl+', '+text_oled_begin_name+'_OLED_RESET);';
+      
+    }
+    else if(dropdown_arduino_oled_begin_type == '128x32')
+    {
+      
+      Blockly.Arduino.definitions_['var_declare_oled_begin_'+text_oled_begin_name] = '#define '+text_oled_begin_name+'_SCREEN_WIDTH 128 '
+                                                                              +'\n#define '+text_oled_begin_name+'_SCREEN_HEIGHT 32'
+                                                                              +'\n#define '+text_oled_begin_name+'_OLED_RESET     '+value_oled_begin_pin_reset
+                                                                              +'\nAdafruit_SSD1306_Soft '+text_oled_begin_name+'('+text_oled_begin_name+'_SCREEN_WIDTH, '+text_oled_begin_name+'_SCREEN_HEIGHT, &Wire_'+value_oled_begin_pin_sda+'_'+value_oled_begin_pin_scl+', '+text_oled_begin_name+'_OLED_RESET);';
+      
+    }
+    else
+    {
+      
+      Blockly.Arduino.definitions_['var_declare_oled_begin_'+text_oled_begin_name] = '#define '+text_oled_begin_name+'_SCREEN_WIDTH 96 '
+                                                                              +'\n#define '+text_oled_begin_name+'_SCREEN_HEIGHT 16'
+                                                                              +'\n#define '+text_oled_begin_name+'_OLED_RESET     '+value_oled_begin_pin_reset
+                                                                              +'\nAdafruit_SSD1306_Soft '+text_oled_begin_name+'('+text_oled_begin_name+'_SCREEN_WIDTH, '+text_oled_begin_name+'_SCREEN_HEIGHT, &Wire_'+value_oled_begin_pin_sda+'_'+value_oled_begin_pin_scl+', '+text_oled_begin_name+'_OLED_RESET);';
       
     }
 
@@ -7650,6 +7796,25 @@ Blockly.Arduino.make_arduino_at24cx_begin_1 = function() {
   return code;
 };
 
+//初始化AT24CXX存储器-1 使用软件模拟I2C
+Blockly.Arduino.make_arduino_at24cx_begin_1_Soft = function() {
+  this.setTooltip("初始化AT24CXX存储器");
+
+    var text_at24cx_name = this.getFieldValue('at24cxx_name');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+    var value_pagesize = Blockly.Arduino.valueToCode(this, 'pagesize', Blockly.Arduino.ORDER_ATOMIC);
+
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_AT24CX_Soft'] = '#include <AT24CX_Soft.h>';
+
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_AH_24Cx_' + text_at24cx_name] = 'AT24CX_Soft '+text_at24cx_name+'('+value_address+', '+value_pagesize+', &Wire_'+value_sda+'_'+value_scl+');';
+  var code = '';
+  return code;
+};
+
 //初始化AT24CXX存储器
 Blockly.Arduino.make_arduino_at24cx_begin = function() {
   this.setTooltip("初始化AT24CXX存储器");
@@ -7660,7 +7825,37 @@ Blockly.Arduino.make_arduino_at24cx_begin = function() {
 
   Blockly.Arduino.definitions_['include_AT24CX'] = '#include <AT24CX.h>';
   Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';
-  Blockly.Arduino.definitions_['var_declare_AH_24Cx_' + text_at24cx_name] = ''+dropdown_at24cx_begin_type+' '+text_at24cx_name+'('+value_at24cx_begin_data+');';
+  Blockly.Arduino.definitions_['var_declare_AH_24Cx_' + text_at24cx_name] = dropdown_at24cx_begin_type+' '+text_at24cx_name+'('+value_at24cx_begin_data+');';
+  var code = '';
+  return code;
+};
+
+//初始化AT24CXX存储器 使用软件模拟I2C
+Blockly.Arduino.make_arduino_at24cx_begin_soft = function() {
+  this.setTooltip("初始化AT24CXX存储器");
+
+    var dropdown_at24cx_begin_type = this.getFieldValue('at24cxx_begin_type');
+    var text_at24cx_name = this.getFieldValue('at24cxx_name');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+
+  if(dropdown_at24cx_begin_type == '1' || dropdown_at24cx_begin_type == '2')
+    dropdown_at24cx_begin_type = '8';
+  else if(dropdown_at24cx_begin_type == '4' || dropdown_at24cx_begin_type == '8' || dropdown_at24cx_begin_type == '16')
+    dropdown_at24cx_begin_type = '16';
+  else if(dropdown_at24cx_begin_type == '32' || dropdown_at24cx_begin_type == '64')
+    dropdown_at24cx_begin_type = '32';
+  else if(dropdown_at24cx_begin_type == '128' || dropdown_at24cx_begin_type == '256')
+    dropdown_at24cx_begin_type = '64';
+  else
+    dropdown_at24cx_begin_type = '128';
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_AT24CX_Soft'] = '#include <AT24CX_Soft.h>';
+
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_AH_24Cx_' + text_at24cx_name] = 'AT24CX_Soft '+text_at24cx_name+'('+value_address+', '+dropdown_at24cx_begin_type+', &Wire_'+value_sda+'_'+value_scl+');';
+  
   var code = '';
   return code;
 };
@@ -7745,6 +7940,20 @@ Blockly.Arduino.make_arduino_bmp180_begin_i2c_return_status = function() {
   Blockly.Arduino.definitions_['var_declare_bmp180_' + text_bmp180_name] = 'Adafruit_BMP085 '+text_bmp180_name+';';
 
   var code = text_bmp180_name+'.begin('+value_bmp180_oversampling+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//初始化BMP180大气压强传感器 使用软件模拟I2C
+Blockly.Arduino.make_arduino_bmp180_begin_i2c_soft = function() {
+    var text_bmp180_name = this.getFieldValue('bmp180_name');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_oversampling = Blockly.Arduino.valueToCode(this, 'oversampling', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_Adafruit_BMP085_Soft'] = '#include "Adafruit_BMP085_Soft.h"';
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_'+text_bmp180_name] = 'Adafruit_BMP085_Soft '+text_bmp180_name+';';
+  var code = text_bmp180_name+'.begin('+value_oversampling+', &Wire_'+value_sda+'_'+value_scl+')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
@@ -7833,6 +8042,25 @@ Blockly.Arduino.make_arduino_bmp280_begin_i2c_return_status = function() {
                                                              +'                  Adafruit_BMP280::FILTER_X16,\n'
                                                              +'                  Adafruit_BMP280::STANDBY_MS_500);';
   var code = text_bmp280_name+'.begin('+value_bmp280_address+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//初始化BMP280大气压强传感器 使用软件模拟I2C
+Blockly.Arduino.make_arduino_bmp280_begin_i2c_soft = function() {
+    var text_bmp280_name = this.getFieldValue('bmp280_name');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_Adafruit_BMP280_Soft'] = '#include "Adafruit_BMP280_Soft.h"';
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_'+text_bmp280_name] = 'Adafruit_BMP280_Soft '+text_bmp280_name+' = Adafruit_BMP280_Soft(&Wire_'+value_sda+'_'+value_scl+');';
+  Blockly.Arduino.setups_['setup_BMP280_' + text_bmp280_name] = text_bmp280_name+'.setSampling(Adafruit_BMP280_Soft::MODE_NORMAL,\n'
+                                                             +'                  Adafruit_BMP280_Soft::SAMPLING_X2,\n'
+                                                             +'                  Adafruit_BMP280_Soft::SAMPLING_X16,\n'
+                                                             +'                  Adafruit_BMP280_Soft::FILTER_X16,\n'
+                                                             +'                  Adafruit_BMP280_Soft::STANDBY_MS_500);';
+  var code = text_bmp280_name+'.begin('+value_address+')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
@@ -8202,6 +8430,22 @@ Blockly.Arduino.make_arduino_tcs34725_begin_2 = function() {
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
+//初始化TCS34725颜色传感器 使用软件模拟I2C
+Blockly.Arduino.make_arduino_tcs34725_begin_Soft = function() {
+    var text_tcs34725_name = this.getFieldValue('tcs34725_name');
+    var dropdown_tcs34725_enable_delay = this.getFieldValue('tcs34725_enable_delay');
+    var dropdown_tcs34725_gain = this.getFieldValue('tcs34725_gain');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_Adafruit_TCS34725'] = '#include "Adafruit_TCS34725_Soft.h"';
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_'+text_tcs34725_name] = 'Adafruit_TCS34725_Soft '+text_tcs34725_name+' = Adafruit_TCS34725_Soft('+dropdown_tcs34725_enable_delay+', '+dropdown_tcs34725_gain+');';
+  var code = text_tcs34725_name+'.begin('+value_address+', &Wire_'+value_sda+'_'+value_scl+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
 Blockly.Arduino.make_arduino_tcs34725_set_integrationtime = function() {
     var text_tcs34725_name = this.getFieldValue('tcs34725_name');
     var dropdown_tcs34725_enable_delay = this.getFieldValue('tcs34725_enable_delay');
@@ -8357,11 +8601,25 @@ Blockly.Arduino.make_arduino_aht10_begin_1 = function() {
   Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';
   Blockly.Arduino.definitions_['include_Thinary_AHT10'] = '#include <Thinary_AHT10.h>';
 
-  Blockly.Arduino.definitions_['var_declare_aht10_' + text_aht10_name] = 'AHT10Class '+text_aht10_name+';';
+  Blockly.Arduino.definitions_['var_declare_' + text_aht10_name] = 'AHT10Class '+text_aht10_name+';';
 
-  Blockly.Arduino.setups_['setup_i2c'] = 'Wire.begin();';
+  //Blockly.Arduino.setups_['setup_i2c'] = 'Wire.begin();';
 
   var code = text_aht10_name+'.begin('+value_aht10_begin_address+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//初始化AHT10温湿度传感器 使用软件模拟I2C
+Blockly.Arduino.make_arduino_aht10_begin_Soft = function() {
+    var text_name = this.getFieldValue('aht10_name');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_Thinary_AHT10_Soft'] = '#include <Thinary_AHT10_Soft.h>';
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_'+text_name] = 'AHT10_SoftClass '+text_name+';';
+  var code = text_name+'.begin('+value_address+', &Wire_'+value_sda+'_'+value_scl+')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
@@ -8396,6 +8654,7 @@ Blockly.Arduino.make_arduino_lm75_begin_1 = function() {
     var text_lm75_name = this.getFieldValue('lm75_name');
 
   Blockly.Arduino.definitions_['include_LM75A'] = '#include <LM75A.h>';
+  /*
   if(value_lm75_i2c_address == '0x49')
     Blockly.Arduino.definitions_['var_declare_LM75A_' + text_lm75_name] = 'LM75A '+text_lm75_name+'(true, false, false);';
   else if(value_lm75_i2c_address == '0x4A')
@@ -8412,7 +8671,24 @@ Blockly.Arduino.make_arduino_lm75_begin_1 = function() {
     Blockly.Arduino.definitions_['var_declare_LM75A_' + text_lm75_name] = 'LM75A '+text_lm75_name+'(true, true, true);';
   else
     Blockly.Arduino.definitions_['var_declare_LM75A_' + text_lm75_name] = 'LM75A '+text_lm75_name+'(false, false, false);';
+  */
+  Blockly.Arduino.definitions_['var_declare_LM75A_' + text_lm75_name] = 'LM75A '+text_lm75_name+'('+value_lm75_i2c_address+');';
 
+  var code = '';
+  return code;
+};
+
+//初始化LM75温度传感器 使用软件模拟I2C
+Blockly.Arduino.make_arduino_lm75_begin_soft = function() {
+    var text_lm75_name = this.getFieldValue('lm75_name');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_LM75A_Soft'] = '#include <LM75A_Soft.h>';
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_'+text_lm75_name] = 'LM75A_Soft '+text_lm75_name+';';
+  Blockly.Arduino.setups_['setup_lm75_'+text_lm75_name] = text_lm75_name+'.begin('+value_address+', &Wire_'+value_sda+'_'+value_scl+');';
   var code = '';
   return code;
 };
@@ -8431,6 +8707,72 @@ Blockly.Arduino.make_arduino_lm75_get_temp_1 = function() {
   Blockly.Arduino.definitions_['include_LM75A'] = '#include <LM75A.h>';
 
   var code = 'LM75A::'+dropdown_lm75_get_temp_type+'('+value_lm75_input_temp_data+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//初始化MCP9808温度传感器
+Blockly.Arduino.make_arduino_mcp9808_begin = function() {
+  this.setTooltip("初始化MCP9808温度传感器，返回数据的类型为boolean");
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+    var text_name = this.getFieldValue('name');
+  Blockly.Arduino.definitions_['include_'+'Wire'] = '#include <Wire.h>';
+  Blockly.Arduino.definitions_['include_'+'Adafruit_MCP9808'] = '#include "Adafruit_MCP9808.h"';
+  Blockly.Arduino.definitions_['var_declare_'+text_name] = 'Adafruit_MCP9808 '+text_name+' = Adafruit_MCP9808();';
+  var code = text_name+'.begin('+value_address+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//初始化MCP9808温度传感器(使用软件模拟I2C)
+Blockly.Arduino.make_arduino_mcp9808_begin_1 = function() {
+  this.setTooltip("初始化MCP9808温度传感器(使用软件模拟I2C)，返回数据的类型为boolean");
+    var text_name = this.getFieldValue('name');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_'+'Adafruit_MCP9808_Soft'] = '#include "Adafruit_MCP9808_Soft.h"';
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_'+text_name] = 'Adafruit_MCP9808_Soft '+text_name+' = Adafruit_MCP9808_Soft();';
+  var code = text_name+'.begin('+value_address+', &Wire_'+value_sda+'_'+value_scl+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//MCP9808温度传感器 设置测量分辨率
+Blockly.Arduino.make_arduino_mcp9808_setResolution = function() {
+  this.setTooltip("MCP9808温度传感器 设置测量分辨率");
+    var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
+    var text_name = this.getFieldValue('name');
+  var code = text_name+'.setResolution('+value_data+');\n';
+  return code;
+};
+
+//MCP9808温度传感器 分辨率定义
+Blockly.Arduino.make_arduino_mcp9808_setResolution_data = function() {
+    var dropdown_type = this.getFieldValue('type');
+  var code = dropdown_type;
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//MCP9808温度传感器 唤醒或休眠设备
+Blockly.Arduino.make_arduino_mcp9808_wake_shutdown = function() {
+  this.setTooltip("MCP9808温度传感器 唤醒或休眠设备");
+    var text_name = this.getFieldValue('name');
+    var dropdown_type = this.getFieldValue('type');
+  var code = text_name+'.'+dropdown_type+'();\n';
+  return code;
+};
+
+//MCP9808温度传感器 获取温度(℃或℉)和测量分辨率
+Blockly.Arduino.make_arduino_mcp9808_get_data = function() {
+    var text_name = this.getFieldValue('name');
+    var dropdown_type = this.getFieldValue('type');
+  if(dropdown_type == 'readTempC')
+    this.setTooltip("MCP9808温度传感器 获取温度(℃)，返回数据的类型为float");
+  else if(dropdown_type == 'readTempF')
+    this.setTooltip("MCP9808温度传感器 获取温度(℉)，返回数据的类型为float");
+  else
+    this.setTooltip("MCP9808温度传感器 获取测量分辨率，返回数据的类型为uint8_t");
+  var code = text_name+'.'+dropdown_type+'()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
@@ -8495,7 +8837,7 @@ Blockly.Arduino.make_arduino_mlx90614_begin = function() {
   Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';
   Blockly.Arduino.definitions_['include_Adafruit_MLX90614'] = '#include <Adafruit_MLX90614.h>';
 
-  Blockly.Arduino.definitions_['var_declare_MLX90614_'+text_mlx90614_name] = 'Adafruit_MLX90614 '+text_mlx90614_name+' = Adafruit_MLX90614('+value_mlx90614_address+');';
+  Blockly.Arduino.definitions_['var_declare_'+text_mlx90614_name] = 'Adafruit_MLX90614 '+text_mlx90614_name+' = Adafruit_MLX90614('+value_mlx90614_address+');';
   
   Blockly.Arduino.setups_['setup_MLX90614_'+text_mlx90614_name] = ''+text_mlx90614_name+'.begin();';
 
@@ -8510,9 +8852,25 @@ Blockly.Arduino.make_arduino_mlx90614_begin_1 = function() {
   Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';
   Blockly.Arduino.definitions_['include_Adafruit_MLX90614'] = '#include <Adafruit_MLX90614.h>';
 
-  Blockly.Arduino.definitions_['var_declare_MLX90614_'+text_mlx90614_name] = 'Adafruit_MLX90614 '+text_mlx90614_name+' = Adafruit_MLX90614('+value_mlx90614_address+');';
+  Blockly.Arduino.definitions_['var_declare_'+text_mlx90614_name] = 'Adafruit_MLX90614 '+text_mlx90614_name+' = Adafruit_MLX90614('+value_mlx90614_address+');';
   
   var code = ''+text_mlx90614_name+'.begin()';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+Blockly.Arduino.make_arduino_mlx90614_begin_soft = function() {
+    var text_mlx90614_name = this.getFieldValue('mlx90614_name');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_Adafruit_MLX90614'] = '#include <Adafruit_MLX90614_Soft.h>';
+
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_'+text_mlx90614_name] = 'Adafruit_MLX90614_Soft '+text_mlx90614_name+' = Adafruit_MLX90614_Soft();';
+  
+  var code = ''+text_mlx90614_name+'.begin(&Wire_'+value_sda+'_'+value_scl+', '+value_address+')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
@@ -8528,7 +8886,7 @@ Blockly.Arduino.make_arduino_htu21d_begin = function() {
 
   Blockly.Arduino.definitions_['include_Adafruit_HTU21DF'] = '#include "Adafruit_HTU21DF.h"';
 
-  Blockly.Arduino.definitions_['var_declare_HTU21DF_'+text_htu21d_name] = 'Adafruit_HTU21DF '+text_htu21d_name+' = Adafruit_HTU21DF();';
+  Blockly.Arduino.definitions_['var_declare_'+text_htu21d_name] = 'Adafruit_HTU21DF '+text_htu21d_name+' = Adafruit_HTU21DF();';
   
   Blockly.Arduino.setups_['setup_HTU21DF_'+text_htu21d_name] = ''+text_htu21d_name+'.begin();';
 
@@ -8536,12 +8894,27 @@ Blockly.Arduino.make_arduino_htu21d_begin = function() {
   return code;
 };
 
+//初始化HTU21D温湿度传感器 使用软件模拟I2C
+Blockly.Arduino.make_arduino_htu21d_begin_soft = function() {
+    var text_htu21d_name = this.getFieldValue('htu21d_name');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_Adafruit_HTU21DF_Soft'] = '#include "Adafruit_HTU21DF_Soft.h"';
+
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_'+text_htu21d_name] = 'Adafruit_HTU21DF_Soft '+text_htu21d_name+' = Adafruit_HTU21DF_Soft();';
+  
+  var code = text_htu21d_name+'.begin(&Wire_'+value_sda+'_'+value_scl+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
 Blockly.Arduino.make_arduino_htu21d_begin_1 = function() {
     var text_htu21d_name = this.getFieldValue('htu21d_name');
 
   Blockly.Arduino.definitions_['include_Adafruit_HTU21DF'] = '#include "Adafruit_HTU21DF.h"';
 
-  Blockly.Arduino.definitions_['var_declare_HTU21DF_'+text_htu21d_name] = 'Adafruit_HTU21DF '+text_htu21d_name+' = Adafruit_HTU21DF();';
+  Blockly.Arduino.definitions_['var_declare_'+text_htu21d_name] = 'Adafruit_HTU21DF '+text_htu21d_name+' = Adafruit_HTU21DF();';
   
   var code = ''+text_htu21d_name+'.begin()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
@@ -8561,7 +8934,7 @@ Blockly.Arduino.make_arduino_max6675_begin = function() {
     var value_max6675_so = Blockly.Arduino.valueToCode(this, 'max6675_so', Blockly.Arduino.ORDER_ATOMIC);
 
   Blockly.Arduino.definitions_['include_max6675'] = '#include "max6675.h"';
-  Blockly.Arduino.definitions_['var_declare_max6675_' + text_max6675_name] = 'MAX6675 '+text_max6675_name+'('+value_max6675_clk+', '+value_max6675_cs+', '+value_max6675_so+');';
+  Blockly.Arduino.definitions_['var_declare_' + text_max6675_name] = 'MAX6675 '+text_max6675_name+'('+value_max6675_clk+', '+value_max6675_cs+', '+value_max6675_so+');';
   var code = '';
   return code;
 };
@@ -8581,7 +8954,7 @@ Blockly.Arduino.make_arduino_bh1750_begin = function() {
   Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';
   Blockly.Arduino.definitions_['include_BH1750'] = '#include <BH1750.h>';
 
-  Blockly.Arduino.definitions_['var_declare_bh1750_' + text_bh1750_name] = 'BH1750 '+text_bh1750_name+'('+value_bh1750_address+');';
+  Blockly.Arduino.definitions_['var_declare_' + text_bh1750_name] = 'BH1750 '+text_bh1750_name+'('+value_bh1750_address+');';
 
   Blockly.Arduino.setups_['setup_i2c'] = 'Wire.begin();';
   Blockly.Arduino.setups_['setup_bh1750_' + text_bh1750_name] = ''+text_bh1750_name+'.begin(BH1750::'+dropdown_bh1750_mode+');';
@@ -8596,12 +8969,29 @@ Blockly.Arduino.make_arduino_bh1750_begin_return_status = function() {
     var dropdown_bh1750_mode = this.getFieldValue('bh1750_mode');
 
   Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';
-  Blockly.Arduino.definitions_['include_Thinary_AHT10'] = '#include <BH1750.h>';
+  Blockly.Arduino.definitions_['include_BH1750'] = '#include <BH1750.h>';
 
-  Blockly.Arduino.definitions_['var_declare_bh1750_' + text_bh1750_name] = 'BH1750 '+text_bh1750_name+'('+value_bh1750_address+');';
+  Blockly.Arduino.definitions_['var_declare_' + text_bh1750_name] = 'BH1750 '+text_bh1750_name+'('+value_bh1750_address+');';
 
   Blockly.Arduino.setups_['setup_i2c'] = 'Wire.begin();';
   var code = text_bh1750_name+'.begin(BH1750::'+dropdown_bh1750_mode+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//初始化BH1750光照度传感器 使用软件模拟I2C
+Blockly.Arduino.make_arduino_bh1750_begin_soft = function() {
+    var text_name = this.getFieldValue('name');
+    var dropdown_bh1750_mode = this.getFieldValue('bh1750_mode');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_BH1750_Soft'] = '#include <BH1750_Soft.h>';
+
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_'+text_name] = 'BH1750_Soft '+text_name+';';
+  
+  var code = text_name+'.begin(BH1750_Soft::'+dropdown_bh1750_mode+', '+value_address+', &Wire_'+value_sda+'_'+value_scl+')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
@@ -8647,7 +9037,7 @@ Blockly.Arduino.make_arduino_max44009_begin = function() {
   Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';
   Blockly.Arduino.definitions_['include_MAX44009'] = '#include <MAX44009.h>';
 
-  Blockly.Arduino.definitions_['var_declare_max44009_' + text_max44009_name] = 'MAX44009 '+text_max44009_name+';';
+  Blockly.Arduino.definitions_['var_declare_' + text_max44009_name] = 'MAX44009 '+text_max44009_name+';';
 
   Blockly.Arduino.setups_['setup_i2c'] = 'Wire.begin();';
   Blockly.Arduino.setups_['setup_max44009_' + text_max44009_name] = ''+text_max44009_name+'.begin();';
@@ -8663,10 +9053,25 @@ Blockly.Arduino.make_arduino_max44009_begin_1 = function() {
   Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';
   Blockly.Arduino.definitions_['include_MAX44009'] = '#include <MAX44009.h>';
 
-  Blockly.Arduino.definitions_['var_declare_max44009_' + text_max44009_name] = 'MAX44009 '+text_max44009_name+';';
+  Blockly.Arduino.definitions_['var_declare_' + text_max44009_name] = 'MAX44009 '+text_max44009_name+';';
 
   Blockly.Arduino.setups_['setup_i2c'] = 'Wire.begin();';
   var code = ''+text_max44009_name+'.begin()';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//初始化MAX44009光照度传感器 使用软件模拟I2C
+Blockly.Arduino.make_arduino_max44009_begin_soft = function() {
+    var text_max44009_name = this.getFieldValue('max44009_name');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_MAX44009_Soft'] = '#include <MAX44009_Soft.h>';
+
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_' + text_max44009_name] = 'MAX44009_Soft '+text_max44009_name+';';
+  
+  var code = text_max44009_name+'.begin(&Wire_'+value_sda+'_'+value_scl+')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
@@ -8674,6 +9079,27 @@ Blockly.Arduino.make_arduino_max44009_begin_1 = function() {
 Blockly.Arduino.make_arduino_max44009_get_lux = function() {
     var text_max44009_name = this.getFieldValue('max44009_name');
   var code = ''+text_max44009_name+'.get_lux()';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//初始化ML8511紫外线传感器
+Blockly.Arduino.make_arduino_ml8511_begin = function() {
+  this.setTooltip("初始化ML8511紫外线传感器，返回数据的类型为boolean");
+    var text_name = this.getFieldValue('name');
+    var value_out = Blockly.Arduino.valueToCode(this, 'out', Blockly.Arduino.ORDER_ATOMIC);
+    var value_en = Blockly.Arduino.valueToCode(this, 'en', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_'+'ML8511'] = '#include <ML8511.h>';
+  Blockly.Arduino.definitions_['var_declare_'+'ML8511'] = 'ML8511 '+text_name+'('+value_out+', '+value_en+');';
+  var code = text_name+'.begin()';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//ML8511紫外线传感器 获取紫外线强度和输出电压
+Blockly.Arduino.make_arduino_ml8511_getuvIntensity_getoutputVoltage = function() {
+  this.setTooltip("ML8511紫外线传感器，获取紫外线强度和输出电压,返回数据的类型为double");
+    var text_name = this.getFieldValue('name');
+    var dropdown_type = this.getFieldValue('type');
+  var code = text_name+'.'+dropdown_type+'()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
@@ -8777,6 +9203,117 @@ Blockly.Arduino.make_arduino_pulsesensor_sawstartofbeat = function() {
 Blockly.Arduino.make_arduino_pulsesensor_isinsidebeat = function() {
     var text_pulsesensor_name = this.getFieldValue('pulsesensor_name');
   var code = text_pulsesensor_name+'.isInsideBeat()';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//初始化INA219双向电流/电源监控传感器
+Blockly.Arduino.make_arduino_ina219_begin = function() {
+  this.setTooltip("初始化INA219双向电流/电源监控传感器(使用硬件I2C)");
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+    var text_name = this.getFieldValue('name');
+  Blockly.Arduino.definitions_['include_'+'Wire'] = '#include <Wire.h>';
+  Blockly.Arduino.definitions_['include_'+'Adafruit_INA219'] = '#include <Adafruit_INA219.h>';
+  Blockly.Arduino.definitions_['var_declare_'+text_name] = 'Adafruit_INA219 '+text_name+'('+value_address+');';
+  Blockly.Arduino.setups_['ina219_'+text_name] = text_name+'.begin();';
+  var code = '';
+  return code;
+};
+
+//初始化INA219双向电流/电源监控传感器 - 使用软件模拟的I2C
+Blockly.Arduino.make_arduino_ina219_begin_1 = function() {
+  this.setTooltip("初始化INA219双向电流/电源监控传感器(使用软件模拟I2C)");
+    var text_name = this.getFieldValue('name');
+    var value_sda = Blockly.Arduino.valueToCode(this, 'sda', Blockly.Arduino.ORDER_ATOMIC);
+    var value_scl = Blockly.Arduino.valueToCode(this, 'scl', Blockly.Arduino.ORDER_ATOMIC);
+    var value_address = Blockly.Arduino.valueToCode(this, 'address', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+  Blockly.Arduino.definitions_['include_Adafruit_INA219_Soft'] = '#include <Adafruit_INA219_Soft.h>';
+  Blockly.Arduino.definitions_['var_declare_SoftwareWire'+value_sda+'_'+value_scl] = 'SoftwareWire Wire_'+value_sda+'_'+value_scl+'('+value_sda+', '+value_scl+');';
+  Blockly.Arduino.definitions_['var_declare_'+text_name] = 'Adafruit_INA219_Soft '+text_name+'('+value_address+');';
+  Blockly.Arduino.setups_['ina219_'+text_name] = text_name+'.begin(&Wire_'+value_sda+'_'+value_scl+');';
+  var code = '';
+  return code;
+};
+
+//INA219双向电流/电源监控传感器 设置测量上限
+Blockly.Arduino.make_arduino_ina219_setCalibration = function() {
+  this.setTooltip("INA219双向电流/电源监控传感器 设置测量的上限");
+    var text_name = this.getFieldValue('name');
+    var dropdown_type = this.getFieldValue('type');
+  var code = text_name+'.'+dropdown_type+'();\n';
+  return code;
+};
+
+//INA219双向电流/电源监控传感器 获取一些数据
+Blockly.Arduino.make_arduino_ina219_get_data = function() {
+    var text_name = this.getFieldValue('name');
+    var dropdown_type = this.getFieldValue('type');
+  if(dropdown_type == 'getShuntVoltage_mV')
+    this.setTooltip("INA219双向电流/电源监控传感器 获取分流电阻电压(mV)，返回数据的类型为float");
+  else if(dropdown_type == 'getBusVoltage_V')
+    this.setTooltip("INA219双向电流/电源监控传感器 获取总线电压(V)，返回数据的类型为float");
+  else if(dropdown_type == 'getCurrent_mA')
+    this.setTooltip("INA219双向电流/电源监控传感器 获取电流(mA)，返回数据的类型为float");
+  else
+    this.setTooltip("INA219双向电流/电源监控传感器 获取功率(mW)，返回数据的类型为float");
+
+  var code = text_name+'.'+dropdown_type+'()';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//INA219双向电流/电源监控传感器 开启或关闭节电模式
+Blockly.Arduino.make_arduino_ina219_powerSave = function() {
+  this.setTooltip("INA219双向电流/电源监控传感器 开启或关闭节电模式");
+    var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
+    var text_name = this.getFieldValue('name');
+  var code = text_name+'.powerSave('+value_data+');\n';
+  return code;
+};
+
+//初始化GP2Y1010AU0F粉尘传感器
+Blockly.Arduino.make_arduino_gp2y1010au0f_begin = function() {
+  this.setTooltip("初始化GP2Y1010AU0F粉尘传感器");
+    var text_name = this.getFieldValue('name');
+    var value_led = Blockly.Arduino.valueToCode(this, 'led', Blockly.Arduino.ORDER_ATOMIC);
+    var value_vo = Blockly.Arduino.valueToCode(this, 'vo', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_'+'GP2Y1010AU0F'] = '#include "GP2Y1010AU0F.h"';
+  Blockly.Arduino.definitions_['var_declare_'+text_name] = 'GP2Y1010AU0F '+text_name+'('+value_led+', '+value_vo+');';
+  var code = '';
+  return code;
+};
+
+//GP2Y1010AU0F粉尘传感器 获取输出电压
+Blockly.Arduino.make_arduino_gp2y1010au0f_getOutputV = function() {
+  this.setTooltip("GP2Y1010AU0F粉尘传感器 对空气采样并获取输出电压(V)，返回数据的类型为double");
+    var text_name = this.getFieldValue('name');
+  var code = text_name+'.getOutputV()';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//GP2Y1010AU0F粉尘传感器 根据输入电压计算灰尘浓度(ug/m3)
+Blockly.Arduino.make_arduino_gp2y1010au0f_getDustDensity = function() {
+  this.setTooltip("GP2Y1010AU0F粉尘传感器 根据输入电压计算灰尘浓度(ug/m³)，返回数据的类型为double");
+    var text_name = this.getFieldValue('name');
+    var value_input = Blockly.Arduino.valueToCode(this, 'input', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.getDustDensity('+value_input+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//GP2Y1010AU0F粉尘传感器 根据灰尘浓度计算空气质量指数aqi(是将所有粒度的灰尘都按照PM2.5的指标计算的, 并不准确)
+Blockly.Arduino.make_arduino_gp2y1010au0f_getAQI = function() {
+  this.setTooltip("GP2Y1010AU0F粉尘传感器 根据灰尘浓度计算空气质量指数(AQI)，返回数据的类型为double");
+    var text_name = this.getFieldValue('name');
+    var value_input = Blockly.Arduino.valueToCode(this, 'input', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.getAQI('+value_input+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//GP2Y1010AU0F粉尘传感器 根据空气质量指数计算空气质量级别
+Blockly.Arduino.make_arduino_gp2y1010au0f_getGradeInfo = function() {
+  this.setTooltip("GP2Y1010AU0F粉尘传感器 根据空气质量指数计算空气质量级别，返回数据的类型为int");
+    var text_name = this.getFieldValue('name');
+    var value_input = Blockly.Arduino.valueToCode(this, 'input', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.getGradeInfo('+value_input+')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
@@ -8984,6 +9521,62 @@ Blockly.Arduino.make_arduino_dfplayer_available = function() {
     var dropdown_type = this.getFieldValue('type');
   var code = ''+text_dfplayer_name+'.'+dropdown_type+'()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//初始化数字电位器
+Blockly.Arduino.make_arduino_x9cxxx_begin = function() {
+  this.setTooltip("初始化数字电位器");
+    var dropdown_type = this.getFieldValue('type');
+    var text_x9cxxx_name = this.getFieldValue('x9cxxx_name');
+    var value_cs = Blockly.Arduino.valueToCode(this, 'cs', Blockly.Arduino.ORDER_ATOMIC);
+    var value_ud = Blockly.Arduino.valueToCode(this, 'ud', Blockly.Arduino.ORDER_ATOMIC);
+    var value_inc = Blockly.Arduino.valueToCode(this, 'inc', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_'+'FastX9CXXX'] = '#include <FastX9CXXX.h>';
+  Blockly.Arduino.definitions_['var_declare_'+text_x9cxxx_name] = dropdown_type+' '+text_x9cxxx_name+';';
+  Blockly.Arduino.setups_['x9cxxx_'+text_x9cxxx_name] = text_x9cxxx_name+'.Setup('+value_cs+', '+value_ud+', '+value_inc+');';
+  var code = '';
+  return code;
+};
+
+//数字电位器 设置阶数
+Blockly.Arduino.make_arduino_x9cxxx_JumpToStep = function() {
+  this.setTooltip("数字电位器 设置阶数");
+    var text_x9cxxx_name = this.getFieldValue('x9cxxx_name');
+    var value_step = Blockly.Arduino.valueToCode(this, 'step', Blockly.Arduino.ORDER_ATOMIC);
+    var value_store = Blockly.Arduino.valueToCode(this, 'store', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_x9cxxx_name+'.JumpToStep('+value_step+', '+value_store+');\n';
+  return code;
+};
+
+//数字电位器 阶数自增或自减
+Blockly.Arduino.make_arduino_x9cxxx_Down_Up = function() {
+  this.setTooltip("数字电位器 阶数自增或自减");
+    var text_x9cxxx_name = this.getFieldValue('x9cxxx_name');
+    var dropdown_type = this.getFieldValue('type');
+    var value_store = Blockly.Arduino.valueToCode(this, 'store', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_x9cxxx_name+'.'+dropdown_type+'('+value_store+');\n';
+  return code;
+};
+
+//数字电位器 获取当前电阻估计值和当前阶数
+Blockly.Arduino.make_arduino_x9cxxx_GetEstimatedResistance_GetStep = function() {
+    var text_x9cxxx_name = this.getFieldValue('x9cxxx_name');
+    var dropdown_type = this.getFieldValue('type');
+  if(dropdown_type == 'GetEstimatedResistance')
+    this.setTooltip("数字电位器 获取当前电阻估计值，返回数据的类型为uint32_t");
+  else
+    this.setTooltip("数字电位器 获取当前阶数，返回数据的类型为uint8_t");
+  var code = text_x9cxxx_name+'.'+dropdown_type+'()';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//数字电位器 储存当前阶数和复位
+Blockly.Arduino.make_arduino_x9cxxx_Reset_Store = function() {
+  this.setTooltip("数字电位器 储存当前阶数或复位");
+    var text_x9cxxx_name = this.getFieldValue('x9cxxx_name');
+    var dropdown_type = this.getFieldValue('type');
+  var code = text_x9cxxx_name+'.'+dropdown_type+'();\n';
+  return code;
 };
 
 Blockly.Arduino.make_reverseCipher = function() {
