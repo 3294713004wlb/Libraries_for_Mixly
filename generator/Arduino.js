@@ -9326,7 +9326,7 @@ Blockly.Arduino.make_arduino_stepper_begin = function() {
 
   Blockly.Arduino.definitions_['include_AccelStepper'] = '#include <AccelStepper.h>';
 
-  Blockly.Arduino.definitions_['var_declare_Stepper_' + text_stepper_name] = 'AccelStepper stepper(AccelStepper::FULL4WIRE, '+value_stepper_in1+', '+value_stepper_in2+', '+value_stepper_in3+', '+value_stepper_in4+', true);';
+  Blockly.Arduino.definitions_['var_declare_' + text_stepper_name] = 'AccelStepper '+text_stepper_name+'(AccelStepper::FULL4WIRE, '+value_stepper_in1+', '+value_stepper_in2+', '+value_stepper_in3+', '+value_stepper_in4+', true);';
   var code = '';
   return code;
 };
@@ -9379,6 +9379,313 @@ Blockly.Arduino.make_arduino_stepper_run = function() {
     var dropdown_run_mode = this.getFieldValue('run_mode');
   var code = text_stepper_name + '.' + dropdown_run_mode + '();\n';
   return code;
+};
+
+//初始化步进电机
+Blockly.Arduino.make_arduino_accelstepper_begin = function() {
+  this.setTooltip("初始化步进电机，使用单片机上的IO");
+    var dropdown_type = this.getFieldValue('type');
+    var text_name = this.getFieldValue('name');
+    var value_pin1 = Blockly.Arduino.valueToCode(this, 'pin1', Blockly.Arduino.ORDER_ATOMIC);
+    var value_pin2 = Blockly.Arduino.valueToCode(this, 'pin2', Blockly.Arduino.ORDER_ATOMIC);
+    var value_pin3 = Blockly.Arduino.valueToCode(this, 'pin3', Blockly.Arduino.ORDER_ATOMIC);
+    var value_pin4 = Blockly.Arduino.valueToCode(this, 'pin4', Blockly.Arduino.ORDER_ATOMIC);
+    var value_enable = Blockly.Arduino.valueToCode(this, 'enable', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_AccelStepper'] = '#include <AccelStepper.h>';
+
+  Blockly.Arduino.definitions_['var_declare_' + text_name] = 'AccelStepper '+text_name+'('+dropdown_type+', '+value_pin1+', '+value_pin2+', '+value_pin3+', '+value_pin4+', '+value_enable+');';
+  var code = '';
+  return code;
+};
+
+//初始化步进电机 使用74HC595/PCF8574/MCP23017上的IO口
+Blockly.Arduino.make_arduino_accelstepper_begin_1 = function() {
+    var dropdown_type = this.getFieldValue('type');
+    var text_name = this.getFieldValue('name');
+    var dropdown_io_type = this.getFieldValue('io_type');
+    var text_io_name = this.getFieldValue('io_name');
+    var value_pin1 = Blockly.Arduino.valueToCode(this, 'pin1', Blockly.Arduino.ORDER_ATOMIC);
+    var value_pin2 = Blockly.Arduino.valueToCode(this, 'pin2', Blockly.Arduino.ORDER_ATOMIC);
+    var value_pin3 = Blockly.Arduino.valueToCode(this, 'pin3', Blockly.Arduino.ORDER_ATOMIC);
+    var value_pin4 = Blockly.Arduino.valueToCode(this, 'pin4', Blockly.Arduino.ORDER_ATOMIC);
+    var value_enable = Blockly.Arduino.valueToCode(this, 'enable', Blockly.Arduino.ORDER_ATOMIC);
+
+  if(dropdown_io_type == '74HC595')
+  {
+    Blockly.Arduino.definitions_['include_ShiftRegister74HC595'] = '#include <ShiftRegister74HC595.h>';
+    Blockly.Arduino.definitions_['include_AccelStepper_74HC595'] = '#include <AccelStepper_74HC595.h>';
+    Blockly.Arduino.definitions_['var_declare_' + text_name] = 'AccelStepper_74HC595 '+text_name+'(&'+text_io_name+', '+dropdown_type+', '+value_pin1+', '+value_pin2+', '+value_pin3+', '+value_pin4+', '+value_enable+');';
+  }
+  else if(dropdown_io_type == 'PCF8574(硬I2C)')
+  {
+    Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';
+    Blockly.Arduino.definitions_['include_PCF8574'] = '#include "PCF8574.h"';
+    Blockly.Arduino.definitions_['include_AccelStepper_PCF8574'] = '#include <AccelStepper_PCF8574.h>';
+    Blockly.Arduino.definitions_['var_declare_' + text_name] = 'AccelStepper_PCF8574 '+text_name+'(&'+text_io_name+', '+dropdown_type+', '+value_pin1+', '+value_pin2+', '+value_pin3+', '+value_pin4+', '+value_enable+');';
+  }
+  else if(dropdown_io_type == 'PCF8574(软I2C)')
+  {
+    Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+    Blockly.Arduino.definitions_['include_PCF8574_Soft'] = '#include "PCF8574_Soft.h"';
+    Blockly.Arduino.definitions_['include_AccelStepper_PCF8574_Soft'] = '#include <AccelStepper_PCF8574_Soft.h>';
+    Blockly.Arduino.definitions_['var_declare_' + text_name] = 'AccelStepper_PCF8574_Soft '+text_name+'(&'+text_io_name+', '+dropdown_type+', '+value_pin1+', '+value_pin2+', '+value_pin3+', '+value_pin4+', '+value_enable+');';
+  }
+  else if(dropdown_io_type == 'MCP23017(硬I2C)')
+  {
+    Blockly.Arduino.definitions_['include_Wire'] = '#include <Wire.h>';
+    Blockly.Arduino.definitions_['include_Adafruit_MCP23017'] = '#include "Adafruit_MCP23017.h"';
+    Blockly.Arduino.definitions_['include_AccelStepper_MCP23017'] = '#include <AccelStepper_MCP23017.h>';
+    Blockly.Arduino.definitions_['var_declare_' + text_name] = 'AccelStepper_MCP23017 '+text_name+'(&'+text_io_name+', '+dropdown_type+', '+value_pin1+', '+value_pin2+', '+value_pin3+', '+value_pin4+', '+value_enable+');';
+  }
+  else if(dropdown_io_type == 'MCP23017(软I2C)')
+  {
+    Blockly.Arduino.definitions_['include_SoftwareWire'] = '#include <SoftwareWire.h>';
+    Blockly.Arduino.definitions_['include_Adafruit_MCP23017_Soft'] = '#include "Adafruit_MCP23017_Soft.h"';
+    Blockly.Arduino.definitions_['include_AccelStepper_MCP23017_Soft'] = '#include <AccelStepper_MCP23017_Soft.h>';
+    Blockly.Arduino.definitions_['var_declare_' + text_name] = 'AccelStepper_MCP23017_Soft '+text_name+'(&'+text_io_name+', '+dropdown_type+', '+value_pin1+', '+value_pin2+', '+value_pin3+', '+value_pin4+', '+value_enable+');';
+  }
+  var code = '';
+  return code;
+};
+
+//步进电机 有返回值函数
+Blockly.Arduino.make_arduino_accelstepper_get_data = function() {
+    var text_name = this.getFieldValue('name');
+    var dropdown_type = this.getFieldValue('type');
+  if(dropdown_type == 'isRunning')
+    this.setTooltip("检查电机是否正在向目标运行，如果速度不是零或者不在目标位置，则为true，返回数据的类型为boolean");
+  else if(dropdown_type == 'run')
+    this.setTooltip("每次调用此函数最多只会执行一个步进，返回数据的类型为boolean");
+  else if(dropdown_type == 'runSpeed')
+    this.setTooltip("每次调用此函数最多只会执行一个步进，返回数据的类型为boolean");
+  else if(dropdown_type == 'runSpeedToPosition')
+    this.setTooltip("以当前选定的速度运行，直到到达目标位置，不实现加速，返回数据的类型为boolean");
+  else if(dropdown_type == 'speed')
+    this.setTooltip("获取当前的瞬时速度，返回数据的类型为float");
+  else if(dropdown_type == 'maxSpeed')
+    this.setTooltip("获取最大速度，返回数据的类型为float");
+  else if(dropdown_type == 'targetPosition')
+    this.setTooltip("获取目标位置，返回数据的类型为long");
+  else if(dropdown_type == 'currentPosition')
+    this.setTooltip("获取当前位置，返回数据的类型为long");
+  else
+    this.setTooltip("获取从当前位置到目标位置的距离，返回数据的类型为long");
+  var code = text_name+'.'+dropdown_type+'()';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//步进电机 启用输出/禁用输出/停止运动/以加减速方式运行到目标位置
+Blockly.Arduino.make_arduino_accelstepper_set = function() {
+    var text_name = this.getFieldValue('name');
+    var dropdown_type = this.getFieldValue('type');
+  if(dropdown_type == 'stop')
+    this.setTooltip("停止步进电机的运动");
+  else if(dropdown_type == 'runToPosition')
+    this.setTooltip("将电机(带加/减速)移动到目标位置，并阻塞，直到到达目标位置。不要在事件循环中使用它，因为它会阻塞");
+  else if(dropdown_type == 'enableOutputs')
+    this.setTooltip("启用输出");
+  else
+    this.setTooltip("禁用输出，可以关闭电机线圈的电源，节约电能");
+  var code = '';
+  return code;
+};
+
+//步进电机 设置 最大速度/加速度/当前速度/当前位置/最小脉冲宽度
+Blockly.Arduino.make_arduino_accelstepper_set_data = function() {
+  this.setTooltip("设置最大速度/加速度/当前速度/当前位置/最小脉冲宽度/输出管脚");
+    var text_name = this.getFieldValue('name');
+    var dropdown_type = this.getFieldValue('type');
+    var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.'+dropdown_type+'('+value_data+');\n';
+  return code;
+};
+
+//步进电机 移动
+Blockly.Arduino.make_arduino_accelstepper_move = function() {
+    var value_data = Blockly.Arduino.valueToCode(this, 'data', Blockly.Arduino.ORDER_ATOMIC);
+    var text_name = this.getFieldValue('name');
+    var dropdown_type = this.getFieldValue('type');
+  if(dropdown_type == 'moveTo')
+    this.setTooltip("使用此函数后，必须要调用 带加减速运行 函数来运行步进电机，如果想使用恒速移动，在调用此函数之后需设置速度");
+  else if(dropdown_type == 'move')
+    this.setTooltip("设置相对于当前位置的目标位置");
+  else if(dropdown_type == 'runToNewPosition')
+    this.setTooltip("将电机(带加速/减速)移动到新的目标位置，并阻塞，直到到达新目标位置。不要在事件循环中使用它，因为它会阻塞");
+  var code = text_name+'.'+dropdown_type+'('+value_data+');\n';
+  return code;
+};
+
+//步进电机 翻转管脚
+Blockly.Arduino.make_arduino_accelstepper_setPinsInverted_3 = function() {
+  this.setTooltip("设置步进驱动器引脚的反转");
+    var text_name = this.getFieldValue('name');
+    var value_directionInvert = Blockly.Arduino.valueToCode(this, 'directionInvert', Blockly.Arduino.ORDER_ATOMIC);
+    var value_stepInvert = Blockly.Arduino.valueToCode(this, 'stepInvert', Blockly.Arduino.ORDER_ATOMIC);
+    var value_enableInvert = Blockly.Arduino.valueToCode(this, 'enableInvert', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.setPinsInverted('+value_directionInvert+', '+value_stepInvert+', '+value_enableInvert+');\n';
+  return code;
+};
+
+//步进电机 翻转管脚 - 1
+Blockly.Arduino.make_arduino_accelstepper_setPinsInverted_5 = function() {
+  this.setTooltip("设置步进驱动器引脚的反转");
+    var text_name = this.getFieldValue('name');
+    var value_pin1 = Blockly.Arduino.valueToCode(this, 'pin1', Blockly.Arduino.ORDER_ATOMIC);
+    var value_pin2 = Blockly.Arduino.valueToCode(this, 'pin2', Blockly.Arduino.ORDER_ATOMIC);
+    var value_pin3 = Blockly.Arduino.valueToCode(this, 'pin3', Blockly.Arduino.ORDER_ATOMIC);
+    var value_pin4 = Blockly.Arduino.valueToCode(this, 'pin4', Blockly.Arduino.ORDER_ATOMIC);
+    var value_enable = Blockly.Arduino.valueToCode(this, 'enable', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.setPinsInverted('+value_pin1+', '+value_pin2+', '+value_pin3+', '+value_pin4+', '+value_enable+');\n';
+  return code;
+};
+
+//初始化舵机
+Blockly.Arduino.make_arduino_servo_begin = function() {
+  this.setTooltip("初始化舵机，返回数据的类型为boolean，成功返回通道号，失败则返回0");
+    var text_name = this.getFieldValue('name');
+    var value_pin = Blockly.Arduino.valueToCode(this, 'pin', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_'+'VarSpeedServo'] = '#include <VarSpeedServo.h>';
+  Blockly.Arduino.definitions_['var_declare_'+text_name] = 'VarSpeedServo '+text_name+';';
+  //Blockly.Arduino.setups_['varspeedservo_'+text_name] = text_name+'.attach('+value_pin+');';
+  var code = text_name+'.attach('+value_pin+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//初始化舵机 可设置最小角度和最大角度
+Blockly.Arduino.make_arduino_servo_begin_1 = function() {
+  this.setTooltip("初始化舵机，返回数据的类型为boolean，成功返回通道号，失败则返回0");
+    var text_name = this.getFieldValue('name');
+    var value_pin = Blockly.Arduino.valueToCode(this, 'pin', Blockly.Arduino.ORDER_ATOMIC);
+    var value_min = Blockly.Arduino.valueToCode(this, 'min', Blockly.Arduino.ORDER_ATOMIC);
+    var value_max = Blockly.Arduino.valueToCode(this, 'max', Blockly.Arduino.ORDER_ATOMIC);
+  Blockly.Arduino.definitions_['include_'+'VarSpeedServo'] = '#include <VarSpeedServo.h>';
+  Blockly.Arduino.definitions_['var_declare_'+text_name] = 'VarSpeedServo '+text_name+';';
+  //Blockly.Arduino.setups_['varspeedservo_'+text_name] = text_name+'.attach('+value_pin+', '+value_min+', '+value_max+');';
+  var code = text_name+'.attach('+value_pin+', '+value_min+', '+value_max+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//舵机 设置角度
+Blockly.Arduino.make_arduino_servo_write = function() {
+  this.setTooltip("舵机 设置当前的角度(0~180°)，输入值超出544视为脉冲宽度，小于则视为角度，不阻塞程序运行");
+    var text_name = this.getFieldValue('name');
+    var value_value = Blockly.Arduino.valueToCode(this, 'value', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.write('+value_value+');\n';
+  return code;
+};
+
+//舵机 设置角度和速度
+Blockly.Arduino.make_arduino_servo_write_1 = function() {
+  this.setTooltip("舵机 设置当前的角度(0~180°)，输入值超出544视为脉冲宽度，小于则视为角度，不阻塞程序运行");
+    var text_name = this.getFieldValue('name');
+    var value_value = Blockly.Arduino.valueToCode(this, 'value', Blockly.Arduino.ORDER_ATOMIC);
+    var value_speed = Blockly.Arduino.valueToCode(this, 'speed', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.write('+value_value+', '+value_speed+');\n';
+  return code;
+};
+
+//舵机 设置角度和速度以及选择是否阻塞
+Blockly.Arduino.make_arduino_servo_write_2 = function() {
+  this.setTooltip("舵机 设置当前的角度(0~180°)，输入值超出544视为脉冲宽度，小于则视为角度");
+    var text_name = this.getFieldValue('name');
+    var value_value = Blockly.Arduino.valueToCode(this, 'value', Blockly.Arduino.ORDER_ATOMIC);
+    var value_speed = Blockly.Arduino.valueToCode(this, 'speed', Blockly.Arduino.ORDER_ATOMIC);
+    var value_wait = Blockly.Arduino.valueToCode(this, 'wait', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.write('+value_value+', '+value_speed+', '+value_wait+');\n';
+  return code;
+};
+
+//舵机 设置脉冲宽度
+Blockly.Arduino.make_arduino_servo_writeMicroseconds = function() {
+  this.setTooltip("舵机 设置脉冲宽度，默认的最小脉宽为544微秒，最大脉宽为2400微秒");
+    var value_value = Blockly.Arduino.valueToCode(this, 'value', Blockly.Arduino.ORDER_ATOMIC);
+    var text_name = this.getFieldValue('name');
+  var code = text_name+'.writeMicroseconds('+value_value+');\n';
+  return code;
+};
+
+//舵机 获取数据
+Blockly.Arduino.make_arduino_servo_read = function() {
+    var text_name = this.getFieldValue('name');
+    var dropdown_type = this.getFieldValue('type');
+  if(dropdown_type == 'read')
+    this.setTooltip("舵机 获取当前角度，返回数据的类型为int");
+  else if(dropdown_type == 'readMicroseconds')
+    this.setTooltip("舵机 获取当前脉宽，返回数据的类型为int");
+  else if(dropdown_type == 'isMoving')
+    this.setTooltip("舵机 正在移动?，返回数据的类型为boolean");
+  else
+    this.setTooltip("舵机 舵机连上控制管脚?，返回数据的类型为boolean");
+  var code = text_name+'.'+dropdown_type+'()';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//舵机 执行某些函数
+Blockly.Arduino.make_arduino_servo_set = function() {
+    var text_name = this.getFieldValue('name');
+    var dropdown_type = this.getFieldValue('type');
+  if(dropdown_type == 'stop')
+    this.setTooltip("舵机 停止移动");
+  else if(dropdown_type == 'wait')
+    this.setTooltip("舵机 等待移动完成");
+  else if(dropdown_type == 'sequenceStop')
+    this.setTooltip("舵机 停止执行动作组");
+  else
+    this.setTooltip("舵机 释放管脚");
+  var code = text_name+'.'+dropdown_type+'();\n';
+  return code;
+};
+
+//舵机 建立一个动作组
+Blockly.Arduino.make_arduino_servo_action_group = function() {
+    var text_name = this.getFieldValue('name');
+    var statements_data = Blockly.Arduino.statementToCode(this, 'data');
+  if(statements_data)
+    statements_data = statements_data.substring(2,statements_data.length-1);
+  Blockly.Arduino.definitions_['include_'+'VarSpeedServo'] = '#include <VarSpeedServo.h>';
+  Blockly.Arduino.definitions_['var_declare_'+text_name] = 'servoSequencePoint '+text_name+'[] = {'+statements_data+'};';
+  var code = '';
+  return code;
+};
+
+//舵机 动作组里数据定义
+Blockly.Arduino.make_arduino_servo_action_group_data = function() {
+    var text_angle = this.getFieldValue('angle');
+    var text_speed = this.getFieldValue('speed');
+  var surround_parent = this.getSurroundParent();
+  var code = '';
+  if(surround_parent && surround_parent.type == 'make_arduino_servo_action_group')
+  {
+    this.setWarningText(null);
+    code = '{'+text_angle+','+text_speed+'},';
+  }
+  else
+  {
+    this.setWarningText("此块需放到创建动作组块下");
+  }
+  return code;
+};
+
+//舵机 循环执行某一动作组
+Blockly.Arduino.make_arduino_servo_sequencePlay = function() {
+  this.setTooltip("舵机 从索引为0的动作开始，循环执行某一动作组里的动作，返回数据的类型为uint8_t");
+    var text_name = this.getFieldValue('name');
+    var value_sequencein = Blockly.Arduino.valueToCode(this, 'sequencein', Blockly.Arduino.ORDER_ATOMIC);
+    var value_numpositions = Blockly.Arduino.valueToCode(this, 'numpositions', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.sequencePlay('+value_sequencein+', '+value_numpositions+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+//舵机 执行某一动作组，可设置是否循环
+Blockly.Arduino.make_arduino_servo_sequencePlay_1 = function() {
+  this.setTooltip("舵机 从某个索引的动作开始，执行某一动作组里的动作，返回数据的类型为uint8_t");
+    var text_name = this.getFieldValue('name');
+    var value_sequencein = Blockly.Arduino.valueToCode(this, 'sequencein', Blockly.Arduino.ORDER_ATOMIC);
+    var value_numpositions = Blockly.Arduino.valueToCode(this, 'numpositions', Blockly.Arduino.ORDER_ATOMIC);
+    var value_loop = Blockly.Arduino.valueToCode(this, 'loop', Blockly.Arduino.ORDER_ATOMIC);
+    var value_startPos = Blockly.Arduino.valueToCode(this, 'startPos', Blockly.Arduino.ORDER_ATOMIC);
+  var code = text_name+'.sequencePlay('+value_sequencein+', '+value_numpositions+', '+value_loop+', '+value_startPos+')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 //初始化DFPlayer Mini

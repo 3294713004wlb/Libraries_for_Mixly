@@ -263,7 +263,7 @@ void PCF8574_Soft::readGPIO() {
 	_wire->requestFrom(_address, (uint8_t) 0x01);
 	while (_wire->available() < 1)
 		;
-	_PIN = I2CREAD();
+	_PIN = _wire->read();
 }
 
 void PCF8574_Soft::updateGPIO() {
@@ -277,6 +277,6 @@ void PCF8574_Soft::updateGPIO() {
 
 	/* Start communication and send GPIO values as byte */
 	_wire->beginTransmission(_address);
-	I2CWRITE(value);
+	_wire->write(value);
 	_wire->endTransmission();
 }

@@ -16328,6 +16328,667 @@ Blockly.Blocks.make_arduino_stepper_run= {
   }
 };
 
+//初始化步进电机
+Blockly.Blocks.make_arduino_accelstepper_begin= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/电机/电机_2.png", 25, 25, "*"))
+      .appendField("初始化")
+      .appendField(new Blockly.FieldDropdown([["驱动器驱动","1"],["2线电机","2"],["3线全步电机","3"],["4线全步电机","4"],["3线半步电机","6"],["4线半步电机","8"]]), "type")
+      .appendField(new Blockly.FieldTextInput("stepper"), "name");
+  this.appendValueInput("pin1")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" PIN1#");
+  this.appendValueInput("pin2")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("PIN2#");
+  this.appendValueInput("pin3")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("PIN3#");
+  this.appendValueInput("pin4")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("PIN4#");
+  this.appendValueInput("enable")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("启用输出?");
+  this.setInputsInline(false);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化步进电机，使用单片机上的IO\n"
+   +"2.语法:\n"
+   +"->AccelStepper(uint8_t interface = AccelStepper::FULL4WIRE, uint8_t pin1 = 2, uint8_t pin2 = 3, uint8_t pin3 = 4, uint8_t pin4 = 5, bool enable = true)\n"
+   +"3.参数:\n"
+   +"->interface:步进电机的控制方式\n"
+   +"->pin1:管脚1\n"
+   +"->pin2:管脚2\n"
+   +"->pin3:管脚3\n"
+   +"->pin4:管脚4\n"
+   +"->enable:true - 启用pin1 - pin4，false - 禁用pin1 - pin4"
+   //+"4.返回值:AccelStepper型数据"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//初始化步进电机 使用74HC595/PCF8574/MCP23017上的IO口
+Blockly.Blocks.make_arduino_accelstepper_begin_1= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/电机/电机_2.png", 25, 25, "*"))
+      .appendField("初始化")
+      .appendField(new Blockly.FieldDropdown([["驱动器驱动","1"],["2线电机","2"],["3线全步电机","3"],["4线全步电机","4"],["3线半步电机","6"],["4线半步电机","8"]]), "type")
+      .appendField(new Blockly.FieldTextInput("stepper"), "name");
+  this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("使用")
+      .appendField(new Blockly.FieldDropdown([["74HC595","74HC595"],["PCF8574(硬I2C)","PCF8574(硬I2C)"],["PCF8574(软I2C)","PCF8574(软I2C)"],["MCP23017(硬I2C)","MCP23017(硬I2C)"],["MCP23017(软I2C)","MCP23017(软I2C)"]]), "io_type")
+      .appendField(new Blockly.FieldTextInput("hc"), "io_name")
+      .appendField("的管脚");
+  this.appendValueInput("pin1")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" PIN1#");
+  this.appendValueInput("pin2")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("PIN2#");
+  this.appendValueInput("pin3")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("PIN3#");
+  this.appendValueInput("pin4")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("PIN4#");
+  this.appendValueInput("enable")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("启用输出?");
+  this.setInputsInline(false);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//步进电机 有返回值函数
+Blockly.Blocks.make_arduino_accelstepper_get_data= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/电机/电机_2.png", 25, 25, "*"))
+      .appendField("步进电机")
+      .appendField(new Blockly.FieldTextInput("stepper"), "name")
+      .appendField(new Blockly.FieldDropdown([["正在运行?","isRunning"],["带加减速运行","run"],["恒速运行","runSpeed"],["以恒定速度运行到目标位置","runSpeedToPosition"],["获取当前速度","speed"],["获取最大速度","maxSpeed"],["获取目标位置","targetPosition"],["获取当前位置","currentPosition"],["获取从当前位置到目标位置的距离","distanceToGo"]]), "type");
+  this.setInputsInline(false);
+  this.setOutput(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->正在运行? - 检查电机是否正在向目标运行，如果速度不是零或者不在目标位置，则为true\n"
+   +"->带加减速运行 - 每次调用此函数最多只会执行一个步进\n"
+   +"->恒速运行 - 每次调用此函数最多只会执行一个步进\n"
+   +"->以恒定速度运行到目标位置 - 以当前选定的速度运行，直到到达目标位置，不实现加速\n"
+   +"->获取当前速度 - 获取当前的瞬时速度\n"
+   +"->获取最大速度 - 获取所设置的最大速度\n"
+   +"->获取目标位置 - 获取所设置的目标位置(以步数表示)\n"
+   +"->获取当前位置 - 获取当前运行到的位置(以步数表示)\n"
+   +"->获取从当前位置到目标位置的距离 - 从当前位置到目标位置的距离(以步数表示)，顺时针为正\n"
+   +"2.语法:\n"
+   +"->正在运行? - bool isRunning()\n"
+   +"->带加减速运行 - boolean run()\n"
+   +"->恒速运行 - boolean runSpeed()\n"
+   +"->以恒定速度运行到目标位置 - boolean runSpeedToPosition()\n"
+   +"->获取当前速度 - float speed()\n"
+   +"->获取最大速度 - float maxSpeed()\n"
+   +"->获取目标位置 - long targetPosition()\n"
+   +"->获取当前位置 - long currentPosition()\n"
+   +"->获取从当前位置到目标位置的距离 - long distanceToGo()\n"
+   +"3.参数:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//步进电机 启用输出/禁用输出/停止运动/以加减速方式运行到目标位置
+Blockly.Blocks.make_arduino_accelstepper_set= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/电机/电机_2.png", 25, 25, "*"))
+      .appendField("步进电机")
+      .appendField(new Blockly.FieldTextInput("stepper"), "name")
+      .appendField(new Blockly.FieldDropdown([["停止运动","stop"],["以加减速方式运行到目标位置","runToPosition"],["启用控制引脚","enableOutputs"],["禁用控制引脚","disableOutputs"]]), "type");
+  this.setInputsInline(false);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->停止运动 - 停止步进电机的运动\n"
+   +"->以加减速方式运行到目标位置 - 将电机(带加/减速)移动到目标位置，并阻塞，直到到达目标位置。不要在事件循环中使用它，因为它会阻塞\n"
+   +"->启用控制引脚 - 当启用pin1 - pin4时，此管脚输出某状态的电平\n"
+   +"->禁用控制引脚 - 当禁用pin1 - pin4时，此管脚输出的电平会发生改变，使用此方式可以关闭电机线圈的电源，节约电能\n"
+   +"2.语法:\n"
+   +"->停止运动 - void stop()\n"
+   +"->以加减速方式运行到目标位置 - void runToPosition()\n"
+   +"->启用控制引脚 - virtual void enableOutputs()\n"
+   +"->禁用控制引脚 - virtual void disableOutputs()\n"
+   +"3.参数:无\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//步进电机 设置 最大速度/加速度/当前速度/当前位置/最小脉冲宽度
+Blockly.Blocks.make_arduino_accelstepper_set_data= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/电机/电机_2.png", 25, 25, "*"))
+      .appendField("步进电机")
+      .appendField(new Blockly.FieldTextInput("stepper"), "name")
+      .appendField(new Blockly.FieldDropdown([["最大速度","setMaxSpeed"],["加速度","setAcceleration"],["当前速度","setSpeed"],["当前位置","setCurrentPosition"],["最小脉冲宽度","setMinPulseWidth"],["控制管脚","setEnablePin"]]), "type");
+  this.appendValueInput("data")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("设为");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->设置最大速度/加速度/当前速度/当前位置/最小脉冲宽度/控制管脚\n"
+   +"2.语法:\n"
+   +"->设置最大速度 - void setMaxSpeed(float speed)\n"
+   +"->设置加速度 - void setAcceleration(float acceleration)\n"
+   +"->设置当前速度 - void setSpeed(float speed)\n"
+   +"->设置当前位置 - void setCurrentPosition(long position)\n"
+   +"->设置最小脉冲宽度 - void setMinPulseWidth(unsigned int minWidth)\n"
+   +"->设置控制管脚 - void setEnablePin(uint8_t enablePin=0xff)"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//步进电机 移动
+Blockly.Blocks.make_arduino_accelstepper_move= {
+  init: function() { 
+  this.appendValueInput("data")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/电机/电机_2.png", 25, 25, "*"))
+      .appendField("步进电机")
+      .appendField(new Blockly.FieldTextInput("stepper"), "name")
+      .appendField(new Blockly.FieldDropdown([["移动到","moveTo"],["移动","move"],["移动到(阻塞)","runToNewPosition"]]), "type");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->移动到 - 使用此函数后，必须要调用 带加减速运行 函数来运行步进电机，如果想使用恒速移动，在调用此函数之后需设置速度\n"
+   +"->移动 - 设置相对于当前位置的目标位置\n"
+   +"->移动到(阻塞) - 将电机(带加速/减速)移动到新的目标位置，并阻塞，直到到达新目标位置。不要在事件循环中使用它，因为它会阻塞\n"
+   +"2.语法:\n"
+   +"->移动到 - void moveTo(long absolute)\n"
+   +"->移动 - void move(long relative)\n"
+   +"->移动到(阻塞) - void runToNewPosition(long position)"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//步进电机 翻转管脚
+Blockly.Blocks.make_arduino_accelstepper_setPinsInverted_3= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/电机/电机_2.png", 25, 25, "*"))
+      .appendField("步进电机")
+      .appendField(new Blockly.FieldTextInput("stepper"), "name");
+  this.appendValueInput("directionInvert")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 方向管脚翻转?");
+  this.appendValueInput("stepInvert")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("步进管脚翻转?");
+  this.appendValueInput("enableInvert")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("控制管脚翻转?");
+  this.setInputsInline(false);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->设置步进驱动器引脚的反转\n"
+   +"2.语法:\n"
+   +"->void setPinsInverted(bool directionInvert=false, bool stepInvert=false, bool enableInvert=false)\n"
+   +"3.参数:\n"
+   +"->directionInvert:翻转方向管脚\n"
+   +"->stepInvert:翻转步进管脚\n"
+   +"->enableInvert:翻转控制管脚\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//步进电机 翻转管脚 - 1
+Blockly.Blocks.make_arduino_accelstepper_setPinsInverted_5= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/电机/电机_2.png", 25, 25, "*"))
+      .appendField("步进电机")
+      .appendField(new Blockly.FieldTextInput("stepper"), "name");
+  this.appendValueInput("pin1")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" PIN1管脚翻转?");
+  this.appendValueInput("pin2")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("PIN2管脚翻转?");
+  this.appendValueInput("pin3")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("PIN3管脚翻转?");
+  this.appendValueInput("pin4")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("PIN4管脚翻转?");
+  this.appendValueInput("enable")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("控制管脚翻转?");
+  this.setInputsInline(false);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->设置步进驱动器引脚的反转\n"
+   +"2.语法:\n"
+   +"->void setPinsInverted(bool pin1Invert, bool pin2Invert, bool pin3Invert, bool pin4Invert, bool enableInvert)\n"
+   +"3.参数:\n"
+   +"->pin1Invert:翻转PIN1管脚\n"
+   +"->pin2Invert:翻转PIN2管脚\n"
+   +"->pin3Invert:翻转PIN3管脚\n"
+   +"->pin4Invert:翻转PIN4管脚\n"
+   +"->enableInvert:翻转控制管脚\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//初始化舵机
+Blockly.Blocks.make_arduino_servo_begin= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/舵机_2.png", 25, 25, "*"))
+      .appendField("连接舵机")
+      .appendField(new Blockly.FieldTextInput("servo"), "name");
+  this.appendValueInput("pin")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 到管脚#");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化舵机，成功返回通道号，失败则返回0\n"
+   +"2.语法:\n"
+   +"->uint8_t attach(int pin)\n"
+   +"3.参数:\n"
+   +"->pin:所连接的控制管脚\n"
+   +"4.返回值:uint8_t型数据"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//初始化舵机 可设置最小角度和最大角度
+Blockly.Blocks.make_arduino_servo_begin_1= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/舵机_2.png", 25, 25, "*"))
+      .appendField("连接舵机")
+      .appendField(new Blockly.FieldTextInput("servo"), "name");
+  this.appendValueInput("pin")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 到管脚#");
+  this.appendValueInput("min")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("最小脉宽");
+  this.appendValueInput("max")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("微秒 最大脉宽");
+  this.appendDummyInput() 
+      .setAlign(Blockly.ALIGN_RIGHT) 
+      .appendField("微秒"); 
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->初始化舵机，成功返回通道号，失败则返回0\n"
+   +"2.语法:\n"
+   +"->uint8_t attach(int pin, int min, int max)\n"
+   +"3.参数:\n"
+   +"->pin:所连接的控制管脚\n"
+   +"->min:最小脉冲宽度\n"
+   +"->max:最大脉冲宽度\n"
+   +"4.返回值:uint8_t型数据"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//舵机 设置角度
+Blockly.Blocks.make_arduino_servo_write= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/舵机_2.png", 25, 25, "*"))
+      .appendField("舵机")
+      .appendField(new Blockly.FieldTextInput("servo"), "name");
+  this.appendValueInput("value")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 角度设为");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->舵机 设置当前的角度(0~180°)，输入值超出544视为脉冲宽度，小于则视为角度，不阻塞程序运行\n"
+   +"2.语法:\n"
+   +"->void write(int value)\n"
+   +"3.参数:\n"
+   +"->value:脉冲宽度或角度值\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//舵机 设置角度和速度
+Blockly.Blocks.make_arduino_servo_write_1= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/舵机_2.png", 25, 25, "*"))
+      .appendField("舵机")
+      .appendField(new Blockly.FieldTextInput("servo"), "name");
+  this.appendValueInput("value")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 角度设为");
+  this.appendValueInput("speed")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("速度");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->舵机 设置当前的角度(0~180°)，输入值超出544视为脉冲宽度，小于则视为角度，不阻塞程序运行\n"
+   +"2.语法:\n"
+   +"->void write(int value, uint8_t speed)\n"
+   +"3.参数:\n"
+   +"->value:脉冲宽度或角度值\n"
+   +"->speed:从初始位置到目标位置之间的速度(0~255)，0时为全速\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//舵机 设置角度和速度以及选择是否阻塞
+Blockly.Blocks.make_arduino_servo_write_2= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/舵机_2.png", 25, 25, "*"))
+      .appendField("舵机")
+      .appendField(new Blockly.FieldTextInput("servo"), "name");
+  this.appendValueInput("value")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 角度设为");
+  this.appendValueInput("speed")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("速度");
+  this.appendValueInput("wait")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("等待完成?");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->舵机 设置当前的角度(0~180°)，输入值超出544视为脉冲宽度，小于则视为角度\n"
+   +"2.语法:\n"
+   +"->void write(int value, uint8_t speed, bool wait)\n"
+   +"3.参数:\n"
+   +"->value:脉冲宽度或角度值\n"
+   +"->speed:从初始位置到目标位置之间的速度(0~255)，0时为全速\n"
+   +"->wait:是否阻塞程序的运行\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//舵机 设置脉冲宽度
+Blockly.Blocks.make_arduino_servo_writeMicroseconds= {
+  init: function() { 
+  this.appendValueInput("value")
+      .setCheck(null)  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/舵机_2.png", 25, 25, "*"))
+      .appendField("舵机")
+      .appendField(new Blockly.FieldTextInput("servo"), "name")
+      .appendField(" 脉宽设为");
+  this.appendDummyInput()
+      .setAlign(Blockly.ALIGN_RIGHT) 
+      .appendField("微秒");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->舵机 设置脉冲宽度，默认的最小脉宽为544微秒，最大脉宽为2400微秒\n"
+   +"2.语法:\n"
+   +"->void writeMicroseconds(int value)\n"
+   +"3.参数:\n"
+   +"->value:脉冲宽度\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//舵机 获取数据
+Blockly.Blocks.make_arduino_servo_read= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/舵机_2.png", 25, 25, "*"))
+      .appendField("舵机")
+      .appendField(new Blockly.FieldTextInput("servo"), "name")
+      .appendField(new Blockly.FieldDropdown([["获取当前角度","read"],["获取当前脉宽","readMicroseconds"],["正在移动?","isMoving"],["舵机连上控制管脚?","attached"]]), "type");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->舵机 获取当前角度、获取当前脉宽、正在移动?、舵机连上控制管脚?\n"
+   +"2.语法:\n"
+   +"->获取当前角度 - int read()\n"
+   +"->获取当前脉宽 - int readMicroseconds()\n"
+   +"->正在移动? - bool isMoving()\n"
+   +"->舵机连上控制管脚? - bool attached()\n"
+   +"3.参数:无\n"
+   +"4.返回值:int或boolean型数据"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//舵机 执行某些函数
+Blockly.Blocks.make_arduino_servo_set= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/舵机_2.png", 25, 25, "*"))
+      .appendField("舵机")
+      .appendField(new Blockly.FieldTextInput("servo"), "name")
+      .appendField(new Blockly.FieldDropdown([["停止移动","stop"],["等待移动完成","wait"],["停止执行动作组","sequenceStop"],["释放管脚","detach"]]), "type");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->舵机 停止移动、等待移动完成、停止执行动作组、释放管脚\n"
+   +"2.语法:\n"
+   +"->停止移动 - void stop()\n"
+   +"->等待移动完成 - void wait()\n"
+   +"->停止执行动作组 - void sequenceStop()\n"
+   +"->释放管脚 - void detach()\n"
+   +"3.参数:无\n"
+   +"4.返回值:无"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//舵机 建立一个动作组
+Blockly.Blocks.make_arduino_servo_action_group= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/舵机_2.png", 25, 25, "*"))
+      .appendField("创建动作组")
+      .appendField(new Blockly.FieldTextInput("action_group"), "name");
+  this.appendStatementInput("data")
+      .setCheck(null);
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//舵机 动作组里数据定义
+Blockly.Blocks.make_arduino_servo_action_group_data= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField("角度")
+      .appendField(new Blockly.FieldTextInput("0"), "angle")
+      .appendField(" 速度")
+      .appendField(new Blockly.FieldTextInput("50"), "speed");
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+  this.setColour(100);
+  this.setTooltip("");
+  this.setHelpUrl("");
+  }
+};
+
+//舵机 循环执行某一动作组
+Blockly.Blocks.make_arduino_servo_sequencePlay= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/舵机_2.png", 25, 25, "*"))
+      .appendField("舵机")
+      .appendField(new Blockly.FieldTextInput("servo"), "name");
+  this.appendValueInput("sequencein")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 执行动作组");
+  this.appendValueInput("numpositions")
+      .setCheck(null)  
+      .appendField("动作数目");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->舵机 从索引为0的动作开始，循环执行某一动作组里的动作，返回数据的类型为uint8_t\n"
+   +"2.语法:\n"
+   +"->uint8_t sequencePlay(servoSequencePoint sequenceIn[], uint8_t numPositions)\n"
+   +"3.参数:\n"
+   +"->sequenceIn:动作组\n"
+   +"->numPositions:此动作组中动作的数目\n"
+   +"4.返回值:uint8_t型数据"
+    );
+  this.setHelpUrl("");
+  }
+};
+
+//舵机 执行某一动作组，可设置是否循环
+Blockly.Blocks.make_arduino_servo_sequencePlay_1= {
+  init: function() { 
+  this.appendDummyInput()  
+      .appendField(new Blockly.FieldImage("../../media/Arduino/阿里巴巴矢量图标库/舵机_2.png", 25, 25, "*"))
+      .appendField("舵机")
+      .appendField(new Blockly.FieldTextInput("servo"), "name");
+  this.appendValueInput("sequencein")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField(" 执行动作组");
+  this.appendValueInput("numpositions")
+      .setCheck(null)  
+      .appendField("动作数目");
+  this.appendValueInput("loop")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("循环动作组?");
+  this.appendValueInput("startPos")
+      .setCheck(null)
+      .setAlign(Blockly.ALIGN_RIGHT)  
+      .appendField("开始动作索引");
+  this.setInputsInline(true);
+  this.setOutput(true, null);
+  this.setColour(100);
+  this.setTooltip(
+    "1.功能:\n"
+   +"->舵机 从某个索引的动作开始，执行某一动作组里的动作，返回数据的类型为uint8_t\n"
+   +"2.语法:\n"
+   +"->uint8_t sequencePlay(servoSequencePoint sequenceIn[], uint8_t numPositions, bool loop, uint8_t startPos)\n"
+   +"3.参数:\n"
+   +"->sequenceIn:动作组\n"
+   +"->numPositions:此动作组中动作的数目\n"
+   +"->loop:循环执行动作组里动作或只执行动作组里某一索引的动作\n"
+   +"->startPos:开始动作的索引值\n"
+   +"4.返回值:uint8_t型数据"
+    );
+  this.setHelpUrl("");
+  }
+};
+
 //初始化DFPlayer Mini
 Blockly.Blocks.make_arduino_dfplayer_mini_begin= {
   init: function() { 
@@ -16869,10 +17530,10 @@ Blockly.Blocks.make_arduino_x9cxxx_Reset_Store= {
     "1.功能:\n"
    +"->数字电位器 储存当前阶数或复位\n"
    +"2.语法:\n"
-   +"->复位 - void Reset()\n"
    +"->储存当前阶数 - void Store()\n"
+   +"->复位 - void Reset()\n"
    +"3.参数:无\n"
-   +"4.返回值:uint32_t或uint8_t型数据"
+   +"4.返回值:无"
     );
   this.setHelpUrl("");
   }

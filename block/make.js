@@ -237,10 +237,6 @@ Blockly.Blocks['make_main_show_code'] = {
   //}
   ,
   onchange: function() {
-    if (!this.workspace) {
-      // Block has been deleted.
-      return;
-    }
     var xml = Blockly.Arduino.make_xml_code;
     var block_js = Blockly.Arduino.make_block_code;
     var generator_js = Blockly.Arduino.make_generator_code;

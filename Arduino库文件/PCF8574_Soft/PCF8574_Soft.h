@@ -36,16 +36,7 @@
 #define PCF8574_Soft_INTERRUPT_SUPPORT
 
 /* Retro-compatibility with arduino 0023 and previous version */
-#if ARDUINO >= 100
 #include "Arduino.h"
-#define I2CWRITE(x) _wire->write(x)
-#define I2CREAD() _wire->read()
-#else
-#include "WProgram.h"
-#define I2CWRITE(x) _wire->send(x)
-#define I2CREAD() _wire->receive()
-#define INPUT_PULLUP 2
-#endif
 #include <SoftwareWire.h>
 /**
  * @brief PCF8574_Soft Arduino class

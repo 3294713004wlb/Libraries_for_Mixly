@@ -1,4 +1,19 @@
 #### 更新日志
+#### 2020-04-11
+* 添加 舵机模块(支持调速)
+* 添加 examples/Arduino库例程/舵机/舵机不同速度移动测试.mix
+* 添加 examples/Arduino库例程/舵机/舵机执行动作组测试.mix
+
+#### 2020-04-10
+* 重写 所有步进电机模块(保留原来模块在block和generator下代码)(添加详细说明)
+* 支持 使用Arduino/74HC595/PCF8591(硬I2C)/PCF8591(软I2C)/MCP23017(硬I2C)/MCP23017(软I2C)上管脚来控制步进电机
+* 添加 examples/Arduino库例程/步进电机/Arduino管脚控制步进电机正反转.mix
+* 添加 examples/Arduino库例程/步进电机/74HC595管脚控制步进电机正反转.mix
+* 添加 examples/Arduino库例程/步进电机/PCF8591(硬I2C)管脚控制步进电机正反转.mix
+* 添加 examples/Arduino库例程/步进电机/PCF8591(软I2C)管脚控制步进电机正反转.mix
+* 添加 examples/Arduino库例程/步进电机/MCP23017(硬I2C)管脚控制步进电机正反转.mix
+* 添加 examples/Arduino库例程/步进电机/MCP23017(软I2C)管脚控制步进电机正反转.mix
+
 #### 2020-04-08
 * AT24Cxx、BH1750、MAX44009、PCF8574、MCP23017、TCA9548A、OLED支持自定义SDA&SCL管脚
 * 添加 examples/Arduino库例程/AT24Cxx/AT24C256数据储存与读取测试(软件模拟I2C).mix

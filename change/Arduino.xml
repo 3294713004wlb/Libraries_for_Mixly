@@ -15,7 +15,7 @@ E-mail:3294713004@qq.com
 <script type="text/javascript" src="../../blocks/company/Arduino.js"></script>
 <script type="text/javascript" src="../../generators/arduino/company/Arduino.js"></script>
 <script type="text/javascript" src="../../core/field_textarea.js"></script>
-<category id="Arduino" name="Maker" colour="40">
+<category id="Maker_Arduino" name="Maker_Arduino" colour="40">
  
   <category id="mixly_define_variate" name="变量/常量" colour="330">
     <!--
@@ -9633,6 +9633,7 @@ E-mail:3294713004@qq.com
 
   <category id="mixly_arduino_actuator" name="执行器" colour="100">
     <category id="mixly_arduino_stepper" name="步进电机" colour="100">
+      <!--
       <block type="make_arduino_stepper_begin">
         <value name="stepper_in1">
           <shadow type="pins_digital">
@@ -9759,8 +9760,736 @@ E-mail:3294713004@qq.com
 
       <block type="make_arduino_stepper_run">
       </block>
-    </category>
+      -->
 
+      <category id="mixly_arduino_stepper_init" name="初始化" colour="100">
+        <category id="mixly_arduino_stepper_init_arduino_74hc595" name="Arduino/74HC595" colour="100">
+          <block type="make_arduino_accelstepper_begin">
+            <field name="type">4</field>
+            <value name="pin1">
+              <shadow type="pins_digital">
+                  <field name="PIN">2</field>
+              </shadow>
+            </value>
+            <value name="pin2">
+              <shadow type="pins_digital">
+                  <field name="PIN">4</field>
+              </shadow>
+            </value>
+            <value name="pin3">
+              <shadow type="pins_digital">
+                  <field name="PIN">3</field>
+              </shadow>
+            </value>
+            <value name="pin4">
+              <shadow type="pins_digital">
+                  <field name="PIN">5</field>
+              </shadow>
+            </value>
+            <value name="enable">
+              <shadow type="logic_boolean">
+                <field name="BOOL">TRUE</field>
+              </shadow>
+            </value>
+          </block>
+
+          <block type="make_arduino_accelstepper_begin_1">
+            <field name="type">4</field>
+            <value name="pin1">
+              <shadow type="math_number">
+                <field name="NUM">0</field>
+              </shadow>
+            </value>
+            <value name="pin2">
+              <shadow type="math_number">
+                <field name="NUM">2</field>
+              </shadow>
+            </value>
+            <value name="pin3">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="pin4">
+              <shadow type="math_number">
+                <field name="NUM">3</field>
+              </shadow>
+            </value>
+            <value name="enable">
+              <shadow type="logic_boolean">
+                <field name="BOOL">TRUE</field>
+              </shadow>
+            </value>
+          </block>
+
+          <block type="arduino_74hc595_start">
+            <field name="ic_74hc595_name">hc</field>
+            <value name="ic_74hc595_num">
+              <shadow type="math_number">
+                <field name="NUM">1</field>
+              </shadow>
+            </value>
+            <value name="ic_74hc595_data">
+              <shadow type="pins_digital">
+                <field name="PIN">2</field>
+              </shadow>
+            </value>
+            <value name="ic_74hc595_clock">
+              <shadow type="pins_digital">
+                <field name="PIN">3</field>
+              </shadow>
+            </value>
+            <value name="ic_74hc595_latch">
+              <shadow type="pins_digital">
+                <field name="PIN">4</field>
+              </shadow>
+            </value>
+            <next>
+              <block type="make_arduino_accelstepper_begin_1">
+                <field name="type">4</field>
+                <field name="name">stepper</field>
+                <field name="io_type">74HC595</field>
+                <field name="io_name">hc</field>
+                <value name="pin1">
+                  <shadow type="math_number">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+                <value name="pin2">
+                  <shadow type="math_number">
+                    <field name="NUM">2</field>
+                  </shadow>
+                </value>
+                <value name="pin3">
+                  <shadow type="math_number">
+                    <field name="NUM">1</field>
+                  </shadow>
+                </value>
+                <value name="pin4">
+                  <shadow type="math_number">
+                    <field name="NUM">3</field>
+                  </shadow>
+                </value>
+                <value name="enable">
+                  <shadow type="logic_boolean">
+                    <field name="BOOL">TRUE</field>
+                  </shadow>
+                </value>
+              </block>
+            </next>
+          </block>
+
+        </category>
+        <category id="mixly_arduino_stepper_init_pcf8591" name="PCF8591" colour="100">
+
+          <block type="make_arduino_pcf8574_begin">
+            <field name="pcf8574_name">expander</field>
+            <value name="pcf8574_address">
+              <shadow type="math_number">
+                <field name="NUM">0x20</field>
+              </shadow>
+            </value>
+            <statement name="pcf8574_pin_type">
+              <block type="make_arduino_pcf8574_pin_type">
+                <field name="pcf8574_pin_type">OUTPUT</field>
+                <value name="pcf8574_pin">
+                  <shadow type="make_arduino_pcf8574_digital_pin">
+                    <field name="pin_data">0</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="make_arduino_pcf8574_pin_type">
+                    <field name="pcf8574_pin_type">OUTPUT</field>
+                    <value name="pcf8574_pin">
+                      <shadow type="make_arduino_pcf8574_digital_pin">
+                        <field name="pin_data">1</field>
+                      </shadow>
+                    </value>
+                    <next>
+                      <block type="make_arduino_pcf8574_pin_type">
+                        <field name="pcf8574_pin_type">OUTPUT</field>
+                        <value name="pcf8574_pin">
+                          <shadow type="make_arduino_pcf8574_digital_pin">
+                            <field name="pin_data">2</field>
+                          </shadow>
+                        </value>
+                        <next>
+                          <block type="make_arduino_pcf8574_pin_type">
+                            <field name="pcf8574_pin_type">OUTPUT</field>
+                            <value name="pcf8574_pin">
+                              <shadow type="make_arduino_pcf8574_digital_pin">
+                                <field name="pin_data">3</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="make_arduino_accelstepper_begin_1">
+                <field name="type">4</field>
+                <field name="name">stepper</field>
+                <field name="io_type">PCF8574(硬I2C)</field>
+                <field name="io_name">expander</field>
+                <value name="pin1">
+                  <shadow type="math_number">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+                <value name="pin2">
+                  <shadow type="math_number">
+                    <field name="NUM">2</field>
+                  </shadow>
+                </value>
+                <value name="pin3">
+                  <shadow type="math_number">
+                    <field name="NUM">1</field>
+                  </shadow>
+                </value>
+                <value name="pin4">
+                  <shadow type="math_number">
+                    <field name="NUM">3</field>
+                  </shadow>
+                </value>
+                <value name="enable">
+                  <shadow type="logic_boolean">
+                    <field name="BOOL">TRUE</field>
+                  </shadow>
+                </value>
+              </block>
+            </next>
+          </block>
+
+          <block type="make_arduino_pcf8574_begin_soft">
+            <field name="pcf8574_name">expander</field>
+            <value name="sda">
+              <shadow type="pins_digital">
+                <field name="PIN">2</field>
+              </shadow>
+            </value>
+            <value name="scl">
+              <shadow type="pins_digital">
+                <field name="PIN">3</field>
+              </shadow>
+            </value>
+            <value name="address">
+              <shadow type="math_number">
+                <field name="NUM">0x20</field>
+              </shadow>
+            </value>
+            <statement name="pin">
+              <block type="make_arduino_pcf8574_pin_type">
+                <field name="pcf8574_pin_type">OUTPUT</field>
+                <value name="pcf8574_pin">
+                  <shadow type="make_arduino_pcf8574_digital_pin">
+                    <field name="pin_data">0</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="make_arduino_pcf8574_pin_type">
+                    <field name="pcf8574_pin_type">OUTPUT</field>
+                    <value name="pcf8574_pin">
+                      <shadow type="make_arduino_pcf8574_digital_pin">
+                        <field name="pin_data">1</field>
+                      </shadow>
+                    </value>
+                    <next>
+                      <block type="make_arduino_pcf8574_pin_type">
+                        <field name="pcf8574_pin_type">OUTPUT</field>
+                        <value name="pcf8574_pin">
+                          <shadow type="make_arduino_pcf8574_digital_pin">
+                            <field name="pin_data">2</field>
+                          </shadow>
+                        </value>
+                        <next>
+                          <block type="make_arduino_pcf8574_pin_type">
+                            <field name="pcf8574_pin_type">OUTPUT</field>
+                            <value name="pcf8574_pin">
+                              <shadow type="make_arduino_pcf8574_digital_pin">
+                                <field name="pin_data">3</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="make_arduino_accelstepper_begin_1">
+                <field name="type">4</field>
+                <field name="name">stepper</field>
+                <field name="io_type">PCF8574(软I2C)</field>
+                <field name="io_name">expander</field>
+                <value name="pin1">
+                  <shadow type="math_number">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+                <value name="pin2">
+                  <shadow type="math_number">
+                    <field name="NUM">2</field>
+                  </shadow>
+                </value>
+                <value name="pin3">
+                  <shadow type="math_number">
+                    <field name="NUM">1</field>
+                  </shadow>
+                </value>
+                <value name="pin4">
+                  <shadow type="math_number">
+                    <field name="NUM">3</field>
+                  </shadow>
+                </value>
+                <value name="enable">
+                  <shadow type="logic_boolean">
+                    <field name="BOOL">TRUE</field>
+                  </shadow>
+                </value>
+              </block>
+            </next>
+          </block>
+
+        </category>
+        <category id="mixly_arduino_stepper_init_mcp23017" name="MCP23017" colour="100">
+
+          <block type="make_arduino_mcp23017_begin">
+            <field name="mcp23017_name">mcp</field>
+            <value name="mcp23017_address">
+              <shadow type="math_number">
+                <field name="NUM">0x00</field>
+              </shadow>
+            </value>
+            <statement name="mcp23017_pin_type">
+              <block type="make_arduino_mcp23017_pin_type">
+                <field name="mcp23017_pin_type">OUTPUT</field>
+                <value name="mcp23017_pin">
+                  <shadow type="make_arduino_mcp23017_digital_pin">
+                    <field name="pin_data">0</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="make_arduino_mcp23017_pin_type">
+                    <field name="mcp23017_pin_type">OUTPUT</field>
+                    <value name="mcp23017_pin">
+                      <shadow type="make_arduino_mcp23017_digital_pin">
+                        <field name="pin_data">1</field>
+                      </shadow>
+                    </value>
+                    <next>
+                      <block type="make_arduino_mcp23017_pin_type">
+                        <field name="mcp23017_pin_type">OUTPUT</field>
+                        <value name="mcp23017_pin">
+                          <shadow type="make_arduino_mcp23017_digital_pin">
+                            <field name="pin_data">2</field>
+                          </shadow>
+                        </value>
+                        <next>
+                          <block type="make_arduino_mcp23017_pin_type">
+                            <field name="mcp23017_pin_type">OUTPUT</field>
+                            <value name="mcp23017_pin">
+                              <shadow type="make_arduino_mcp23017_digital_pin">
+                                <field name="pin_data">3</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="make_arduino_accelstepper_begin_1">
+                <field name="type">4</field>
+                <field name="name">stepper</field>
+                <field name="io_type">MCP23017(硬I2C)</field>
+                <field name="io_name">mcp</field>
+                <value name="pin1">
+                  <shadow type="math_number">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+                <value name="pin2">
+                  <shadow type="math_number">
+                    <field name="NUM">2</field>
+                  </shadow>
+                </value>
+                <value name="pin3">
+                  <shadow type="math_number">
+                    <field name="NUM">1</field>
+                  </shadow>
+                </value>
+                <value name="pin4">
+                  <shadow type="math_number">
+                    <field name="NUM">3</field>
+                  </shadow>
+                </value>
+                <value name="enable">
+                  <shadow type="logic_boolean">
+                    <field name="BOOL">TRUE</field>
+                  </shadow>
+                </value>
+              </block>
+            </next>
+          </block>
+
+          <block type="make_arduino_mcp23017_begin_soft">
+            <field name="mcp23017_name">mcp</field>
+            <value name="sda">
+              <shadow type="pins_digital">
+                <field name="PIN">2</field>
+              </shadow>
+            </value>
+            <value name="scl">
+              <shadow type="pins_digital">
+                <field name="PIN">3</field>
+              </shadow>
+            </value>
+            <value name="mcp23017_address">
+              <shadow type="math_number">
+                <field name="NUM">0x00</field>
+              </shadow>
+            </value>
+            <statement name="mcp23017_pin_type">
+              <block type="make_arduino_mcp23017_pin_type">
+                <field name="mcp23017_pin_type">OUTPUT</field>
+                <value name="mcp23017_pin">
+                  <shadow type="make_arduino_mcp23017_digital_pin">
+                    <field name="pin_data">0</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="make_arduino_mcp23017_pin_type">
+                    <field name="mcp23017_pin_type">OUTPUT</field>
+                    <value name="mcp23017_pin">
+                      <shadow type="make_arduino_mcp23017_digital_pin">
+                        <field name="pin_data">1</field>
+                      </shadow>
+                    </value>
+                    <next>
+                      <block type="make_arduino_mcp23017_pin_type">
+                        <field name="mcp23017_pin_type">OUTPUT</field>
+                        <value name="mcp23017_pin">
+                          <shadow type="make_arduino_mcp23017_digital_pin">
+                            <field name="pin_data">2</field>
+                          </shadow>
+                        </value>
+                        <next>
+                          <block type="make_arduino_mcp23017_pin_type">
+                            <field name="mcp23017_pin_type">OUTPUT</field>
+                            <value name="mcp23017_pin">
+                              <shadow type="make_arduino_mcp23017_digital_pin">
+                                <field name="pin_data">3</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="make_arduino_accelstepper_begin_1">
+                <field name="type">4</field>
+                <field name="name">stepper</field>
+                <field name="io_type">MCP23017(软I2C)</field>
+                <field name="io_name">mcp</field>
+                <value name="pin1">
+                  <shadow type="math_number">
+                    <field name="NUM">0</field>
+                  </shadow>
+                </value>
+                <value name="pin2">
+                  <shadow type="math_number">
+                    <field name="NUM">2</field>
+                  </shadow>
+                </value>
+                <value name="pin3">
+                  <shadow type="math_number">
+                    <field name="NUM">1</field>
+                  </shadow>
+                </value>
+                <value name="pin4">
+                  <shadow type="math_number">
+                    <field name="NUM">3</field>
+                  </shadow>
+                </value>
+                <value name="enable">
+                  <shadow type="logic_boolean">
+                    <field name="BOOL">TRUE</field>
+                  </shadow>
+                </value>
+              </block>
+            </next>
+          </block>
+          
+        </category>
+      </category>
+      <category id="mixly_arduino_stepper_control" name="控制" colour="100">
+        <block type="make_arduino_accelstepper_get_data">
+        </block>
+
+        <block type="make_tool_normal">
+          <value name="data">
+            <block type="make_arduino_accelstepper_get_data">
+              <field name="name">stepper</field>
+              <field name="type">runSpeed</field>
+            </block>
+          </value>
+        </block>
+
+        <block type="make_arduino_accelstepper_set">
+        </block>
+
+        <block type="make_arduino_accelstepper_set_data">
+          <value name="data">
+            <shadow type="math_number">
+              <field name="NUM">50</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_accelstepper_move">
+          <value name="data">
+            <shadow type="math_number">
+              <field name="NUM">0</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_accelstepper_setPinsInverted_3">
+          <value name="directionInvert">
+            <shadow type="logic_boolean">
+              <field name="BOOL">FALSE</field>
+            </shadow>
+          </value>
+          <value name="stepInvert">
+            <shadow type="logic_boolean">
+              <field name="BOOL">FALSE</field>
+            </shadow>
+          </value>
+          <value name="enableInvert">
+            <shadow type="logic_boolean">
+              <field name="BOOL">FALSE</field>
+            </shadow>
+          </value>
+        </block>
+
+        <block type="make_arduino_accelstepper_setPinsInverted_5">
+          <value name="pin1">
+            <shadow type="logic_boolean">
+              <field name="BOOL">FALSE</field>
+            </shadow>
+          </value>
+          <value name="pin2">
+            <shadow type="logic_boolean">
+              <field name="BOOL">FALSE</field>
+            </shadow>
+          </value>
+          <value name="pin3">
+            <shadow type="logic_boolean">
+              <field name="BOOL">FALSE</field>
+            </shadow>
+          </value>
+          <value name="pin4">
+            <shadow type="logic_boolean">
+              <field name="BOOL">FALSE</field>
+            </shadow>
+          </value>
+          <value name="enable">
+            <shadow type="logic_boolean">
+              <field name="BOOL">FALSE</field>
+            </shadow>
+          </value>
+        </block>
+      </category>
+    </category>
+    <category id="mixly_arduino_servo" name="舵机" colour="100">
+
+      <block type="base_setup">
+        <statement name="DO">
+          <block type="make_tool_normal">
+            <value name="data">
+              <block type="make_arduino_servo_begin">
+                <field name="name">servo</field>
+                <value name="pin">
+                  <shadow type="pins_digital">
+                    <field name="PIN">2</field>
+                  </shadow>
+                </value>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+
+      <block type="base_setup">
+        <statement name="DO">
+          <block type="make_tool_normal">
+            <value name="data">
+              <block type="make_arduino_servo_begin_1">
+                <field name="name">servo</field>
+                <value name="pin">
+                  <shadow type="pins_digital">
+                    <field name="PIN">2</field>
+                  </shadow>
+                </value>
+                <value name="min">
+                  <shadow type="math_number">
+                    <field name="NUM">544</field>
+                  </shadow>
+                </value>
+                <value name="max">
+                  <shadow type="math_number">
+                    <field name="NUM">2400</field>
+                  </shadow>
+                </value>
+              </block>
+            </value>
+          </block>
+        </statement>
+      </block>
+
+      <block type="make_arduino_servo_write">
+        <value name="value">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>
+
+      <block type="make_arduino_servo_write_1">
+        <value name="value">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="speed">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+      </block>
+
+      <block type="make_arduino_servo_write_2">
+        <value name="value">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="speed">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+        <value name="wait">
+          <shadow type="logic_boolean">
+            <field name="BOOL">TRUE</field>
+          </shadow>
+        </value>
+      </block>
+
+      <block type="make_arduino_servo_writeMicroseconds">
+        <value name="value">
+          <shadow type="math_number">
+            <field name="NUM">1500</field>
+          </shadow>
+        </value>
+      </block>
+
+      <block type="make_arduino_servo_read">
+      </block>
+
+      <block type="make_arduino_servo_set">
+      </block>
+
+      <!--
+      <block type="make_arduino_servo_action_group">
+      </block>
+
+      <block type="make_arduino_servo_action_group_data">
+      </block>
+      -->
+
+      <block type="make_arduino_servo_action_group">
+        <field name="name">action_group</field>
+        <statement name="data">
+          <block type="make_arduino_servo_action_group_data">
+            <field name="angle">0</field>
+            <field name="speed">50</field>
+            <next>
+              <block type="make_arduino_servo_action_group_data">
+                <field name="angle">90</field>
+                <field name="speed">100</field>
+                <next>
+                  <block type="make_arduino_servo_action_group_data">
+                    <field name="angle">180</field>
+                    <field name="speed">150</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+
+      <block type="make_tool_normal">
+        <value name="data">
+          <block type="make_arduino_servo_sequencePlay">
+            <field name="name">servo</field>
+            <value name="sequencein">
+              <shadow type="math_number">
+                <field name="NUM">action_group</field>
+              </shadow>
+            </value>
+            <value name="numpositions">
+              <shadow type="math_number">
+                <field name="NUM">3</field>
+              </shadow>
+            </value>
+          </block>
+        </value>
+      </block>
+
+      <block type="make_tool_normal">
+        <value name="data">
+          <block type="make_arduino_servo_sequencePlay_1">
+            <field name="name">servo</field>
+            <value name="sequencein">
+              <shadow type="math_number">
+                <field name="NUM">action_group</field>
+              </shadow>
+            </value>
+            <value name="numpositions">
+              <shadow type="math_number">
+                <field name="NUM">3</field>
+              </shadow>
+            </value>
+            <value name="loop">
+              <shadow type="logic_boolean">
+                <field name="BOOL">TRUE</field>
+              </shadow>
+            </value>
+            <value name="startPos">
+              <shadow type="math_number">
+                <field name="NUM">0</field>
+              </shadow>
+            </value>
+          </block>
+        </value>
+      </block>
+
+    </category>
     <category id="mixly_dfplayer_mini" name="DFPlayer Mini" colour="100">
 
       <block type="serial_softserial">
